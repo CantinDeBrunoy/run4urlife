@@ -1,0 +1,52 @@
+// variables
+// font-size
+$titleFontSize: 25px;
+$subTitleFontSize: 20px;
+$infoFontSize: 15px;
+$regularFontSize: 18px;
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+h1,
+h2 {
+    font-size: $titleFontSize;
+}
+
+h3,
+h4 {
+    font-size: $subTitleFontSize;
+}
+
+.info {
+    font-size: $infoFontSize;
+}
+
+.p {
+    font-size: $regularFontSize;
+}
+
+%mid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+%row {
+    display: flex;
+    flex-direction: row;
+}
+%col {
+    display: flex;
+    flex-direction: column;
+}
