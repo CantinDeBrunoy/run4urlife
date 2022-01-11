@@ -1,4 +1,4 @@
 export const ContentCaseType = {
-    Meteor: 'Meteor',
+    Obstacle: 'Obstacle',
     Empty: 'Empty',
 };

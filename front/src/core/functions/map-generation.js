@@ -17,7 +17,7 @@ export const createLine = (grid) => {
         ],
     };
 
-    if (newLine.id % 2 !== 0) {
+    if (newLine.id > 3 && newLine.id % 2 !== 0) {
         const randomNumber = Math.random();
         if (randomNumber < 0.2) {
             const pos1 = getRandomInt(0, 2);
@@ -26,13 +26,11 @@ export const createLine = (grid) => {
             if (pos1 === pos2) {
                 pos2 = pos2 + 1 > 2 ? pos2 - 1 : pos2 + 1;
             }
-            console.log(pos1, pos2);
-            newLine.cases[pos1].type = ContentCaseType.Meteor;
-            newLine.cases[pos2].type = ContentCaseType.Meteor;
+            newLine.cases[pos1].type = ContentCaseType.Obstacle;
+            newLine.cases[pos2].type = ContentCaseType.Obstacle;
         } else if (randomNumber < 0.5) {
             const pos1 = getRandomInt(0, 2);
-            console.log(pos1);
-            newLine.cases[pos1].type = ContentCaseType.Meteor;
+            newLine.cases[pos1].type = ContentCaseType.Obstacle;
         }
     }
     grid.push(newLine);
