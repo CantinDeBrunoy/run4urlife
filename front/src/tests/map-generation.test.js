@@ -23,6 +23,20 @@ test('should add line to grid', () => {
     for (let i = 0; i < 50; i++) {
         createLine(grid);
     }
+    expect(grid[20]).toStrictEqual({
+        id: 20,
+        cases: [
+            {
+                type: ContentCaseType.Empty,
+            },
+            {
+                type: ContentCaseType.Empty,
+            },
+            {
+                type: ContentCaseType.Empty,
+            },
+        ],
+    });
     expect(grid.length).toStrictEqual(51);
     expect(grid[0].cases).toStrictEqual([
         {
