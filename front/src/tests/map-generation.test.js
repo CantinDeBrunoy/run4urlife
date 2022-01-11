@@ -1,7 +1,7 @@
 import { createLine } from '../core/functions/map-generation';
 import { ContentCaseType } from '../core/global';
 
-test('should add line to grid', () => {
+test('[createLine]: should add line to grid', () => {
     const grid = [];
     createLine(grid);
     expect(grid).toStrictEqual([
@@ -23,65 +23,27 @@ test('should add line to grid', () => {
     for (let i = 0; i < 50; i++) {
         createLine(grid);
     }
-    expect(grid[20]).toStrictEqual({
-        id: 20,
-        cases: [
-            {
-                type: ContentCaseType.Empty,
-            },
-            {
-                type: ContentCaseType.Empty,
-            },
-            {
-                type: ContentCaseType.Empty,
-            },
-        ],
-    });
-    expect(grid.length).toStrictEqual(51);
-    expect(grid[0].cases).toStrictEqual([
-        {
-            type: ContentCaseType.Empty,
-        },
-        {
-            type: ContentCaseType.Empty,
-        },
-        {
-            type: ContentCaseType.Empty,
-        },
-    ]);
-    expect(grid[1].cases).toStrictEqual([
-        {
-            type: ContentCaseType.Empty,
-        },
-        {
-            type: ContentCaseType.Empty,
-        },
-        {
-            type: ContentCaseType.Empty,
-        },
-    ]);
-    expect(grid[2].cases).toStrictEqual([
-        {
-            type: ContentCaseType.Empty,
-        },
-        {
-            type: ContentCaseType.Empty,
-        },
-        {
-            type: ContentCaseType.Empty,
-        },
-    ]);
-    expect(grid[3].cases).toStrictEqual([
-        {
-            type: ContentCaseType.Empty,
-        },
-        {
-            type: ContentCaseType.Empty,
-        },
-        {
-            type: ContentCaseType.Empty,
-        },
-    ]);
-    expect(grid[0].id).toBe(0);
-    expect(grid[1].id).toBe(1);
+    let i = 0;
+    for (const line of grid) {
+        expect(line.id).toBe(i);
+        if (line.id <= 3 || line.id % 2 === 0) {
+            expect(line.cases).toStrictEqual([
+                {
+                    type: ContentCaseType.Empty,
+                },
+                {
+                    type: ContentCaseType.Empty,
+                },
+                {
+                    type: ContentCaseType.Empty,
+                },
+            ]);
+        } else {
+            if (line.cases.includes(ContentCaseType.Obstacle)) {
+                expect(line.cases.includes(ContentCaseType.Empty)).toBe(true);
+            }
+        }
+        i++;
+    }
+    expect(grid.length).toBe(51);
 });
