@@ -35,3 +35,7 @@ export const createLine = (grid) => {
     }
     grid.push(newLine);
 };
+
+export const deleteFirstLine = (grid) => {
+    grid.shift();
+};
