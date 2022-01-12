@@ -1,4 +1,4 @@
-import { createLine } from '../core/functions/map-generation';
+import { createLine, deleteFirstLine } from '../core/functions/map-generation';
 import { ContentCaseType } from '../core/global';
 
 test('[createLine]: should add line to grid', () => {
@@ -46,4 +46,12 @@ test('[createLine]: should add line to grid', () => {
         i++;
     }
     expect(grid.length).toBe(51);
+});
+
+test('[deleteFirstLine]: should delete first line of grid', () => {
+    const grid = [];
+    createLine(grid);
+    createLine(grid);
+    deleteFirstLine(grid);
+    expect(grid.length).toBe(1);
 });
