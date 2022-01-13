@@ -1,18 +1,18 @@
-import { ContentCaseType } from '../global';
+import { Game } from '../global';
 import { getRandomInt } from './helpers';
 
-export const createLine = (grid) => {
+const createLine = () => {
     const newLine = {
-        id: grid.length ? grid[grid.length - 1].id + 1 : 0,
+        id: Game.grid.length ? Game.grid[Game.grid.length - 1].id + 1 : 0,
         cases: [
             {
-                type: ContentCaseType.Empty,
+                type: Game.caseTypes.Empty,
             },
             {
-                type: ContentCaseType.Empty,
+                type: Game.caseTypes.Empty,
             },
             {
-                type: ContentCaseType.Empty,
+                type: Game.caseTypes.Empty,
             },
         ],
     };
@@ -26,24 +26,31 @@ export const createLine = (grid) => {
             if (pos1 === pos2) {
                 pos2 = pos2 + 1 > 2 ? pos2 - 1 : pos2 + 1;
             }
-            newLine.cases[pos1].type = ContentCaseType.Obstacle;
-            newLine.cases[pos2].type = ContentCaseType.Obstacle;
+            newLine.cases[pos1].type = Game.caseTypes.Obstacle;
+            newLine.cases[pos2].type = Game.caseTypes.Obstacle;
         } else if (randomNumber < 0.5) {
             const pos1 = getRandomInt(0, 2);
-            newLine.cases[pos1].type = ContentCaseType.Obstacle;
+            newLine.cases[pos1].type = Game.caseTypes.Obstacle;
         }
     }
-    grid.push(newLine);
+    Game.grid.push(newLine);
 };
 
-export const deleteFirstLine = (grid) => {
-    grid.shift();
-};
-
-export const createGrid = () => {
-    let grid = [];
-    for (let line = 0; line < 5; line++) {
-        createLine(grid);
+const deleteFirstLine = () => {
+    // Verify if the player is on the current line
+    if (Game.grid.length > 0) {
+        Game.grid.shift();
     }
-    return grid;
+};
+
+const createGrid = () => {
+    for (let line = 0; line < 5; line++) {
+        createLine(Game.grid);
+    }
+};
+
+export const MapGeneration = {
+    createGrid,
+    createLine,
+    deleteFirstLine,
 };
