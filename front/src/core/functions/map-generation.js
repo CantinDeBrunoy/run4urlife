@@ -39,3 +39,11 @@ export const createLine = (grid) => {
 export const deleteFirstLine = (grid) => {
     grid.shift();
 };
+
+export const createGrid = () => {
+    let grid = [];
+    for (let line = 0; line < 5; line++) {
+        createLine(grid);
+    }
+    return grid;
+};
