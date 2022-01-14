@@ -1,4 +1,4 @@
-import { Game } from '../global';
+import { Game, GlobalTypes } from '../global';
 import { getRandomInt } from './helpers';
 
 const createLine = () => {
@@ -6,13 +6,13 @@ const createLine = () => {
         id: Game.grid.length ? Game.grid[Game.grid.length - 1].id + 1 : 0,
         cases: [
             {
-                type: Game.caseTypes.Empty,
+                type: GlobalTypes.caseTypes.empty,
             },
             {
-                type: Game.caseTypes.Empty,
+                type: GlobalTypes.caseTypes.empty,
             },
             {
-                type: Game.caseTypes.Empty,
+                type: GlobalTypes.caseTypes.empty,
             },
         ],
     };
@@ -26,18 +26,21 @@ const createLine = () => {
             if (pos1 === pos2) {
                 pos2 = pos2 + 1 > 2 ? pos2 - 1 : pos2 + 1;
             }
-            newLine.cases[pos1].type = Game.caseTypes.Obstacle;
-            newLine.cases[pos2].type = Game.caseTypes.Obstacle;
+            newLine.cases[pos1].type = GlobalTypes.caseTypes.obstacle;
+            newLine.cases[pos2].type = GlobalTypes.caseTypes.obstacle;
         } else if (randomNumber < 0.5) {
             const pos1 = getRandomInt(0, 2);
-            newLine.cases[pos1].type = Game.caseTypes.Obstacle;
+            newLine.cases[pos1].type = GlobalTypes.caseTypes.obstacle;
         }
     }
     Game.grid.push(newLine);
 };
 
 const deleteFirstLine = () => {
-    // Verify if the player is on the current line
+    if (Game.player.position.y === Game.grid[0].id) {
+        Game.state = GlobalTypes.states.finished;
+        return;
+    }
     if (Game.grid.length > 0) {
         Game.grid.shift();
     }
@@ -49,7 +52,7 @@ const createGrid = () => {
     }
 };
 
-export const MapGeneration = {
+export const MapGenerationFunctions = {
     createGrid,
     createLine,
     deleteFirstLine,
