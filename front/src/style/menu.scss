@@ -1,10 +1,14 @@
+// modules
+@use 'sass:color';
+
+// variables
 $menuColor: #06d483;
 $fontSize: 1.3em;
 
 .menu {
     position: absolute;
-    top: 20%;
-    width: 17em;
+    top: 25%;
+    width: 20em;
 
     text-align: center;
     font-size: $fontSize;
@@ -14,15 +18,13 @@ $fontSize: 1.3em;
     & li {
         margin: 1em;
 
+        transition: font-size 0.2s ease-out;
         cursor: pointer;
         list-style-type: none;
 
-        transition: font-size 0.2s ease-out;
-        transform-origin: center;
-
         &:hover {
-            font-size: 1.4em;
-            color: #cfffe9;
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $fontSize * 1.1;
 
             animation-name: rotate;
             animation-duration: 2.2s;
