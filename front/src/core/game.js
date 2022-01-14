@@ -1,11 +1,11 @@
 import { asyncTimeout } from './functions/helpers';
-import { MapGeneration } from './functions/map-generation';
-import { Game } from './global';
+import { MapGenerationFunctions } from './functions/map-generation';
+import { Game, GlobalTypes } from './global';
 
 const mapDestructLoop = async () => {
     await asyncTimeout(getTimeout());
-    MapGeneration.deleteFirstLine();
-    MapGeneration.createLine();
+    MapGenerationFunctions.deleteFirstLine();
+    MapGenerationFunctions.createLine();
     requestAnimationFrame(mapDestructLoop);
 };
 
@@ -22,9 +22,10 @@ const startTimer = () => {
 };
 
 export const gameInit = () => {
-    MapGeneration.createGrid();
+    MapGenerationFunctions.createGrid();
     Game.timer.startDate = new Date();
-    Game.difficulty = Game.difficulties.Impossible;
+    Game.state = GlobalTypes.states.playing;
+    Game.difficulty = GlobalTypes.difficulties.impossible;
     startTimer();
     mapDestructLoop();
 };

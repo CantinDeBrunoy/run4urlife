@@ -1,20 +1,34 @@
 export const Game = {
+    state: null,
     grid: [],
-    player: {},
+    player: {
+        position: {
+            x: 1,
+            y: 1,
+        },
+    },
     timer: {
         value: 0,
         startDate: null,
         nowDate: null,
     },
     difficulty: null,
+};
+
+export const GlobalTypes = {
     caseTypes: {
-        Obstacle: 'Obstacle',
-        Empty: 'Empty',
+        obstacle: 'Obstacle',
+        empty: 'Empty',
     },
     difficulties: {
-        Easy: 0.2,
-        Average: 0.4,
-        Hard: 0.8,
-        Impossible: 1.5,
+        easy: 0.2,
+        average: 0.4,
+        hard: 0.8,
+        impossible: 1.5,
+    },
+    states: {
+        finished: 'finished',
+        playing: 'playing',
+        paused: 'paused',
     },
 };
