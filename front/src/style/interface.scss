@@ -1,0 +1,63 @@
+// modules
+@use 'sass:color';
+
+// animations
+.toggle {
+    transition: transform 0.4s, opacity 1s;
+}
+
+.toggle.out {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+// menu
+.menu {
+    position: absolute;
+    transform: translateX(0) translateY(50%);
+    width: 20em;
+
+    text-align: center;
+    font-size: $menuFontSize;
+    font-family: 'Space Grotesk';
+    color: $menuColor;
+
+    & li {
+        padding: 0.5em;
+
+        transition: font-size 0.2s ease-out;
+        cursor: pointer;
+        list-style-type: none;
+
+        &:hover {
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $menuFontSize;
+
+            animation-name: rotate;
+            animation-duration: 2.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            25% {
+                transform: rotateZ(-1.4deg);
+            }
+            75% {
+                transform: rotateZ(1.4deg);
+            }
+        }
+    }
+}
+
+// paramètres
+.settings {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%) translateY(50%);
+
+    text-align: center;
+    font-size: $menuFontSize;
+    font-family: 'Space Grotesk';
+    color: $menuColor;
+}

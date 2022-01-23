@@ -1,9 +1,16 @@
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap');
+
 // variables
 // font-size
 $titleFontSize: 25px;
 $subTitleFontSize: 20px;
 $infoFontSize: 15px;
 $regularFontSize: 18px;
+$menuFontSize: 1.6em;
+
+//color
+$menuColor: #06d483;
 
 *,
 *::after,
@@ -14,6 +21,7 @@ $regularFontSize: 18px;
 }
 
 body {
+    background-color: black;
     min-height: 100vh;
     overflow: hidden;
 }
