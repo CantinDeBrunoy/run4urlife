@@ -1,22 +1,29 @@
 // modules
 @use 'sass:color';
 
-// variables
-$menuColor: #06d483;
-$fontSize: 1.3em;
+// animations
+.toggle {
+    transition: transform 0.4s, opacity 1s;
+}
 
+.toggle.out {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+// menu
 .menu {
     position: absolute;
-    top: 25%;
+    transform: translateX(0) translateY(50%);
     width: 20em;
 
     text-align: center;
-    font-size: $fontSize;
+    font-size: $menuFontSize;
     font-family: 'Space Grotesk';
     color: $menuColor;
 
     & li {
-        margin: 1em;
+        padding: 0.5em;
 
         transition: font-size 0.2s ease-out;
         cursor: pointer;
@@ -24,7 +31,7 @@ $fontSize: 1.3em;
 
         &:hover {
             color: color.scale($menuColor, $lightness: 85%);
-            font-size: $fontSize * 1.1;
+            font-size: $menuFontSize;
 
             animation-name: rotate;
             animation-duration: 2.2s;
@@ -41,4 +48,16 @@ $fontSize: 1.3em;
             }
         }
     }
+}
+
+// paramètres
+.settings {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%) translateY(50%);
+
+    text-align: center;
+    font-size: $menuFontSize;
+    font-family: 'Space Grotesk';
+    color: $menuColor;
 }

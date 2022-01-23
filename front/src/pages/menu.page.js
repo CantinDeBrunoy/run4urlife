@@ -1,9 +1,9 @@
 import React from 'react';
-import InterfaceMenuComponent from '../components/interface-menu.component';
+import InterfaceMenuComponent from '../components/menu/interface-menu.component';
 
 const MenuPage = () => {
     return (
-        <div className="menu">
+        <div>
             <InterfaceMenuComponent isMain />
         </div>
     );
