@@ -1,4 +1,4 @@
-import { asyncTimeout } from './functions/helpers';
+import { asyncTimeout } from '../common/helpers';
 import { MapGenerationFunctions } from './functions/map-generation';
 import { Game, GlobalTypes } from './global';
 

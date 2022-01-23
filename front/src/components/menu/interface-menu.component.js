@@ -4,6 +4,7 @@ import { Game } from '../../core/global';
 import { TabTypes } from '../../common/constant';
 import Toggle from '../animations/interface-animation-toggle.component';
 import InterfaceSettingsComponent from './interface-settings.component';
+import TextRandomEffectComponent from '../animations/text-random-animation.component';
 
 const InterfaceMenuComponent = (menu) => {
     const [open, setOpen] = useState(true);
@@ -24,12 +25,24 @@ const InterfaceMenuComponent = (menu) => {
             <Toggle visible={open}>
                 <nav className="menu">
                     <ul>
-                        <li>{`${Game.state ? 'Reprendre la partie' : 'Démarrer une partie'}`}</li>
-                        <li>Tableau des scores</li>
-                        <li onClick={() => toggle(TabTypes.Settings)}>Paramètres</li>
-                        <li>Aides</li>
-                        <li>Crédits</li>
-                        <li>Quitter</li>
+                        <div>
+                            <TextRandomEffectComponent text={`${Game.state ? 'Reprendre la partie' : 'Démarrer une partie'}`} />
+                        </div>
+                        <div>
+                            <TextRandomEffectComponent text="Tableau des scores" />
+                        </div>
+                        <div onClick={() => toggle(TabTypes.Settings)}>
+                            <TextRandomEffectComponent text="Paramètres" />
+                        </div>
+                        <div>
+                            <TextRandomEffectComponent text="Aides" />
+                        </div>
+                        <div>
+                            <TextRandomEffectComponent text="Crédits" />
+                        </div>
+                        <div>
+                            <TextRandomEffectComponent text="Quitter" />
+                        </div>
                     </ul>
                 </nav>
             </Toggle>

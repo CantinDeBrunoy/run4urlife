@@ -22,12 +22,17 @@
     font-family: 'Space Grotesk';
     color: $menuColor;
 
-    & li {
+    & > ul > div > div {
         padding: 0.5em;
 
         transition: font-size 0.2s ease-out;
         cursor: pointer;
         list-style-type: none;
+
+        span.space {
+            opacity: 0;
+            letter-spacing: -10px;
+        }
 
         &:hover {
             color: color.scale($menuColor, $lightness: 85%);
