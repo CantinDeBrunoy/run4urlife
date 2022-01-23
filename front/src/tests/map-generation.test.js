@@ -48,12 +48,14 @@ test('[createLine]: should add line to grid', () => {
 });
 
 test('[deleteFirstLine]: should delete first line of grid', () => {
+    Game.grid = [];
     MapGenerationFunctions.createGrid();
     MapGenerationFunctions.deleteFirstLine();
     expect(Game.grid.length).toBe(4);
 });
 
 test('[createGrid]: should create grid with 5 lines', () => {
+    Game.grid = [];
     MapGenerationFunctions.createGrid();
     expect(Game.grid.length).toBe(5);
 });

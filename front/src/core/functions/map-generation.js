@@ -1,5 +1,5 @@
+import { getRandomInt } from '../../common/helpers';
 import { Game, GlobalTypes } from '../global';
-import { getRandomInt } from './helpers';
 
 const createLine = () => {
     const newLine = {
