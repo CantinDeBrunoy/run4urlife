@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Global3dItems } from './global.3d';
 import Stats from 'three/examples/jsm/libs/stats.module';
+import { Game } from '../core/global';
 
 const init = (canvas, fov = 60) => {
     Global3dItems.scene = new THREE.Scene();
@@ -11,7 +12,8 @@ const init = (canvas, fov = 60) => {
 
     Global3dItems.renderer = new THREE.WebGLRenderer({
         canvas,
-        antialias: true,
+        antialias: Game.graphism.antialias,
+        precision: Game.graphism.precision ? Game.graphism.precision : 'mediump',
     });
 
     Global3dItems.renderer.setSize(window.innerWidth, window.innerHeight);

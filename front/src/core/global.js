@@ -13,6 +13,10 @@ export const Game = {
         nowDate: null,
     },
     difficulty: null,
+    graphism: {
+        antialias: true,
+        precision: null,
+    },
 };
 
 export const GlobalTypes = {
@@ -30,5 +34,10 @@ export const GlobalTypes = {
         finished: 'finished',
         playing: 'playing',
         paused: 'paused',
+    },
+    graphismPrecision: {
+        low: 'lowp',
+        medium: 'mediump',
+        high: 'highp',
     },
 };
