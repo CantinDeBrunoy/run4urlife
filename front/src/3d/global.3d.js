@@ -1,4 +1,4 @@
-export const Global3dItems = {
+export const GameElements = {
     scene: null,
     camera: null,
     renderer: null,
@@ -6,4 +6,10 @@ export const Global3dItems = {
     helpers: null,
     stats: null,
     clock: null,
+};
+
+export const BackgroundElements = {
+    scene: null,
+    camera: null,
+    renderer: null,
 };

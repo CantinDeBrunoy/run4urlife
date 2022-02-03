@@ -3,3 +3,5 @@ export const TabTypes = {
 };
 
 export const Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/?-#&@';
+
+export const GameWidth = window.innerWidth / 3;
