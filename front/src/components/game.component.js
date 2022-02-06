@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { BackgroundScene } from '../3d/background-scene.3d';
 import { GameScene } from '../3d/game-scene.3d';
 import { GameElements } from '../3d/global.3d';
+import { Game } from '../core/global';
 
 const GameComponent = () => {
     const GameCanvasRef = useRef();
@@ -14,9 +15,6 @@ const GameComponent = () => {
         GameScene.init(GameCanvasRef.current);
         GameScene.addHelpers();
         GameScene.render();
-        setInterval(() => {
-            console.log(GameElements);
-        }, 1000);
     }, []);
     return (
         <div className="game-page">

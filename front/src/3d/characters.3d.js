@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import MainCharacter from '../assets/models/mainCharacter3.glb';
+import MainCharacter from '../assets/models/mainCharacter.glb';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { GameElements } from './global.3d';
 
@@ -15,7 +15,7 @@ const loadCharacter = () => {
             gltf.scene.traverse((node) => {
                 if (node.isMesh) {
                     node.castShadow = true;
-                    //node.receiveShadow = true;
+                    node.receiveShadow = true;
                 }
             });
         },

@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GameElements } from './global.3d';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import { Game } from '../core/global';
-import { GameWidth } from '../common/constant';
+import { Direction, GameCharacterSpeed, GameStep, GameWidth } from '../common/constant';
 import { GameCharacters } from './characters.3d';
 
 const init = (canvas, fov = 60) => {
@@ -24,7 +24,6 @@ const init = (canvas, fov = 60) => {
 
     document.body.appendChild(GameElements.renderer.domElement);
     GameCharacters.loadCharacter();
-    GameElements.scene.background = new THREE.Color(0xffffff);
     GameElements.renderer.shadowMap.enabled = true;
     addAmbientLights();
     GameElements.camera.position.y = 10;
@@ -46,12 +45,12 @@ const addAmbientLights = () => {
     GameElements.scene.add(hemiLight);
 };
 const addHelpers = () => {
-    // GameElements.controls = new OrbitControls(GameElements.camera, GameElements.renderer.domElement);
+    GameElements.controls = new OrbitControls(GameElements.camera, GameElements.renderer.domElement);
 
     GameElements.stats = Stats();
     document.body.appendChild(GameElements.stats.dom);
 
-    GameElements.helpers = new THREE.AxesHelper();
+    GameElements.helpers = new THREE.AxesHelper(500).rotateY(Math.PI);
     GameElements.scene.add(GameElements.helpers);
 };
 
@@ -67,15 +66,50 @@ const render = () => {
     if (GameElements.clock) {
         delta = GameElements.clock.getDelta();
     }
-    //
     if (GameElements.characters.alien) {
-        const cameraOffset = new THREE.Vector3(Game.player.position.x, 25.0, 0.0);
+        let character = GameElements.characters.alien;
+        let inMove = false;
+
+        if (character.position.z > -Game.player.position.y * GameStep) {
+            inMove = Direction.up;
+        }
+        if (character.position.x > -Game.player.position.x * GameStep) {
+            inMove = Direction.left;
+        } else if (character.position.x < -Game.player.position.x * GameStep) {
+            inMove = Direction.right;
+        }
+
+        switch (inMove) {
+            case Direction.up:
+                if (character.rotation.y !== 0) character.rotation.y = 0;
+                character.position.z -= GameCharacterSpeed;
+                if (character.position.z < -Game.player.position.y * GameStep) {
+                    character.position.z = -Game.player.position.y * GameStep;
+                }
+                break;
+            case Direction.left:
+                if (character.rotation.y !== Math.PI / 2) character.rotation.y = Math.PI / 2;
+                character.position.x -= GameCharacterSpeed;
+                if (character.position.x < -Game.player.position.x * GameStep) {
+                    character.position.x = -Game.player.position.x * GameStep;
+                }
+                break;
+            case Direction.right:
+                if (character.rotation.y !== -(Math.PI / 2)) character.rotation.y = -(Math.PI / 2);
+                character.position.x += GameCharacterSpeed;
+                if (character.position.x > -Game.player.position.x * GameStep) {
+                    character.position.x = -Game.player.position.x * GameStep;
+                }
+                break;
+            default:
+                break;
+        }
+
+        const cameraOffset = new THREE.Vector3(-character.position.x, 25.0, 0.0);
         const objectPosition = new THREE.Vector3();
         GameElements.characters.alien.getWorldPosition(objectPosition);
         GameElements.camera.position.copy(objectPosition).add(cameraOffset);
         GameElements.camera.lookAt(new THREE.Vector3(0, GameElements.characters.alien.position.y, GameElements.characters.alien.position.z - 10));
-        GameElements.characters.alien.position.z = (-Game.player.position.y * GameWidth) / 3;
-        GameElements.characters.alien.position.x = -Game.player.position.x;
     }
     GameElements.renderer.render(GameElements.scene, GameElements.camera);
 };
