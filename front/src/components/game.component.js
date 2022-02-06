@@ -1,16 +1,25 @@
 import React, { useEffect, useRef } from 'react';
-import scene3d from '../3d/scene.3d';
+import { BackgroundScene } from '../3d/background-scene.3d';
+import { GameScene } from '../3d/game-scene.3d';
+import { GameElements } from '../3d/global.3d';
+import { Game } from '../core/global';
 
 const GameComponent = () => {
-    const canvas = useRef();
+    const GameCanvasRef = useRef();
+    const BackgroundCanvasRef = useRef();
+
     useEffect(() => {
-        scene3d.init(canvas.current);
-        scene3d.addHelpers();
-        scene3d.render();
+        BackgroundScene.init(BackgroundCanvasRef.current);
+        BackgroundScene.render();
+
+        GameScene.init(GameCanvasRef.current);
+        GameScene.addHelpers();
+        GameScene.render();
     }, []);
     return (
-        <div>
-            <canvas ref={canvas} id="game" />
+        <div className="game-page">
+            <canvas ref={BackgroundCanvasRef} id="background" />
+            <canvas ref={GameCanvasRef} id="game" />
         </div>
     );
 };
