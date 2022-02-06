@@ -14,6 +14,9 @@ const GameComponent = () => {
         GameScene.init(GameCanvasRef.current);
         GameScene.addHelpers();
         GameScene.render();
+        setInterval(() => {
+            console.log(GameElements);
+        }, 1000);
     }, []);
     return (
         <div className="game-page">

@@ -6,6 +6,9 @@ export const GameElements = {
     helpers: null,
     stats: null,
     clock: null,
+    characters: {
+        alien: null,
+    },
 };
 
 export const BackgroundElements = {
