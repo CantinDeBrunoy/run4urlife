@@ -5,6 +5,7 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 import { Game } from '../core/global';
 import { Direction, GameCharacterSpeed, GameStep, GameWidth } from '../common/constant';
 import { GameCharacters } from './characters.3d';
+import { GameLight } from './light.3d';
 
 const init = (canvas, fov = 60) => {
     GameElements.scene = new THREE.Scene();
@@ -25,24 +26,9 @@ const init = (canvas, fov = 60) => {
     document.body.appendChild(GameElements.renderer.domElement);
     GameCharacters.loadCharacter();
     GameElements.renderer.shadowMap.enabled = true;
-    addAmbientLights();
+    GameLight.addDirectionalLight();
+    GameLight.addHemisphereLight();
     GameElements.camera.position.y = 10;
-};
-
-const addAmbientLights = () => {
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
-    hemiLight.position.set(20, 20, 10);
-    const dirLight = new THREE.DirectionalLight(0xffffff);
-    dirLight.position.set(-10, 20, 6);
-    dirLight.castShadow = true;
-    dirLight.shadow.camera.top = 2;
-    dirLight.shadow.camera.bottom = -2;
-    dirLight.shadow.camera.left = -2;
-    dirLight.shadow.camera.right = 2;
-    dirLight.shadow.camera.near = 0.1;
-    dirLight.shadow.camera.far = 500;
-    GameElements.scene.add(dirLight);
-    GameElements.scene.add(hemiLight);
 };
 const addHelpers = () => {
     GameElements.controls = new OrbitControls(GameElements.camera, GameElements.renderer.domElement);
