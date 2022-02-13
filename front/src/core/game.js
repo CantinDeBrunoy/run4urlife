@@ -6,8 +6,13 @@ import { Game, GlobalTypes } from './global';
 const mapDestructLoop = async () => {
     await asyncTimeout(getTimeout());
     MapGenerationFunctions.deleteFirstLine();
-    MapGenerationFunctions.createLine();
     requestAnimationFrame(mapDestructLoop);
+};
+
+const addInventoryLoop = async () => {
+    await asyncTimeout(getTimeout());
+    InventoryFunctions.addRandomBlock();
+    requestAnimationFrame(addInventoryLoop);
 };
 
 const getTimeout = () => {
@@ -25,9 +30,14 @@ const startTimer = () => {
 export const gameInit = () => {
     MapGenerationFunctions.createGrid();
     InventoryFunctions.init();
+    Game.state = GlobalTypes.states.initialized;
+    Game.difficulty = GlobalTypes.difficulties.impossible;
+};
+
+export const gameStart = () => {
     Game.timer.startDate = new Date();
     Game.state = GlobalTypes.states.playing;
-    Game.difficulty = GlobalTypes.difficulties.impossible;
     startTimer();
     mapDestructLoop();
+    addInventoryLoop();
 };

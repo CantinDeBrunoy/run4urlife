@@ -6,6 +6,9 @@ const init = (size = 5) => {
     for (let i = 0; i < size; i++) {
         Game.player.inventory.blocks.push(null);
     }
+    addRandomBlock();
+    addRandomBlock();
+    addRandomBlock();
 };
 
 const getFirstEmptyIndice = () => {
