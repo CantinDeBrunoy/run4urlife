@@ -37,6 +37,7 @@ export const GlobalTypes = {
         finished: 'finished',
         playing: 'playing',
         paused: 'paused',
+        initialized: 'initialized',
     },
     graphismPrecision: {
         low: 'lowp',
