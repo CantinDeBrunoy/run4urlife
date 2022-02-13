@@ -26,7 +26,7 @@ const goRight = () => {
 };
 
 const getFrontPosition = () => {
-    return { x: -(Game.player.position.x - 1), y: -Game.player.position.y };
+    return { x: Game.player.position.x - 1, y: -Game.player.position.y };
 };
 
 export const CharacterFunctions = {
