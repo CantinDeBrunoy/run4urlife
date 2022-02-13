@@ -6,6 +6,7 @@ import { Game } from '../core/global';
 import { Direction, GameCharacterSpeed, GameStep, GameWidth } from '../common/constant';
 import { GameCharacters } from './characters.3d';
 import { GameLight } from './light.3d';
+import { CharacterFunctions } from '../core/functions/character';
 
 const init = (canvas, fov = 60) => {
     GameElements.scene = new THREE.Scene();
@@ -56,12 +57,12 @@ const render = () => {
         let character = GameElements.characters.alien;
         let inMove = false;
 
-        if (character.position.z > -Game.player.position.y * GameStep) {
+        if (character.position.z > CharacterFunctions.getFrontPosition().y * GameStep) {
             inMove = Direction.up;
         }
-        if (character.position.x > -Game.player.position.x * GameStep) {
+        if (character.position.x > CharacterFunctions.getFrontPosition().x * GameStep) {
             inMove = Direction.left;
-        } else if (character.position.x < -Game.player.position.x * GameStep) {
+        } else if (character.position.x < CharacterFunctions.getFrontPosition().x * GameStep) {
             inMove = Direction.right;
         }
 
@@ -69,22 +70,22 @@ const render = () => {
             case Direction.up:
                 if (character.rotation.y !== 0) character.rotation.y = 0;
                 character.position.z -= GameCharacterSpeed;
-                if (character.position.z < -Game.player.position.y * GameStep) {
-                    character.position.z = -Game.player.position.y * GameStep;
+                if (character.position.z < CharacterFunctions.getFrontPosition().y * GameStep) {
+                    character.position.z = CharacterFunctions.getFrontPosition().y * GameStep;
                 }
                 break;
             case Direction.left:
                 if (character.rotation.y !== Math.PI / 2) character.rotation.y = Math.PI / 2;
                 character.position.x -= GameCharacterSpeed;
-                if (character.position.x < -Game.player.position.x * GameStep) {
-                    character.position.x = -Game.player.position.x * GameStep;
+                if (character.position.x < CharacterFunctions.getFrontPosition().x * GameStep) {
+                    character.position.x = CharacterFunctions.getFrontPosition().x * GameStep;
                 }
                 break;
             case Direction.right:
                 if (character.rotation.y !== -(Math.PI / 2)) character.rotation.y = -(Math.PI / 2);
                 character.position.x += GameCharacterSpeed;
-                if (character.position.x > -Game.player.position.x * GameStep) {
-                    character.position.x = -Game.player.position.x * GameStep;
+                if (character.position.x > CharacterFunctions.getFrontPosition().x * GameStep) {
+                    character.position.x = CharacterFunctions.getFrontPosition().x * GameStep;
                 }
                 break;
             default:

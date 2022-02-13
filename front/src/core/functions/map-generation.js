@@ -52,8 +52,17 @@ const createGrid = () => {
     }
 };
 
+const getGridCase = (x, y) => {
+    for (const gridCase of Game.grid) {
+        if (gridCase.id === y) {
+            return gridCase.cases[x];
+        }
+    }
+};
+
 export const MapGenerationFunctions = {
     createGrid,
     createLine,
     deleteFirstLine,
+    getGridCase,
 };
