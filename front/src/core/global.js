@@ -6,6 +6,9 @@ export const Game = {
             x: 1,
             y: 1,
         },
+        inventory: {
+            blocks: [],
+        },
     },
     timer: {
         value: 0,
