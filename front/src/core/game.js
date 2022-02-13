@@ -1,4 +1,5 @@
 import { asyncTimeout } from '../common/helpers';
+import { InventoryFunctions } from './functions/inventory';
 import { MapGenerationFunctions } from './functions/map-generation';
 import { Game, GlobalTypes } from './global';
 
@@ -23,6 +24,7 @@ const startTimer = () => {
 
 export const gameInit = () => {
     MapGenerationFunctions.createGrid();
+    InventoryFunctions.init();
     Game.timer.startDate = new Date();
     Game.state = GlobalTypes.states.playing;
     Game.difficulty = GlobalTypes.difficulties.impossible;
