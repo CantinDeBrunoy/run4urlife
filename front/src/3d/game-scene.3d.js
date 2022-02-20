@@ -2,11 +2,12 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GameElements } from './global.3d';
 import Stats from 'three/examples/jsm/libs/stats.module';
-import { Game } from '../core/global';
+import { Game, GlobalTypes } from '../core/global';
 import { Direction, GameCharacterSpeed, GameStep, GameWidth } from '../common/constant';
 import { GameCharacters } from './characters.3d';
 import { GameLight } from './light.3d';
 import { CharacterFunctions } from '../core/functions/character';
+import { initBlocks } from './init-blocks.3d';
 
 const init = (canvas, fov = 60) => {
     GameElements.scene = new THREE.Scene();
@@ -30,6 +31,14 @@ const init = (canvas, fov = 60) => {
     GameLight.addDirectionalLight();
     GameLight.addHemisphereLight();
     GameElements.camera.position.y = 10;
+
+    Game.grid.map((row) => {
+        row.cases.map((block, x) => {
+            if (GlobalTypes.caseTypes.obstacle === block.type) {
+                initBlocks.initObstacle(block, x, row.id);
+            }
+        });
+    });
 };
 const addHelpers = () => {
     GameElements.controls = new OrbitControls(GameElements.camera, GameElements.renderer.domElement);
