@@ -1,14 +1,15 @@
 import React from 'react';
 import BackgroundComponent from '../components/background.component';
-import InterfaceMenuComponent from '../components/menu/interface-menu.component';
 
-const MenuPage = () => {
+import GameComponent from '../components/game.component';
+
+const GamePage = () => {
     return (
         <div>
             <BackgroundComponent />
-            <InterfaceMenuComponent isMain />
+            <GameComponent />
         </div>
     );
 };
 
-export default MenuPage;
+export default GamePage;
