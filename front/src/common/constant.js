@@ -8,6 +8,16 @@ export const Direction = {
     right: 'right',
 };
 
+export const GameActions = {
+    pause: 'pause',
+    play: 'play',
+    init: 'init',
+    antialias: 'antialias',
+    precision: 'precision',
+    selectBlock: 'selectBlock',
+    placeBlock: 'placeBlock',
+};
+
 export const Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/?-#&@';
 
 export const GameWidth = window.innerWidth / 3;
