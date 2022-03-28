@@ -1,22 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 // import { BackgroundScene } from '../3d/background-scene.3d';
-import { GameScene } from '../3d/game-scene.3d';
-import { GameElements } from '../3d/global.3d';
-import { gameInit } from '../core/game';
+import { GameActions } from '../common/constant';
 import { Game } from '../core/global';
+import { GameConsumerHook } from '../store/game.store';
 
 const GameComponent = () => {
+    const [gameStore, dispatch] = GameConsumerHook();
     const GameCanvasRef = useRef();
     // const BackgroundCanvasRef = useRef();
 
     useEffect(() => {
-        gameInit();
-        // BackgroundScene.init(BackgroundCanvasRef.current);
-        // BackgroundScene.render();
-
-        GameScene.init(GameCanvasRef.current);
-        GameScene.addHelpers();
-        GameScene.render();
+        dispatch({ type: GameActions.init, canvas: GameCanvasRef.current });
         console.log(Game);
     }, []);
     return (
