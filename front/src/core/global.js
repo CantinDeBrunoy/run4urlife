@@ -25,6 +25,7 @@ export const GlobalTypes = {
     caseTypes: {
         obstacle: 'Obstacle',
         empty: 'Empty',
+        block: 'Block',
     },
     difficulties: {
         easy: 0.2,
