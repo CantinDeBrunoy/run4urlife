@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer } from 'react';
 import { GameScene } from '../3d/game-scene.3d';
 import { GameActions } from '../common/constant';
 import { PlayerFunctions } from '../core/functions/player';
-import { gameInit, gameStart } from '../core/game';
+import { gameInit, gamePause, gameStart } from '../core/game';
 import { Game, GlobalTypes } from '../core/global';
 
 const initialState = {
@@ -26,6 +26,7 @@ const reducer = (state, action) => {
                 gameState: GlobalTypes.states.initialized,
             };
         case GameActions.pause:
+            gamePause();
             return {
                 ...state,
                 gameState: GlobalTypes.states.paused,

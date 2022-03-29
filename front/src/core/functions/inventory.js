@@ -3,6 +3,7 @@ import { Game } from '../global';
 import { ItemsFunctions } from './items';
 
 const init = (size = 5) => {
+    clear();
     for (let i = 0; i < size; i++) {
         Game.player.inventory.blocks.push(null);
     }
@@ -53,9 +54,14 @@ const deleteBlock = (indice) => {
     }
 };
 
+const clear = () => {
+    Game.player.inventory.blocks = [];
+};
+
 export const InventoryFunctions = {
     addRandomBlock,
     addBlock,
     deleteBlock,
     init,
+    clear,
 };

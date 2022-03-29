@@ -13,7 +13,6 @@ export const Game = {
     timer: {
         value: 0,
         startDate: null,
-        nowDate: null,
     },
     difficulty: null,
     graphism: {

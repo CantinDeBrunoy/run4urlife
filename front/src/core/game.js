@@ -6,13 +6,13 @@ import { Game, GlobalTypes } from './global';
 const mapDestructLoop = async () => {
     await asyncTimeout(getTimeout());
     MapGenerationFunctions.deleteFirstLine();
-    requestAnimationFrame(mapDestructLoop);
+    if (Game.state === GlobalTypes.states.playing) requestAnimationFrame(mapDestructLoop);
 };
 
 const addInventoryLoop = async () => {
     await asyncTimeout(getTimeout());
     InventoryFunctions.addRandomBlock();
-    requestAnimationFrame(addInventoryLoop);
+    if (Game.state === GlobalTypes.states.playing) requestAnimationFrame(addInventoryLoop);
 };
 
 const getTimeout = () => {
@@ -21,9 +21,12 @@ const getTimeout = () => {
 };
 
 const startTimer = () => {
-    setInterval(() => {
-        Game.timer.nowDate = new Date();
-        Game.timer.value = Game.timer.nowDate.getTime() - Game.timer.startDate.getTime();
+    const intervalID = setInterval(() => {
+        if (Game.state === GlobalTypes.states.playing) {
+            Game.timer.value += 100;
+        } else {
+            clearInterval(intervalID);
+        }
     }, 100);
 };
 
@@ -35,9 +38,17 @@ export const gameInit = () => {
 };
 
 export const gameStart = () => {
-    Game.timer.startDate = new Date();
+    if (!Game.timer.startDate) Game.timer.startDate = new Date();
     Game.state = GlobalTypes.states.playing;
     startTimer();
     mapDestructLoop();
     addInventoryLoop();
+};
+
+export const gameFinish = () => {
+    Game.state = GlobalTypes.states.finished;
+};
+
+export const gamePause = () => {
+    Game.state = GlobalTypes.states.paused;
 };
