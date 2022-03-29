@@ -47,6 +47,7 @@ const deleteFirstLine = () => {
 };
 
 const createGrid = () => {
+    Game.grid = [];
     for (let line = 0; line < 5; line++) {
         createLine(Game.grid);
     }
