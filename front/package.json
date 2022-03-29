@@ -41,9 +41,10 @@
   },
   "devDependencies": {
     "eslint": "^8.6.0",
-    "eslint-plugin-react": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "jest-watch-typeahead": "^0.6.5",
     "prettier": "^2.5.1"
   }
 }

@@ -12,6 +12,13 @@ test('[createBlock]: should create a valid block', () => {
     expect(ItemsFunctions.createBlock(1, 0, 1, 0)).toStrictEqual([1, 0, 1, 0]);
 });
 
+test('[isBlock]: should valid a block', () => {
+    expect(ItemsFunctions.isBlock([0, 0, 1, 0])).toBe(true);
+    expect(ItemsFunctions.isBlock([1, 5, 2, 3])).toBe(false);
+    expect(ItemsFunctions.isBlock([1, 5, 2])).toBe(false);
+    expect(ItemsFunctions.isBlock('test')).toBe(false);
+});
+
 test('[placeBlock]: should place a valid block', () => {
     gameInit();
     expect(() => {

@@ -1,4 +1,5 @@
 import { Game, GlobalTypes } from '../global';
+import { ItemsFunctions } from './items';
 import { MapGenerationFunctions } from './map-generation';
 
 const goForward = () => {
@@ -34,53 +35,82 @@ const getVision = () => {
     const y = Game.player.position.y;
 
     const vision = {};
+    const currentCase = MapGenerationFunctions.getGridCase(x, y);
 
     switch (x) {
         case 0:
             vision.left = false;
-            if (MapGenerationFunctions.getGridCase(x + 1, y) !== GlobalTypes.caseTypes.obstacle) {
-                vision.right = true;
+            if (MapGenerationFunctions.getGridCase(x + 1, y).type !== GlobalTypes.caseTypes.obstacle) {
+                if (currentCase.type === GlobalTypes.caseTypes.block && ItemsFunctions.translateBlock(currentCase.block).right) {
+                    vision.right = false;
+                } else {
+                    vision.right = true;
+                }
             } else {
                 vision.right = false;
             }
-            if (MapGenerationFunctions.getGridCase(x, y + 1) !== GlobalTypes.caseTypes.obstacle) {
-                vision.top = true;
+            if (MapGenerationFunctions.getGridCase(x, y + 1).type !== GlobalTypes.caseTypes.obstacle) {
+                if (currentCase.type === GlobalTypes.caseTypes.block && ItemsFunctions.translateBlock(currentCase.block).top) {
+                    vision.top = false;
+                } else {
+                    vision.top = true;
+                }
             } else {
                 vision.top = false;
             }
             break;
         case 1:
             if (
-                MapGenerationFunctions.getGridCase(x + 1, y) !== GlobalTypes.caseTypes.obstacle &&
-                MapGenerationFunctions.getGridCase(x + 1, y + 1) !== GlobalTypes.caseTypes.obstacle
+                MapGenerationFunctions.getGridCase(x + 1, y).type !== GlobalTypes.caseTypes.obstacle &&
+                MapGenerationFunctions.getGridCase(x + 1, y + 1).type !== GlobalTypes.caseTypes.obstacle
             ) {
-                vision.right = true;
+                if (currentCase.type === GlobalTypes.caseTypes.block && ItemsFunctions.translateBlock(currentCase.block).right) {
+                    vision.right = false;
+                } else {
+                    vision.right = true;
+                }
             } else {
                 vision.right = false;
             }
             if (
-                MapGenerationFunctions.getGridCase(x - 1, y) !== GlobalTypes.caseTypes.obstacle &&
-                MapGenerationFunctions.getGridCase(x - 1, y + 1) !== GlobalTypes.caseTypes.obstacle
+                MapGenerationFunctions.getGridCase(x - 1, y).type !== GlobalTypes.caseTypes.obstacle &&
+                MapGenerationFunctions.getGridCase(x - 1, y + 1).type !== GlobalTypes.caseTypes.obstacle
             ) {
-                vision.left = true;
+                if (currentCase.type === GlobalTypes.caseTypes.block && ItemsFunctions.translateBlock(currentCase.block).left) {
+                    vision.left = false;
+                } else {
+                    vision.left = true;
+                }
             } else {
                 vision.left = false;
             }
-            if (MapGenerationFunctions.getGridCase(x, y + 1) !== GlobalTypes.caseTypes.obstacle) {
-                vision.top = true;
+            if (MapGenerationFunctions.getGridCase(x, y + 1).type !== GlobalTypes.caseTypes.obstacle) {
+                if (currentCase.type === GlobalTypes.caseTypes.block && ItemsFunctions.translateBlock(currentCase.block).top) {
+                    vision.top = false;
+                } else {
+                    vision.top = true;
+                }
             } else {
                 vision.top = false;
             }
             break;
         case 2:
             vision.right = false;
-            if (MapGenerationFunctions.getGridCase(x - 1, y) !== GlobalTypes.caseTypes.obstacle) {
-                vision.left = true;
+            if (MapGenerationFunctions.getGridCase(x - 1, y).type !== GlobalTypes.caseTypes.obstacle) {
+                if (currentCase.type === GlobalTypes.caseTypes.block && ItemsFunctions.translateBlock(currentCase.block).left) {
+                    vision.left = false;
+                } else {
+                    vision.left = true;
+                }
             } else {
                 vision.left = false;
             }
-            if (MapGenerationFunctions.getGridCase(x, y + 1) !== GlobalTypes.caseTypes.obstacle) {
-                vision.top = true;
+            if (MapGenerationFunctions.getGridCase(x, y + 1).type !== GlobalTypes.caseTypes.obstacle) {
+                if (currentCase.type === GlobalTypes.caseTypes.block && ItemsFunctions.translateBlock(currentCase.block).top) {
+                    vision.top = false;
+                } else {
+                    vision.top = true;
+                }
             } else {
                 vision.top = false;
             }
