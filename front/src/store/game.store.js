@@ -5,11 +5,14 @@ import { PlayerFunctions } from '../core/functions/player';
 import { gameInit, gamePause, gameStart } from '../core/game';
 import { Game, GlobalTypes } from '../core/global';
 
+const cacheSettings = JSON.parse(window.localStorage.getItem('settings'));
+
 const initialState = {
     gameState: null,
     selectedBlock: null,
-    antialias: false,
-    precision: null,
+    antialias: cacheSettings.antialias ? true : false,
+    precision: cacheSettings.precision ? cacheSettings.precision : GlobalTypes.graphismPrecision.low,
+    volume: cacheSettings.volume ? cacheSettings.volume : 50,
 };
 
 const reducer = (state, action) => {
@@ -59,6 +62,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 selectedBlock: null,
+            };
+        case GameActions.setVolume:
+            return {
+                ...state,
+                volume: action.volume,
             };
         default:
             break;

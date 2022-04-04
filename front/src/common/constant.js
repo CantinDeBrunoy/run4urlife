@@ -16,7 +16,16 @@ export const GameActions = {
     precision: 'precision',
     selectBlock: 'selectBlock',
     placeBlock: 'placeBlock',
+    setVolume: 'setVolume',
 };
+
+export const PrecisionLabels = {
+    High: 'élevé',
+    Medium: 'moyen',
+    Low: 'bas',
+};
+
+export const AntialiasLabel = 'Antialias';
 
 export const Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/?-#&@';
 

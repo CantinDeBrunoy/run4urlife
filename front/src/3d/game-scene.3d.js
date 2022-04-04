@@ -18,7 +18,7 @@ const init = (canvas, fov = 60) => {
     GameElements.renderer = new THREE.WebGLRenderer({
         canvas,
         antialias: Game.graphism.antialias,
-        precision: Game.graphism.precision ? Game.graphism.precision : 'mediump',
+        precision: Game.graphism.precision ? Game.graphism.precision : GlobalTypes.graphismPrecision.low,
         alpha: true,
     });
 
