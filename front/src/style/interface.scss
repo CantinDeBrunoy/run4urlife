@@ -12,9 +12,10 @@
 }
 
 // menu
-.menu {
+.menu,
+.settings {
     position: absolute;
-    transform: translateX(0) translateY(50%);
+    margin-top: 200px;
     width: 20em;
     z-index: 10;
 
@@ -56,14 +57,84 @@
     }
 }
 
-// paramètres
 .settings {
-    position: absolute;
-    right: 50%;
-    transform: translateX(50%) translateY(50%);
+    h3 {
+        font-size: 25px;
+        margin-block: 10px;
+    }
+    .volume {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        margin-block: 20px;
 
-    text-align: center;
-    font-size: $menuFontSize;
-    font-family: 'Space Grotesk';
-    color: $menuColor;
+        & > .container {
+            width: 150px;
+            height: 16px;
+            border: 2px solid $menuColor;
+            position: relative;
+            cursor: pointer;
+
+            .juice {
+                position: absolute;
+                left: 2px;
+                top: 2px;
+                width: 20%;
+                height: 8px;
+                background-color: $menuColor;
+                pointer-events: none;
+            }
+        }
+    }
+    .graphism {
+        margin-block: 10px;
+
+        & > .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .radio {
+                margin-inline: 10px;
+            }
+        }
+    }
+    .radio {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-block: 5px;
+
+        &.active {
+            .case::after {
+                background-color: $menuColor;
+            }
+        }
+
+        span {
+            font-size: 22px;
+            text-transform: capitalize;
+        }
+
+        .case {
+            width: 16px;
+            height: 16px;
+            border: 2px solid $menuColor;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 8px;
+                height: 8px;
+                background-color: transparent;
+                transition: background-color ease 0.2s;
+            }
+        }
+    }
 }

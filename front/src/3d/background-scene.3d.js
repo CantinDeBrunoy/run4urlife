@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Game } from '../core/global';
+import { Game, GlobalTypes } from '../core/global';
 import { BackgroundElements } from './global.3d';
 import { GamePlanet } from './planet.3d';
 
@@ -12,7 +12,7 @@ const init = (canvas, fov = 60) => {
     BackgroundElements.renderer = new THREE.WebGLRenderer({
         canvas,
         antialias: Game.graphism.antialias,
-        precision: Game.graphism.precision ? Game.graphism.precision : 'mediump',
+        precision: Game.graphism.precision ? Game.graphism.precision : GlobalTypes.graphismPrecision.low,
     });
 
     BackgroundElements.renderer.setSize(window.innerWidth, window.innerHeight);

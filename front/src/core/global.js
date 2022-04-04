@@ -1,3 +1,5 @@
+const cacheSettings = JSON.parse(window.localStorage.getItem('settings'));
+
 export const Game = {
     state: null,
     grid: [],
@@ -16,8 +18,8 @@ export const Game = {
     },
     difficulty: null,
     graphism: {
-        antialias: true,
-        precision: null,
+        antialias: cacheSettings.antialias ? true : false,
+        precision: cacheSettings.precision ? cacheSettings.precision : GlobalTypes.graphismPrecision.low,
     },
 };
 

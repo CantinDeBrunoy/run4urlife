@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Game, GlobalTypes } from '../../core/global';
-import { TabTypes } from '../../common/constant';
+import { GameActions, TabTypes } from '../../common/constant';
 import { useNavigate } from 'react-router-dom';
 import Toggle from '../animations/interface-animation-toggle.component';
 import InterfaceSettingsComponent from './interface-settings.component';
 import TextRandomEffectComponent from '../animations/text-random-animation.component';
 import { gameReset } from '../../core/game';
+import { GameConsumerHook } from '../../store/game.store';
 
 const InterfaceMenuComponent = (menu) => {
+    const [GameStore, dispatch] = GameConsumerHook();
     const [open, setOpen] = useState(true);
     const [component, setComponent] = useState();
 
@@ -26,7 +28,13 @@ const InterfaceMenuComponent = (menu) => {
     };
 
     useEffect(() => {
-        Game.graphism.precision = GlobalTypes.graphismPrecision.medium;
+        window.localStorage.setItem(
+            'settings',
+            JSON.stringify({ antialias: GameStore.antialias, precision: GameStore.precision, volume: GameStore.volume }),
+        );
+    }, [GameStore]);
+
+    useEffect(() => {
         if (window.location.pathname === '/') gameReset();
     }, []);
     return (
