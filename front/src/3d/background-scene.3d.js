@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { Game } from '../core/global';
 import { BackgroundElements } from './global.3d';
+import { GamePlanet } from './planet.3d';
 
 const init = (canvas, fov = 60) => {
     BackgroundElements.scene = new THREE.Scene();
@@ -20,11 +21,20 @@ const init = (canvas, fov = 60) => {
     document.body.appendChild(BackgroundElements.renderer.domElement);
 
     BackgroundElements.camera.position.z = 5;
+
+    if (window.location.pathname === '/') {
+        GamePlanet.loadPlanet();
+    }
+    GamePlanet.loadStars();
+    GamePlanet.loadLights();
 };
 
 const render = () => {
     requestAnimationFrame(render);
     BackgroundElements.renderer.render(BackgroundElements.scene, BackgroundElements.camera);
+    if (window.location.pathname === '/') {
+        GamePlanet.animate();
+    }
 };
 
 export const BackgroundScene = { init, render };
