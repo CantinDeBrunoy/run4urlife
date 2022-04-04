@@ -118,6 +118,7 @@ const getVision = () => {
         default:
             throw new Error('InvalidPlayerX');
     }
+    return vision;
 };
 
 export const CharacterFunctions = {
