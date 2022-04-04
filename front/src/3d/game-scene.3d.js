@@ -8,6 +8,7 @@ import { GameCharacters } from './characters.3d';
 import { GameLight } from './light.3d';
 import { CharacterFunctions } from '../core/functions/character';
 import { initBlocks } from './init-blocks.3d';
+import { GameBlocks } from './blocks.3d';
 
 const init = (canvas, fov = 60) => {
     GameElements.scene = new THREE.Scene();
@@ -39,6 +40,8 @@ const init = (canvas, fov = 60) => {
             }
         });
     });
+
+    GameBlocks.loadPlayerVision();
 };
 const addHelpers = () => {
     GameElements.controls = new OrbitControls(GameElements.camera, GameElements.renderer.domElement);

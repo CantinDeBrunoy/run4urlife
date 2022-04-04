@@ -9,6 +9,9 @@ export const GameElements = {
     characters: {
         alien: null,
     },
+    blocks: {
+        vision: {},
+    },
 };
 
 export const BackgroundElements = {
