@@ -15,4 +15,5 @@ export const BackgroundElements = {
     scene: null,
     camera: null,
     renderer: null,
+    items: {},
 };
