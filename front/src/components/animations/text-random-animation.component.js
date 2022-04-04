@@ -63,6 +63,9 @@ const TextRandomEffectComponent = ({ text }) => {
                 return;
             }
         }, 50);
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
 
     useEffect(() => {
