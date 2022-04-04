@@ -11,8 +11,8 @@ const GamePage = () => {
             <BackgroundComponent />
             <GameProvider>
                 <GameComponent />
+                <InterfaceInventoryComponent />
             </GameProvider>
-            <InterfaceInventoryComponent />
         </div>
     );
 };

@@ -3,18 +3,17 @@ import { Game } from '../core/global';
 import InterfaceInventoryBlockComponent from './interface-inventory-block.component';
 
 const InterfaceInventoryComponent = () => {
-    const inventaire = Game.player.inventory.blocks;
-    const [inventory, setInventory] = useState(inventaire);
+    const [inventory, setInventory] = useState([]);
     useEffect(() => {
-        inventory.map((block) => {
-            console.log(block);
-        });
+        setInterval(() => {
+            setInventory(Game.player.inventory.blocks);
+        }, 100);
     }, []);
 
     return (
         <div className="inventory">
-            {inventory.map((block) => (
-                <InterfaceInventoryBlockComponent key={block} />
+            {inventory.map((block, i) => (
+                <InterfaceInventoryBlockComponent key={i} index={i} />
             ))}
         </div>
     );
