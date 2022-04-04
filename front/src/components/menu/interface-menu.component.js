@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Toggle from '../animations/interface-animation-toggle.component';
 import InterfaceSettingsComponent from './interface-settings.component';
 import TextRandomEffectComponent from '../animations/text-random-animation.component';
+import { gameReset } from '../../core/game';
 
 const InterfaceMenuComponent = (menu) => {
     const [open, setOpen] = useState(true);
@@ -26,6 +27,7 @@ const InterfaceMenuComponent = (menu) => {
 
     useEffect(() => {
         Game.graphism.precision = GlobalTypes.graphismPrecision.medium;
+        if (window.location.pathname === '/') gameReset();
     }, []);
     return (
         <div>
@@ -37,7 +39,7 @@ const InterfaceMenuComponent = (menu) => {
                                 if (!Game.state) navigate('/game');
                             }}
                         >
-                            <TextRandomEffectComponent text={`${Game.state ? 'Reprendre la partie' : 'Démarrer une partie'}`} />
+                            <TextRandomEffectComponent text={`${window.location.pathname === '/' ? 'Démarrer une partie' : 'Reprendre la partie'}`} />
                         </div>
                         <div>
                             <TextRandomEffectComponent text="Tableau des scores" />

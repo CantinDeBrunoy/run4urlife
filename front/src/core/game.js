@@ -35,6 +35,7 @@ export const gameInit = () => {
     InventoryFunctions.init();
     Game.state = GlobalTypes.states.initialized;
     Game.difficulty = GlobalTypes.difficulties.impossible;
+    Game.timer.value = 0;
 };
 
 export const gameStart = () => {
@@ -43,6 +44,12 @@ export const gameStart = () => {
     startTimer();
     mapDestructLoop();
     addInventoryLoop();
+};
+
+export const gameReset = () => {
+    Game.state = null;
+    Game.timer.startDate = null;
+    Game.timer.value = 0;
 };
 
 export const gameFinish = () => {
