@@ -23,9 +23,10 @@
 .block {
     color: wheat;
     margin: 20px;
+
     img {
         width: 100px;
-        transform: scale(1);
+        //transform: scale(1);
         transition: transform ease 0.5s;
         -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
         filter: grayscale(100%);
@@ -33,11 +34,38 @@
             filter: grayscale(0%);
             transform: scale(1.1);
         }
+        &.rotation90 {
+            transform: rotate(90deg) scale(1);
+            &:hover {
+                transform: rotate(90deg) scale(1.1);
+            }
+        }
+        &.rotation180 {
+            transform: rotate(180deg) scale(1);
+            &:hover {
+                transform: rotate(180deg) scale(1.1);
+            }
+        }
+        &.rotation270 {
+            transform: rotate(270deg) scale(1);
+            &:hover {
+                transform: rotate(270deg) scale(1.1);
+            }
+        }
     }
     &.active {
         img {
             filter: grayscale(0%);
             transform: scale(1.1);
+            &.rotation90 {
+                transform: rotate(90deg) scale(1.1);
+            }
+            &.rotation180 {
+                transform: rotate(180deg) scale(1.1);
+            }
+            &.rotation270 {
+                transform: rotate(270deg) scale(1.1);
+            }
         }
     }
 }

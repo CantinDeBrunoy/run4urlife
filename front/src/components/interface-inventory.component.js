@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { gameStart } from '../core/game';
 import { Game } from '../core/global';
 import InterfaceInventoryBlockComponent from './interface-inventory-block.component';
 
@@ -8,8 +9,8 @@ const InterfaceInventoryComponent = () => {
 
     useEffect(() => {
         setInterval(() => {
-            setInventory(Game.player.inventory.blocks);
-        }, 100);
+            setInventory([...Game.player.inventory.blocks]);
+        }, 1000);
     }, []);
 
     return (

@@ -16,7 +16,7 @@ const addInventoryLoop = async () => {
 };
 
 const getTimeout = () => {
-    let timeout = Game.difficulty.value * (Game.timer.value / 1000) ** 2 + 3000;
+    let timeout = -Game.difficulty * (Game.timer.value / 1000) ** 2 + 3000;
     return timeout > 100 ? timeout : 100;
 };
 
@@ -41,7 +41,7 @@ export const gameStart = () => {
     if (!Game.timer.startDate) Game.timer.startDate = new Date();
     Game.state = GlobalTypes.states.playing;
     startTimer();
-    mapDestructLoop();
+    // mapDestructLoop();
     addInventoryLoop();
 };
 

@@ -17,7 +17,6 @@ const translateBlock = (block) => {
 const getFileNameAndRotation = (block) => {
     if (block === null || block === undefined) return null;
     if (!isBlock(block)) throw new Error('InvalidBlock');
-    // console.log(block);
     let numberDoor = 0;
     block.map((door) => {
         if (door === 1) {
@@ -30,34 +29,34 @@ const getFileNameAndRotation = (block) => {
     }
     // pour 3 portes
     else if (numberDoor === 3) {
-        if (numberDoor[1] === 1) {
+        if (block[1] === 1) {
             return { rotation: 0, fileName: 'Block-3-1' };
-        } else if (numberDoor[2] === 1) {
+        } else if (block[2] === 1) {
             return { rotation: 90, fileName: 'Block-3-1' };
-        } else if (numberDoor[3] === 1) {
+        } else if (block[3] === 1) {
             return { rotation: 180, fileName: 'Block-3-1' };
-        } else if (numberDoor[0] === 1) {
+        } else if (block[0] === 1) {
             return { rotation: 270, fileName: 'Block-3-1' };
         }
     }
     // pour 2 portes
-    // case portes face à face
-    else if (numberDoor === 2 && ((numberDoor[0] === 0 && numberDoor[2] === 0) || (numberDoor[1] === 0 && numberDoor[3] === 0))) {
-        if (numberDoor[0] === 0 && numberDoor[2] === 0) {
+    else if (numberDoor === 2) {
+        // case portes face à face
+        if (block[0] === 0 && block[2] === 0) {
             return { rotation: 0, fileName: 'Block-2-2' };
+        } else if (block[1] === 0 && block[3] === 0) {
+            return { rotation: 90, fileName: 'Block-2-2' };
         }
-        return { rotation: 90, fileName: 'Block-2-2' };
-    }
-    // case portes angle droit
-    else {
-        if (numberDoor[2] === 0 && numberDoor[3] === 0) {
+        // case portes angle droit
+        if (block[2] === 0 && block[3] === 0) {
             return { rotation: 0, fileName: 'Block-2-1' };
-        } else if (numberDoor[0] === 0 && numberDoor[3] === 0) {
+        } else if (block[0] === 0 && block[3] === 0) {
             return { rotation: 90, fileName: 'Block-2-1' };
-        } else if (numberDoor[0] === 0 && numberDoor[1] === 0) {
+        } else if (block[0] === 0 && block[1] === 0) {
             return { rotation: 180, fileName: 'Block-2-1' };
+        } else if (block[1] === 0 && block[2] === 0) {
+            return { rotation: 270, fileName: 'Block-2-1' };
         }
-        return { rotation: 270, fileName: 'Block-2-1' };
     }
 };
 
