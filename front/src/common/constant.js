@@ -25,6 +25,8 @@ export const PrecisionLabels = {
     Low: 'bas',
 };
 
+export const VisionPlaneName = 'plane-vision';
+
 export const AntialiasLabel = 'Antialias';
 
 export const Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/?-#&@';
