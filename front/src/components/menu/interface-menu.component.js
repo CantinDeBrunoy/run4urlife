@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Game, GlobalTypes } from '../../core/global';
-import { GameActions, TabTypes } from '../../common/constant';
-import { useNavigate } from 'react-router-dom';
+import { TabTypes } from '../../common/constant';
 import Toggle from '../animations/interface-animation-toggle.component';
 import InterfaceSettingsComponent from './interface-settings.component';
 import InterfacedifficultyComponent from './interface-difficulty.component';
@@ -14,8 +12,6 @@ const InterfaceMenuComponent = (menu) => {
     const [GameStore, dispatch] = GameConsumerHook();
     const [open, setOpen] = useState(true);
     const [component, setComponent] = useState();
-
-    const navigate = useNavigate();
 
     const toggle = (tab = '') => {
         switch (tab) {
