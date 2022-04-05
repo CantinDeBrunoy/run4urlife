@@ -7,6 +7,7 @@ import InterfacedifficultyComponent from './interface-difficulty.component';
 import TextRandomEffectComponent from '../animations/text-random-animation.component';
 import { gameReset } from '../../core/game';
 import { GameConsumerHook } from '../../store/game.store';
+import { ZoomIn } from '../../3d/background-scene.3d';
 
 const InterfaceMenuComponent = (menu) => {
     const [GameStore, dispatch] = GameConsumerHook();
@@ -50,6 +51,7 @@ const InterfaceMenuComponent = (menu) => {
                         <div
                             onClick={() => {
                                 toggle(TabTypes.difficulty);
+                                ZoomIn();
                             }}
                         >
                             <TextRandomEffectComponent text={`${window.location.pathname === '/' ? 'Démarrer une partie' : 'Reprendre la partie'}`} />

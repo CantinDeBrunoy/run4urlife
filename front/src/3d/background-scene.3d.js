@@ -3,6 +3,18 @@ import { Game, GlobalTypes } from '../core/global';
 import { BackgroundElements } from './global.3d';
 import { GamePlanet } from './planet.3d';
 
+export const ZoomIn = () => {
+    BackgroundElements.camera.position.z = 2; //5
+    BackgroundElements.camera.position.y = 0.5;
+    BackgroundElements.camera.position.x = -1.2;
+};
+
+export const ZoomOut = () => {
+    BackgroundElements.camera.position.z = 5; //5
+    BackgroundElements.camera.position.y = 0;
+    BackgroundElements.camera.position.x = 0;
+};
+
 const init = (canvas, fov = 60) => {
     BackgroundElements.scene = new THREE.Scene();
 
@@ -20,7 +32,7 @@ const init = (canvas, fov = 60) => {
 
     document.body.appendChild(BackgroundElements.renderer.domElement);
 
-    BackgroundElements.camera.position.z = 5;
+    BackgroundElements.camera.position.z = 5; //5
 
     if (window.location.pathname === '/') {
         GamePlanet.loadPlanet();
