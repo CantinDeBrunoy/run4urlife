@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GameElements } from './global.3d';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import { Game, GlobalTypes } from '../core/global';
-import { Direction, GameCharacterSpeed, GameStep, GameWidth } from '../common/constant';
+import { Direction, GameCharacterSpeed, GameStep, GameWidth, VisionPlaneName } from '../common/constant';
 import { GameCharacters } from './characters.3d';
 import { GameLight } from './light.3d';
 import { CharacterFunctions } from '../core/functions/character';
@@ -109,5 +109,38 @@ const render = () => {
     }
     GameElements.renderer.render(GameElements.scene, GameElements.camera);
 };
+
+const raycaster = new THREE.Raycaster();
+const mouseClick = new THREE.Vector2();
+
+window.addEventListener('mousemove', (event) => {
+    mouseClick.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouseClick.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouseClick, GameElements.camera);
+    const intersects = raycaster.intersectObjects(GameElements.scene.children);
+
+    for (const item of intersects) {
+        if (item.object && item.object.name.includes(VisionPlaneName)) {
+            switch (item.object.name) {
+                case 'top':
+                    GameElements.blocks.vision.top.children[0].material.opacity = 1;
+                    break;
+
+                case 'right':
+                    GameElements.blocks.vision.right.children[0].material.opacity = 1;
+                    break;
+
+                case 'left':
+                    GameElements.blocks.vision.left.children[0].material.opacity = 1;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+    console.log(intersects);
+});
 
 export const GameScene = { init, render, addHelpers };
