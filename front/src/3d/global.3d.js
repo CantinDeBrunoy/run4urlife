@@ -11,7 +11,9 @@ export const GameElements = {
     },
     blocks: {
         obstacles: [],
-        vision: {},
+        vision: {
+            cubes: [],
+        },
     },
 };
 

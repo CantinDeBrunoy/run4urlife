@@ -35,4 +35,6 @@ export const GameWidth = window.innerWidth / 2;
 
 export const GameStep = 5;
 
+export const VisionBlocksOpacity = 0.5;
+
 export const GameCharacterSpeed = 0.3;

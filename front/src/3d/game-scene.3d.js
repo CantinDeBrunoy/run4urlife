@@ -9,7 +9,7 @@ import { GameLight } from './light.3d';
 import { CharacterFunctions } from '../core/functions/character';
 import { GameBlocks } from './blocks.3d';
 
-const init = (canvas, fov = 60) => {
+const init = (canvas, fov = 35) => {
     GameElements.scene = new THREE.Scene();
 
     GameElements.camera = new THREE.PerspectiveCamera(fov, GameWidth / window.innerHeight, 0.1, 1000);
@@ -33,6 +33,9 @@ const init = (canvas, fov = 60) => {
     GameElements.camera.position.y = 10;
 
     GameBlocks.loadPlayerVision();
+    GameBlocks.loadObstacle(-1, -4);
+
+    handleMouseMove();
 };
 const addHelpers = () => {
     GameElements.controls = new OrbitControls(GameElements.camera, GameElements.renderer.domElement);
@@ -97,7 +100,7 @@ const render = () => {
                 break;
         }
 
-        const cameraOffset = new THREE.Vector3(-character.position.x, 25.0, 0.0);
+        const cameraOffset = new THREE.Vector3(-character.position.x, 45.0, 0.0);
         const objectPosition = new THREE.Vector3();
         GameElements.characters.alien.getWorldPosition(objectPosition);
         GameElements.camera.position.copy(objectPosition).add(cameraOffset);
@@ -110,37 +113,37 @@ const render = () => {
     GameElements.renderer.render(GameElements.scene, GameElements.camera);
 };
 
-const raycaster = new THREE.Raycaster();
-const mouseClick = new THREE.Vector2();
+const handleMouseMove = () => {
+    const raycaster = new THREE.Raycaster();
+    const mouseClick = new THREE.Vector2();
 
-window.addEventListener('mousemove', (event) => {
-    mouseClick.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouseClick.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    window.addEventListener('mousemove', (event) => {
+        mouseClick.set((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1);
 
-    raycaster.setFromCamera(mouseClick, GameElements.camera);
-    const intersects = raycaster.intersectObjects(GameElements.scene.children);
+        raycaster.setFromCamera(mouseClick, GameElements.camera);
+        const intersects = raycaster.intersectObjects(GameElements.scene.children, false);
 
-    for (const item of intersects) {
-        if (item.object && item.object.name.includes(VisionPlaneName)) {
-            switch (item.object.name) {
-                case 'top':
-                    GameElements.blocks.vision.top.children[0].material.opacity = 1;
-                    break;
+        if (intersects.length === 0) GameBlocks.resetHoverVisionBlocks();
 
-                case 'right':
-                    GameElements.blocks.vision.right.children[0].material.opacity = 1;
-                    break;
-
-                case 'left':
-                    GameElements.blocks.vision.left.children[0].material.opacity = 1;
-                    break;
-
-                default:
-                    break;
+        for (const item of intersects) {
+            if (item.object && item.object.name.includes(VisionPlaneName)) {
+                switch (item.object.name) {
+                    case VisionPlaneName + 'top':
+                        GameElements.blocks.vision.top.children[0].material.opacity = 1;
+                        break;
+                    case VisionPlaneName + 'right':
+                        GameElements.blocks.vision.right.children[0].material.opacity = 1;
+                        break;
+                    case VisionPlaneName + 'left':
+                        GameElements.blocks.vision.left.children[0].material.opacity = 1;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-    }
-    console.log(intersects);
-});
+        console.log(intersects);
+    });
+};
 
 export const GameScene = { init, render, addHelpers };
