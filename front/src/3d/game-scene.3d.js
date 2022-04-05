@@ -3,13 +3,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GameElements } from './global.3d';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import { Game, GlobalTypes } from '../core/global';
-import { Direction, GameCharacterSpeed, GameStep, GameWidth } from '../common/constant';
+import { Direction, GameCharacterSpeed, GameStep, GameWidth, VisionPlaneName } from '../common/constant';
 import { GameCharacters } from './characters.3d';
 import { GameLight } from './light.3d';
 import { CharacterFunctions } from '../core/functions/character';
-import { initBlocks } from './init-blocks.3d';
+import { GameBlocks } from './blocks.3d';
 
-const init = (canvas, fov = 60) => {
+const init = (canvas, fov = 35) => {
     GameElements.scene = new THREE.Scene();
 
     GameElements.camera = new THREE.PerspectiveCamera(fov, GameWidth / window.innerHeight, 0.1, 1000);
@@ -32,13 +32,10 @@ const init = (canvas, fov = 60) => {
     GameLight.addHemisphereLight();
     GameElements.camera.position.y = 10;
 
-    Game.grid.map((row) => {
-        row.cases.map((block, x) => {
-            if (GlobalTypes.caseTypes.obstacle === block.type) {
-                initBlocks.initObstacle(block, x, row.id);
-            }
-        });
-    });
+    GameBlocks.loadPlayerVision();
+    GameBlocks.loadObstacle(-1, -4);
+
+    handleMouseMove();
 };
 const addHelpers = () => {
     GameElements.controls = new OrbitControls(GameElements.camera, GameElements.renderer.domElement);
@@ -103,13 +100,50 @@ const render = () => {
                 break;
         }
 
-        const cameraOffset = new THREE.Vector3(-character.position.x, 25.0, 0.0);
+        const cameraOffset = new THREE.Vector3(-character.position.x, 45.0, 0.0);
         const objectPosition = new THREE.Vector3();
         GameElements.characters.alien.getWorldPosition(objectPosition);
         GameElements.camera.position.copy(objectPosition).add(cameraOffset);
         GameElements.camera.lookAt(new THREE.Vector3(0, GameElements.characters.alien.position.y, GameElements.characters.alien.position.z - 10));
     }
+    for (const obstacle of GameElements.blocks.obstacles) {
+        obstacle.rotation.x += 0.005;
+        obstacle.rotation.y += 0.001;
+    }
     GameElements.renderer.render(GameElements.scene, GameElements.camera);
+};
+
+const handleMouseMove = () => {
+    const raycaster = new THREE.Raycaster();
+    const mouseClick = new THREE.Vector2();
+
+    window.addEventListener('mousemove', (event) => {
+        mouseClick.set((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1);
+
+        raycaster.setFromCamera(mouseClick, GameElements.camera);
+        const intersects = raycaster.intersectObjects(GameElements.scene.children, false);
+
+        if (intersects.length === 0) GameBlocks.resetHoverVisionBlocks();
+
+        for (const item of intersects) {
+            if (item.object && item.object.name.includes(VisionPlaneName)) {
+                switch (item.object.name) {
+                    case VisionPlaneName + 'top':
+                        GameElements.blocks.vision.top.children[0].material.opacity = 1;
+                        break;
+                    case VisionPlaneName + 'right':
+                        GameElements.blocks.vision.right.children[0].material.opacity = 1;
+                        break;
+                    case VisionPlaneName + 'left':
+                        GameElements.blocks.vision.left.children[0].material.opacity = 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        console.log(intersects);
+    });
 };
 
 export const GameScene = { init, render, addHelpers };
