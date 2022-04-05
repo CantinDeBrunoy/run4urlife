@@ -12,6 +12,7 @@ const initialState = {
     selectedBlock: null,
     antialias: cacheSettings && cacheSettings.antialias ? true : false,
     precision: cacheSettings && cacheSettings.precision ? cacheSettings.precision : GlobalTypes.graphismPrecision.low,
+    difficulty: cacheSettings && cacheSettings.difficulty ? cacheSettings.difficulty : GlobalTypes.difficulties.average,
     volume: cacheSettings && cacheSettings.volume ? cacheSettings.volume : 50,
 };
 
@@ -39,6 +40,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 gameState: GlobalTypes.states.playing,
+            };
+        case GameActions.difficulty:
+            Game.difficulty = action.difficulty;
+            return {
+                ...state,
+                difficulty: action.difficulty,
             };
         case GameActions.antialias:
             Game.graphism.antialias = !state.antialias;

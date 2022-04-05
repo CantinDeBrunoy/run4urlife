@@ -1,5 +1,6 @@
 export const TabTypes = {
     Settings: 'settings',
+    difficulty: 'difficulty',
 };
 
 export const Direction = {
@@ -10,6 +11,7 @@ export const Direction = {
 
 export const GameActions = {
     pause: 'pause',
+    difficulty: 'difficulty',
     play: 'play',
     init: 'init',
     antialias: 'antialias',
@@ -23,6 +25,13 @@ export const PrecisionLabels = {
     High: 'élevé',
     Medium: 'moyen',
     Low: 'bas',
+};
+
+export const DifficultiesLabels = {
+    Easy: 'facile',
+    Average: 'moyen',
+    Hard: 'difficile',
+    Impossible: 'impossible',
 };
 
 export const AntialiasLabel = 'Antialias';
