@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RadioComponent from '../radio.component';
-import { AntialiasLabel, GameActions, DifficultiesLabels } from '../../common/constant';
-import { GameConsumerHook } from '../../store/game.store';
+import { useNavigate } from 'react-router-dom';
+import { DifficultiesLabels } from '../../common/constant';
+import { Game } from '../../core/global';
 
 const InterfaceDiffilcultyComponent = ({ toggle }) => {
-    const [GameStore, dispatch] = GameConsumerHook();
-
-    const handleVolumeClick = (e) => {
-        dispatch({ type: GameActions.setVolume, volume: ((e.clientX - e.target.offsetLeft) * 100) / 150 });
-    };
+    const navigate = useNavigate();
 
     return (
         <div className="settings">
@@ -21,7 +18,11 @@ const InterfaceDiffilcultyComponent = ({ toggle }) => {
                 <RadioComponent label={DifficultiesLabels.Impossible} />
             </div>
             <ul>
-                <div onClick={toggle}>
+                <div
+                    onClick={() => {
+                        if (!Game.state) navigate('/game');
+                    }}
+                >
                     <div>Lancer</div>
                 </div>
                 <div onClick={toggle}>
