@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 // import { BackgroundScene } from '../3d/background-scene.3d';
 import { GameActions } from '../common/constant';
-import { Game } from '../core/global';
+import { Game, GlobalTypes } from '../core/global';
 import { GameConsumerHook } from '../store/game.store';
 
 const GameComponent = () => {
@@ -13,6 +13,7 @@ const GameComponent = () => {
         dispatch({ type: GameActions.init, canvas: GameCanvasRef.current });
         console.log(Game);
     }, []);
+
     return (
         <div className="game-page">
             {/* <canvas ref={BackgroundCanvasRef} id="background" /> */}

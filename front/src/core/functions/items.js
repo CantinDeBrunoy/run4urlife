@@ -14,6 +14,52 @@ const translateBlock = (block) => {
     throw new Error('InvalidBlock');
 };
 
+const getFileNameAndRotation = (block) => {
+    if (block === null || block === undefined) return null;
+    if (!isBlock(block)) throw new Error('InvalidBlock');
+    let numberDoor = 0;
+    block.map((door) => {
+        if (door === 1) {
+            numberDoor += 1;
+        }
+    });
+    // pour 4 portes
+    if (numberDoor === 4) {
+        return { rotation: 0, fileName: 'Block-4-1' };
+    }
+    // pour 3 portes
+    else if (numberDoor === 3) {
+        if (block[1] === 1) {
+            return { rotation: 0, fileName: 'Block-3-1' };
+        } else if (block[2] === 1) {
+            return { rotation: 90, fileName: 'Block-3-1' };
+        } else if (block[3] === 1) {
+            return { rotation: 180, fileName: 'Block-3-1' };
+        } else if (block[0] === 1) {
+            return { rotation: 270, fileName: 'Block-3-1' };
+        }
+    }
+    // pour 2 portes
+    else if (numberDoor === 2) {
+        // case portes face à face
+        if (block[0] === 0 && block[2] === 0) {
+            return { rotation: 0, fileName: 'Block-2-2' };
+        } else if (block[1] === 0 && block[3] === 0) {
+            return { rotation: 90, fileName: 'Block-2-2' };
+        }
+        // case portes angle droit
+        if (block[2] === 0 && block[3] === 0) {
+            return { rotation: 0, fileName: 'Block-2-1' };
+        } else if (block[0] === 0 && block[3] === 0) {
+            return { rotation: 90, fileName: 'Block-2-1' };
+        } else if (block[0] === 0 && block[1] === 0) {
+            return { rotation: 180, fileName: 'Block-2-1' };
+        } else if (block[1] === 0 && block[2] === 0) {
+            return { rotation: 270, fileName: 'Block-2-1' };
+        }
+    }
+};
+
 const isBlock = (block) => {
     return Array.isArray(block) && block.length === 4 && block.filter((val) => val === 1 || val === 0).length === 4;
 };
@@ -34,6 +80,7 @@ const placeBlock = (x, y, indice) => {
 export const ItemsFunctions = {
     createBlock,
     placeBlock,
+    getFileNameAndRotation,
     translateBlock,
     isBlock,
 };

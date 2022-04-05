@@ -3,6 +3,7 @@ import BackgroundComponent from '../components/background.component';
 
 import GameComponent from '../components/game.component';
 import { GameProvider } from '../store/game.store';
+import InterfaceInventoryComponent from '../components/interface-inventory.component';
 
 const GamePage = () => {
     return (
@@ -10,6 +11,7 @@ const GamePage = () => {
             <BackgroundComponent />
             <GameProvider>
                 <GameComponent />
+                <InterfaceInventoryComponent />
             </GameProvider>
         </div>
     );
