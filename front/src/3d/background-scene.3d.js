@@ -11,7 +11,7 @@ const init = (canvas, fov = 60) => {
 
     BackgroundElements.renderer = new THREE.WebGLRenderer({
         canvas,
-        antialias: Game.graphism.antialias,
+        antialias: Game.graphism.antialias ? Game.graphism.antialias : false,
         precision: Game.graphism.precision ? Game.graphism.precision : GlobalTypes.graphismPrecision.low,
     });
 

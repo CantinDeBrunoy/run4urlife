@@ -1,28 +1,5 @@
 const cacheSettings = JSON.parse(window.localStorage.getItem('settings'));
 
-export const Game = {
-    state: null,
-    grid: [],
-    player: {
-        position: {
-            x: 1,
-            y: 1,
-        },
-        inventory: {
-            blocks: [],
-        },
-    },
-    timer: {
-        value: 0,
-        startDate: null,
-    },
-    difficulty: null,
-    graphism: {
-        antialias: cacheSettings.antialias ? true : false,
-        precision: cacheSettings.precision ? cacheSettings.precision : GlobalTypes.graphismPrecision.low,
-    },
-};
-
 export const GlobalTypes = {
     caseTypes: {
         obstacle: 'Obstacle',
@@ -45,5 +22,28 @@ export const GlobalTypes = {
         low: 'lowp',
         medium: 'mediump',
         high: 'highp',
+    },
+};
+
+export const Game = {
+    state: null,
+    grid: [],
+    player: {
+        position: {
+            x: 1,
+            y: 1,
+        },
+        inventory: {
+            blocks: [],
+        },
+    },
+    timer: {
+        value: 0,
+        startDate: null,
+    },
+    difficulty: null,
+    graphism: {
+        antialias: cacheSettings && cacheSettings.antialias ? true : false,
+        precision: cacheSettings && cacheSettings.precision ? cacheSettings.precision : GlobalTypes.graphismPrecision.low,
     },
 };

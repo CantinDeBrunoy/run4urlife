@@ -10,9 +10,9 @@ const cacheSettings = JSON.parse(window.localStorage.getItem('settings'));
 const initialState = {
     gameState: null,
     selectedBlock: null,
-    antialias: cacheSettings.antialias ? true : false,
-    precision: cacheSettings.precision ? cacheSettings.precision : GlobalTypes.graphismPrecision.low,
-    volume: cacheSettings.volume ? cacheSettings.volume : 50,
+    antialias: cacheSettings && cacheSettings.antialias ? true : false,
+    precision: cacheSettings && cacheSettings.precision ? cacheSettings.precision : GlobalTypes.graphismPrecision.low,
+    volume: cacheSettings && cacheSettings.volume ? cacheSettings.volume : 50,
 };
 
 const reducer = (state, action) => {
