@@ -7,7 +7,6 @@ import { Direction, GameCharacterSpeed, GameStep, GameWidth } from '../common/co
 import { GameCharacters } from './characters.3d';
 import { GameLight } from './light.3d';
 import { CharacterFunctions } from '../core/functions/character';
-import { initBlocks } from './init-blocks.3d';
 import { GameBlocks } from './blocks.3d';
 
 const init = (canvas, fov = 60) => {
@@ -32,14 +31,6 @@ const init = (canvas, fov = 60) => {
     GameLight.addDirectionalLight();
     GameLight.addHemisphereLight();
     GameElements.camera.position.y = 10;
-
-    Game.grid.map((row) => {
-        row.cases.map((block, x) => {
-            if (GlobalTypes.caseTypes.obstacle === block.type) {
-                initBlocks.initObstacle(block, x, row.id);
-            }
-        });
-    });
 
     GameBlocks.loadPlayerVision();
 };
@@ -111,6 +102,10 @@ const render = () => {
         GameElements.characters.alien.getWorldPosition(objectPosition);
         GameElements.camera.position.copy(objectPosition).add(cameraOffset);
         GameElements.camera.lookAt(new THREE.Vector3(0, GameElements.characters.alien.position.y, GameElements.characters.alien.position.z - 10));
+    }
+    for (const obstacle of GameElements.blocks.obstacles) {
+        obstacle.rotation.x += 0.005;
+        obstacle.rotation.y += 0.001;
     }
     GameElements.renderer.render(GameElements.scene, GameElements.camera);
 };

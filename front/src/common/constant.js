@@ -29,8 +29,8 @@ export const AntialiasLabel = 'Antialias';
 
 export const Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/?-#&@';
 
-export const GameWidth = window.innerWidth / 3;
+export const GameWidth = window.innerWidth / 2;
 
-export const GameStep = 3.5;
+export const GameStep = 5;
 
 export const GameCharacterSpeed = 0.3;
