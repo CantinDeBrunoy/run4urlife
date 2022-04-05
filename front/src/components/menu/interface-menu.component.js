@@ -5,6 +5,7 @@ import { GameActions, TabTypes } from '../../common/constant';
 import { useNavigate } from 'react-router-dom';
 import Toggle from '../animations/interface-animation-toggle.component';
 import InterfaceSettingsComponent from './interface-settings.component';
+import InterfacedifficultyComponent from './interface-difficulty.component';
 import TextRandomEffectComponent from '../animations/text-random-animation.component';
 import { gameReset } from '../../core/game';
 import { GameConsumerHook } from '../../store/game.store';
@@ -21,6 +22,9 @@ const InterfaceMenuComponent = (menu) => {
             case TabTypes.Settings:
                 setComponent(<InterfaceSettingsComponent toggle={toggle} />);
                 break;
+            case TabTypes.difficulty:
+                setComponent(<InterfacedifficultyComponent toggle={toggle} />);
+                break;
             default:
                 break;
         }
@@ -30,7 +34,12 @@ const InterfaceMenuComponent = (menu) => {
     useEffect(() => {
         window.localStorage.setItem(
             'settings',
-            JSON.stringify({ antialias: GameStore.antialias, precision: GameStore.precision, volume: GameStore.volume }),
+            JSON.stringify({
+                antialias: GameStore.antialias,
+                precision: GameStore.precision,
+                volume: GameStore.volume,
+                difficulty: GameStore.difficulty,
+            }),
         );
     }, [GameStore]);
 
@@ -44,7 +53,7 @@ const InterfaceMenuComponent = (menu) => {
                     <ul>
                         <div
                             onClick={() => {
-                                if (!Game.state) navigate('/game');
+                                toggle(TabTypes.difficulty);
                             }}
                         >
                             <TextRandomEffectComponent text={`${window.location.pathname === '/' ? 'Démarrer une partie' : 'Reprendre la partie'}`} />

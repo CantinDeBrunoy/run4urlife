@@ -1,5 +1,6 @@
 export const TabTypes = {
     Settings: 'settings',
+    difficulty: 'difficulty',
 };
 
 export const Direction = {
@@ -10,6 +11,7 @@ export const Direction = {
 
 export const GameActions = {
     pause: 'pause',
+    difficulty: 'difficulty',
     play: 'play',
     init: 'init',
     antialias: 'antialias',
@@ -26,6 +28,12 @@ export const PrecisionLabels = {
 };
 
 export const VisionPlaneName = 'plane-vision';
+export const DifficultiesLabels = {
+    Easy: 'facile',
+    Average: 'moyen',
+    Hard: 'difficile',
+    Impossible: 'impossible',
+};
 
 export const AntialiasLabel = 'Antialias';
 
