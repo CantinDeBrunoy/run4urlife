@@ -42,6 +42,13 @@ export const DifficultiesDescription = {
     Impossible: 'Ici on ne rigole plus, ici on fait du gaming, 谁播下风，谁收获旋风',
 };
 
+export const BlockNames = {
+    block21: 'block-2-1',
+    block22: 'block-2-2',
+    block31: 'block-3-1',
+    block41: 'block-4-1',
+};
+
 export const AntialiasLabel = 'Antialias';
 
 export const Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/?-#&@';

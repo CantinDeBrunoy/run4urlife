@@ -1,12 +1,15 @@
 import * as THREE from 'three';
-import { GameStep, VisionBlocksOpacity, VisionPlaneName } from '../common/constant';
+import { BlockNames, GameStep, VisionBlocksOpacity, VisionPlaneName } from '../common/constant';
 import { CharacterFunctions } from '../core/functions/character';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { GameElements } from './global.3d';
 import VisionBlock from '../assets/models/blocks/visionblock.glb';
 import Meteor from '../assets/models/meteor.glb';
 import { ItemsFunctions } from '../core/functions/items';
-import Block from '../assets/models/blocks/block.glb';
+import Block21 from '../assets/models/blocks/block-2-1.glb';
+import Block22 from '../assets/models/blocks/block-2-2.glb';
+import Block31 from '../assets/models/blocks/block-3-1.glb';
+import Block41 from '../assets/models/blocks/block-4-1.glb';
 import { GlobalTypes } from '../core/global';
 
 const loader = new GLTFLoader();
@@ -155,12 +158,32 @@ const removeBlockVision = () => {
 
 const placeBlock = (block, x, y) => {
     const blockInfo = ItemsFunctions.getFileNameAndRotation(block);
+    let fileBlock = '';
 
-    loader.load(Block, (gltf) => {
+    switch (blockInfo.fileName) {
+        case BlockNames.block21:
+            fileBlock = Block21;
+            break;
+        case BlockNames.block22:
+            fileBlock = Block22;
+            break;
+        case BlockNames.block31:
+            fileBlock = Block31;
+            break;
+        case BlockNames.block41:
+            fileBlock = Block41;
+            break;
+        default:
+            break;
+    }
+
+    loader.load(fileBlock, (gltf) => {
         const block = gltf.scene;
         block.position.x = x * GameStep;
         block.position.z = y * GameStep;
         block.scale.set(1.2, 1.2, 1.2);
+
+        block.rotateY(-blockInfo.rotation * (Math.PI / 180));
 
         block.type = GlobalTypes.caseTypes.block;
 
