@@ -21,7 +21,7 @@ const reducer = (state, action) => {
             gameInit();
             GameScene.init(action.canvas);
             GameScene.addHelpers();
-            GameScene.render();
+            requestAnimationFrame(GameScene.render);
             return {
                 ...state,
                 precision: Game.graphism.precision,

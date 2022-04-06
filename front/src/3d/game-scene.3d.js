@@ -9,6 +9,8 @@ import { GameLight } from './light.3d';
 import { CharacterFunctions } from '../core/functions/character';
 import { GameBlocks } from './blocks.3d';
 
+const Map3D = [];
+
 const init = (canvas, fov = 35) => {
     GameElements.scene = new THREE.Scene();
 
@@ -33,7 +35,6 @@ const init = (canvas, fov = 35) => {
     GameElements.camera.position.y = 10;
 
     GameBlocks.loadPlayerVision();
-    GameBlocks.loadObstacle(-1, -4);
 
     handleMouseMove();
     handleMouseClick();
@@ -48,70 +49,120 @@ const addHelpers = () => {
     GameElements.scene.add(GameElements.helpers);
 };
 
-const render = () => {
+const compareAndReplaceMap = async () => {
+    const tmpMap = [...GameElements.blocks.map];
+
+    for (const line of Game.grid) {
+        if (GameElements.blocks.map.filter((line3D) => line3D.id === line.id).length === 0) {
+            GameElements.blocks.map.push({ id: line.id, cases: [] });
+            let i = 0;
+            for (const block of line.cases) {
+                switch (block.type) {
+                    case GlobalTypes.caseTypes.obstacle:
+                        const obstacle = await GameBlocks.getObstacle(i - 1, -line.id);
+                        GameElements.scene.add(obstacle);
+                        GameElements.blocks.map[GameElements.blocks.map.length - 1].cases.push(obstacle);
+                        break;
+
+                    default:
+                        GameElements.blocks.map[GameElements.blocks.map.length - 1].cases.push(null);
+                        break;
+                }
+                i++;
+            }
+        }
+    }
+    for (const line3D of tmpMap) {
+        if (Game.grid.filter((line) => line3D.id === line.id).length === 0) {
+            for (const block of line3D.cases) {
+                if (block) GameElements.scene.remove(block);
+            }
+            GameElements.blocks.map.splice(
+                GameElements.blocks.map.findIndex((val) => val.id === line3D.id),
+                1,
+            );
+        }
+    }
+};
+
+let time = null,
+    delay = 1000 / 45,
+    frame = -1;
+
+const render = (timestamp) => {
+    if (time === null) time = timestamp;
+    let seg = Math.floor((timestamp - time) / delay);
+    if (seg > frame) {
+        frame = seg;
+        let delta;
+        if (GameElements.controls) {
+            GameElements.controls.update();
+        }
+        if (GameElements.stats) {
+            GameElements.stats.update();
+        }
+        if (GameElements.clock) {
+            delta = GameElements.clock.getDelta();
+        }
+        if (GameElements.characters.alien) {
+            let character = GameElements.characters.alien;
+            let inMove = false;
+
+            const { x, y } = CharacterFunctions.getFrontPosition();
+
+            if (character.position.z > y * GameStep) {
+                inMove = Direction.up;
+            }
+            if (character.position.x > x * GameStep) {
+                inMove = Direction.left;
+            } else if (character.position.x < x * GameStep) {
+                inMove = Direction.right;
+            }
+
+            switch (inMove) {
+                case Direction.up:
+                    if (character.rotation.y !== 0) character.rotation.y = 0;
+                    character.position.z -= GameCharacterSpeed;
+                    if (character.position.z < y * GameStep) {
+                        character.position.z = y * GameStep;
+                    }
+                    break;
+                case Direction.left:
+                    if (character.rotation.y !== Math.PI / 2) character.rotation.y = Math.PI / 2;
+                    character.position.x -= GameCharacterSpeed;
+                    if (character.position.x < x * GameStep) {
+                        character.position.x = x * GameStep;
+                    }
+                    break;
+                case Direction.right:
+                    if (character.rotation.y !== -(Math.PI / 2)) character.rotation.y = -(Math.PI / 2);
+                    character.position.x += GameCharacterSpeed;
+                    if (character.position.x > x * GameStep) {
+                        character.position.x = x * GameStep;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            const cameraOffset = new THREE.Vector3(-character.position.x, 45.0, 0.0);
+            const objectPosition = new THREE.Vector3();
+            GameElements.characters.alien.getWorldPosition(objectPosition);
+            GameElements.camera.position.copy(objectPosition).add(cameraOffset);
+            GameElements.camera.lookAt(new THREE.Vector3(0, GameElements.characters.alien.position.y, GameElements.characters.alien.position.z - 10));
+        }
+        for (const line of GameElements.blocks.map) {
+            for (const block of line.cases) {
+                if (block) {
+                    block.rotation.x += 0.005;
+                    block.rotation.y += 0.001;
+                }
+            }
+        }
+        compareAndReplaceMap();
+        GameElements.renderer.render(GameElements.scene, GameElements.camera);
+    }
     requestAnimationFrame(render);
-    let delta;
-    if (GameElements.controls) {
-        GameElements.controls.update();
-    }
-    if (GameElements.stats) {
-        GameElements.stats.update();
-    }
-    if (GameElements.clock) {
-        delta = GameElements.clock.getDelta();
-    }
-    if (GameElements.characters.alien) {
-        let character = GameElements.characters.alien;
-        let inMove = false;
-
-        const { x, y } = CharacterFunctions.getFrontPosition();
-
-        if (character.position.z > y * GameStep) {
-            inMove = Direction.up;
-        }
-        if (character.position.x > x * GameStep) {
-            inMove = Direction.left;
-        } else if (character.position.x < x * GameStep) {
-            inMove = Direction.right;
-        }
-
-        switch (inMove) {
-            case Direction.up:
-                if (character.rotation.y !== 0) character.rotation.y = 0;
-                character.position.z -= GameCharacterSpeed;
-                if (character.position.z < y * GameStep) {
-                    character.position.z = y * GameStep;
-                }
-                break;
-            case Direction.left:
-                if (character.rotation.y !== Math.PI / 2) character.rotation.y = Math.PI / 2;
-                character.position.x -= GameCharacterSpeed;
-                if (character.position.x < x * GameStep) {
-                    character.position.x = x * GameStep;
-                }
-                break;
-            case Direction.right:
-                if (character.rotation.y !== -(Math.PI / 2)) character.rotation.y = -(Math.PI / 2);
-                character.position.x += GameCharacterSpeed;
-                if (character.position.x > x * GameStep) {
-                    character.position.x = x * GameStep;
-                }
-                break;
-            default:
-                break;
-        }
-
-        const cameraOffset = new THREE.Vector3(-character.position.x, 45.0, 0.0);
-        const objectPosition = new THREE.Vector3();
-        GameElements.characters.alien.getWorldPosition(objectPosition);
-        GameElements.camera.position.copy(objectPosition).add(cameraOffset);
-        GameElements.camera.lookAt(new THREE.Vector3(0, GameElements.characters.alien.position.y, GameElements.characters.alien.position.z - 10));
-    }
-    for (const obstacle of GameElements.blocks.obstacles) {
-        obstacle.rotation.x += 0.005;
-        obstacle.rotation.y += 0.001;
-    }
-    GameElements.renderer.render(GameElements.scene, GameElements.camera);
 };
 
 const handleMouseMove = () => {
@@ -143,7 +194,6 @@ const handleMouseMove = () => {
                 }
             }
         }
-        //console.log(intersects);
     });
 };
 

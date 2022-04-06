@@ -42,7 +42,7 @@ export const gameStart = () => {
     if (!Game.timer.startDate) Game.timer.startDate = new Date();
     Game.state = GlobalTypes.states.playing;
     startTimer();
-    // mapDestructLoop();
+    mapDestructLoop();
     addInventoryLoop();
 };
 

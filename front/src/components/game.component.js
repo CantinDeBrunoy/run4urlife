@@ -11,6 +11,7 @@ const GameComponent = () => {
 
     useEffect(() => {
         dispatch({ type: GameActions.init, canvas: GameCanvasRef.current });
+        dispatch({ type: GameActions.play });
         console.log(Game);
     }, []);
 
