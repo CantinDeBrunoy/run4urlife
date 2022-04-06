@@ -35,6 +35,13 @@ export const DifficultiesLabels = {
     Impossible: 'impossible',
 };
 
+export const DifficultiesDescription = {
+    Easy: 'Recommandé pour débutant. Idéal pour se familiariser avec le jeu sans se prendre la tête.',
+    Average: 'Difficulté adaptée pour les joueurs occasionnels.  ',
+    Hard: 'Envie de vous dépasser ? Prouvez votre connaissances du jeu sur un niveau digne de vos capacités',
+    Impossible: 'Ici on ne rigole plus, ici on fait du gaming, 谁播下风，谁收获旋风',
+};
+
 export const AntialiasLabel = 'Antialias';
 
 export const Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/?-#&@';
