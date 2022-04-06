@@ -10,7 +10,7 @@ export const GameElements = {
         alien: null,
     },
     blocks: {
-        obstacles: [],
+        map: [],
         vision: {
             cubes: [],
         },

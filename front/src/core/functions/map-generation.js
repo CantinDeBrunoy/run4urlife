@@ -39,6 +39,7 @@ const createLine = () => {
 const deleteFirstLine = () => {
     if (Game.player.position.y === Game.grid[0].id) {
         Game.state = GlobalTypes.states.finished;
+        console.log('finish');
         return;
     }
     if (Game.grid.length > 0) {
@@ -48,7 +49,7 @@ const deleteFirstLine = () => {
 
 const createGrid = () => {
     Game.grid = [];
-    for (let line = 0; line < 5; line++) {
+    for (let line = 0; line < 8; line++) {
         createLine(Game.grid);
     }
 };

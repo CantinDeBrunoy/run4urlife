@@ -71,19 +71,18 @@ const resetHoverVisionBlocks = (direction = null) => {
     }
 };
 
-const loadObstacle = (x, y) => {
+const getObstacle = (x, y) => {
     const loader = new GLTFLoader();
+    return new Promise((resolve) => {
+        loader.load(Meteor, (gltf) => {
+            const meteor = gltf.scene;
+            meteor.position.x = x * GameStep;
+            meteor.position.z = y * GameStep;
+            meteor.scale.set(0.6, 0.6, 0.6);
 
-    loader.load(Meteor, (gltf) => {
-        const meteor = gltf.scene;
-        meteor.position.x = x * GameStep;
-        meteor.position.z = y * GameStep;
-        meteor.scale.set(0.6, 0.6, 0.6);
-
-        GameElements.blocks.obstacles.push(meteor);
-        GameElements.scene.add(meteor);
-        console.log(meteor);
+            resolve(meteor);
+        });
     });
 };
 
-export const GameBlocks = { loadPlayerVision, loadObstacle, resetHoverVisionBlocks };
+export const GameBlocks = { loadPlayerVision, getObstacle, resetHoverVisionBlocks };
