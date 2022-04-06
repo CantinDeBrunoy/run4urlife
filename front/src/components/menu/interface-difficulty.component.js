@@ -4,6 +4,7 @@ import RadioComponent from '../radio.component';
 import { useNavigate } from 'react-router-dom';
 import { DifficultiesLabels } from '../../common/constant';
 import { Game } from '../../core/global';
+import { renderZoomOut } from '../../3d/background-scene.3d';
 
 const InterfaceDiffilcultyComponent = ({ toggle }) => {
     const navigate = useNavigate();
@@ -25,7 +26,12 @@ const InterfaceDiffilcultyComponent = ({ toggle }) => {
                 >
                     <div>Lancer</div>
                 </div>
-                <div onClick={toggle}>
+                <div
+                    onClick={() => {
+                        toggle();
+                        renderZoomOut();
+                    }}
+                >
                     <div>Retour</div>
                 </div>
             </ul>
