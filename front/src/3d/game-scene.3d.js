@@ -8,6 +8,7 @@ import { GameCharacters } from './characters.3d';
 import { GameLight } from './light.3d';
 import { CharacterFunctions } from '../core/functions/character';
 import { GameBlocks } from './blocks.3d';
+import { PlayerFunctions } from '../core/functions/player';
 
 const Map3D = [];
 
@@ -37,6 +38,7 @@ const init = (canvas, fov = 35) => {
     GameBlocks.loadPlayerVision();
 
     handleMouseMove();
+    handleMouseClick();
 };
 const addHelpers = () => {
     GameElements.controls = new OrbitControls(GameElements.camera, GameElements.renderer.domElement);
@@ -153,8 +155,15 @@ const render = (timestamp) => {
         for (const line of GameElements.blocks.map) {
             for (const block of line.cases) {
                 if (block) {
-                    block.rotation.x += 0.005;
-                    block.rotation.y += 0.001;
+                    switch (block.type) {
+                        case GlobalTypes.caseTypes.obstacle:
+                            block.rotation[block.directionRotation] += block.speedRotation;
+                            block.rotation.z += block.speedRotation;
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -180,13 +189,37 @@ const handleMouseMove = () => {
             if (item.object && item.object.name.includes(VisionPlaneName)) {
                 switch (item.object.name) {
                     case VisionPlaneName + 'top':
-                        GameElements.blocks.vision.top.children[0].material.opacity = 1;
+                        if (
+                            (Game.player.inventory.selected || Game.player.inventory.selected === 0) &&
+                            Game.player.inventory.blocks[Game.player.inventory.selected][2]
+                        ) {
+                            GameElements.blocks.vision.top.children[0].material.opacity = 1;
+                        } else {
+                            GameElements.blocks.vision.top.children[0].material.color = { r: 1, g: 0, b: 0 };
+                            GameElements.blocks.vision.top.children[0].material.opacity = 1;
+                        }
                         break;
                     case VisionPlaneName + 'right':
-                        GameElements.blocks.vision.right.children[0].material.opacity = 1;
+                        if (
+                            (Game.player.inventory.selected || Game.player.inventory.selected === 0) &&
+                            Game.player.inventory.blocks[Game.player.inventory.selected][3]
+                        ) {
+                            GameElements.blocks.vision.right.children[0].material.opacity = 1;
+                        } else {
+                            GameElements.blocks.vision.right.children[0].material.color = { r: 1, g: 0, b: 0 };
+                            GameElements.blocks.vision.right.children[0].material.opacity = 1;
+                        }
                         break;
                     case VisionPlaneName + 'left':
-                        GameElements.blocks.vision.left.children[0].material.opacity = 1;
+                        if (
+                            (Game.player.inventory.selected || Game.player.inventory.selected === 0) &&
+                            Game.player.inventory.blocks[Game.player.inventory.selected][1]
+                        ) {
+                            GameElements.blocks.vision.left.children[0].material.opacity = 1;
+                        } else {
+                            GameElements.blocks.vision.left.children[0].material.color = { r: 1, g: 0, b: 0 };
+                            GameElements.blocks.vision.left.children[0].material.opacity = 1;
+                        }
                         break;
                     default:
                         break;
@@ -196,4 +229,72 @@ const handleMouseMove = () => {
     });
 };
 
-export const GameScene = { init, render, addHelpers };
+const handleMouseClick = () => {
+    const raycaster = new THREE.Raycaster();
+    const mouseClick = new THREE.Vector2();
+
+    window.addEventListener('click', (event) => {
+        mouseClick.set((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1);
+
+        raycaster.setFromCamera(mouseClick, GameElements.camera);
+        const intersects = raycaster.intersectObjects(GameElements.scene.children, false);
+
+        if (Game.player.inventory.selected !== null) {
+            for (const item of intersects) {
+                if (item.object && item.object.name.includes(VisionPlaneName)) {
+                    switch (item.object.name) {
+                        case VisionPlaneName + 'top':
+                            if (
+                                (Game.player.inventory.selected || Game.player.inventory.selected === 0) &&
+                                Game.player.inventory.blocks[Game.player.inventory.selected][2]
+                            ) {
+                                GameBlocks.placeBlock(
+                                    Game.player.inventory.blocks[Game.player.inventory.selected],
+                                    CharacterFunctions.getFrontPosition().x,
+                                    CharacterFunctions.getFrontPosition().y - 1,
+                                );
+                                GameBlocks.removeBlockVision();
+                                PlayerFunctions.placeBlock(Game.player.position.x, Game.player.position.y + 1, Game.player.inventory.selected);
+                                GameBlocks.loadPlayerVision();
+                            }
+                            break;
+                        case VisionPlaneName + 'right':
+                            if (
+                                (Game.player.inventory.selected || Game.player.inventory.selected === 0) &&
+                                Game.player.inventory.blocks[Game.player.inventory.selected][3]
+                            ) {
+                                GameBlocks.placeBlock(
+                                    Game.player.inventory.blocks[Game.player.inventory.selected],
+                                    CharacterFunctions.getFrontPosition().x + 1,
+                                    CharacterFunctions.getFrontPosition().y,
+                                );
+                                GameBlocks.removeBlockVision();
+                                PlayerFunctions.placeBlock(Game.player.position.x + 1, Game.player.position.y, Game.player.inventory.selected);
+                                GameBlocks.loadPlayerVision();
+                            }
+                            break;
+                        case VisionPlaneName + 'left':
+                            if (
+                                (Game.player.inventory.selected || Game.player.inventory.selected === 0) &&
+                                Game.player.inventory.blocks[Game.player.inventory.selected][1]
+                            ) {
+                                GameBlocks.placeBlock(
+                                    Game.player.inventory.blocks[Game.player.inventory.selected],
+                                    CharacterFunctions.getFrontPosition().x - 1,
+                                    CharacterFunctions.getFrontPosition().y,
+                                );
+                                GameBlocks.removeBlockVision();
+                                PlayerFunctions.placeBlock(Game.player.position.x - 1, Game.player.position.y, Game.player.inventory.selected);
+                                GameBlocks.loadPlayerVision();
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    });
+};
+
+export const GameScene = { init, render, addHelpers, handleMouseClick };
