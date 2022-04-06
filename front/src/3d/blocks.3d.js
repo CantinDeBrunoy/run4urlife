@@ -86,4 +86,8 @@ const getObstacle = (x, y) => {
     });
 };
 
-export const GameBlocks = { loadPlayerVision, getObstacle, resetHoverVisionBlocks };
+const placeBlock = (block, x, y) => {
+    const blockInfo = ItemsFunctions.getFileNameAndRotation(block);
+};
+
+export const GameBlocks = { loadPlayerVision, getObstacle, resetHoverVisionBlocks, placeBlock };
