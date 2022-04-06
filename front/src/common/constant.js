@@ -30,7 +30,7 @@ export const PrecisionLabels = {
 export const VisionPlaneName = 'plane-vision';
 export const DifficultiesLabels = {
     Easy: 'facile',
-    Average: 'moyen',
+    Average: 'moyenne',
     Hard: 'difficile',
     Impossible: 'impossible',
 };

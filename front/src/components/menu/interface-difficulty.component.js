@@ -10,8 +10,6 @@ const InterfaceDiffilcultyComponent = ({ toggle }) => {
     const navigate = useNavigate();
     const [description, setDescription] = useState('Average');
 
-    console.log(description);
-
     return (
         <div className="settings difficulty">
             <div className="difficulty_leftSide">
