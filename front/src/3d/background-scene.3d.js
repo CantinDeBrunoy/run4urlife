@@ -4,7 +4,13 @@ import { BackgroundElements } from './global.3d';
 import { GamePlanet } from './planet.3d';
 
 export const ZoomIn = () => {
-    BackgroundElements.camera.position.z = 2; //5
+    requestAnimationFrame(ZoomIn);
+    let i = 5;
+    // while (i != 2) {
+    //     BackgroundElements.camera.position.z = i;
+    //     i -= 0.;
+    // }
+    //BackgroundElements.camera.position.z = 2; //5
     BackgroundElements.camera.position.y = 0.5;
     BackgroundElements.camera.position.x = -1.2;
 };
@@ -46,6 +52,46 @@ const render = () => {
     BackgroundElements.renderer.render(BackgroundElements.scene, BackgroundElements.camera);
     if (window.location.pathname === '/') {
         GamePlanet.animate();
+    }
+};
+
+export const renderZoomIn = () => {
+    const x = 0.02;
+    const y = 0.0033;
+    const z = 0.008;
+    let vitesse;
+    if (BackgroundElements.camera.position.z > 2) {
+        // if (BackgroundElements.camera.position.z > 4.75) {
+        //     vitesse = 0.1;
+        // } else if (BackgroundElements.camera.position.z > 4.25) {
+        //     vitesse = 0.4;
+        // } else if (BackgroundElements.camera.position.z > 2.25) {
+        //     vitesse = 0.6;
+        // } else {
+        //     vitesse = 0.04;
+        // }
+        vitesse = 1;
+        BackgroundElements.camera.position.z -= x * vitesse;
+        BackgroundElements.camera.position.y += y * vitesse;
+        BackgroundElements.camera.position.x -= z * vitesse;
+        BackgroundElements.renderer.render(BackgroundElements.scene, BackgroundElements.camera);
+        requestAnimationFrame(renderZoomIn);
+    }
+};
+
+export const renderZoomOut = () => {
+    const x = 0.02;
+    const y = 0.0033;
+    const z = 0.008;
+    let vitesse;
+    if (BackgroundElements.camera.position.z < 5) {
+        vitesse = -1;
+
+        BackgroundElements.camera.position.z -= x * vitesse;
+        BackgroundElements.camera.position.y += y * vitesse;
+        BackgroundElements.camera.position.x -= z * vitesse;
+        BackgroundElements.renderer.render(BackgroundElements.scene, BackgroundElements.camera);
+        requestAnimationFrame(renderZoomOut);
     }
 };
 
