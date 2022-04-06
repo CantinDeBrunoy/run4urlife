@@ -29,32 +29,32 @@ const getFileNameAndRotation = (block) => {
     }
     // pour 3 portes
     else if (numberDoor === 3) {
-        if (block[1] === 1) {
+        if (block[1] === 0) {
             return { rotation: 0, fileName: 'Block-3-1' };
-        } else if (block[2] === 1) {
+        } else if (block[2] === 0) {
             return { rotation: 90, fileName: 'Block-3-1' };
-        } else if (block[3] === 1) {
+        } else if (block[3] === 0) {
             return { rotation: 180, fileName: 'Block-3-1' };
-        } else if (block[0] === 1) {
+        } else if (block[0] === 0) {
             return { rotation: 270, fileName: 'Block-3-1' };
         }
     }
     // pour 2 portes
     else if (numberDoor === 2) {
         // case portes face à face
-        if (block[0] === 0 && block[2] === 0) {
+        if (block[1] === 0 && block[3] === 0) {
             return { rotation: 0, fileName: 'Block-2-2' };
-        } else if (block[1] === 0 && block[3] === 0) {
+        } else if (block[0] === 0 && block[2] === 0) {
             return { rotation: 90, fileName: 'Block-2-2' };
         }
         // case portes angle droit
-        if (block[2] === 0 && block[3] === 0) {
+        if (block[0] === 0 && block[1] === 0) {
             return { rotation: 0, fileName: 'Block-2-1' };
-        } else if (block[0] === 0 && block[3] === 0) {
-            return { rotation: 90, fileName: 'Block-2-1' };
-        } else if (block[0] === 0 && block[1] === 0) {
-            return { rotation: 180, fileName: 'Block-2-1' };
         } else if (block[1] === 0 && block[2] === 0) {
+            return { rotation: 90, fileName: 'Block-2-1' };
+        } else if (block[3] === 0 && block[2] === 0) {
+            return { rotation: 180, fileName: 'Block-2-1' };
+        } else if (block[0] === 0 && block[3] === 0) {
             return { rotation: 270, fileName: 'Block-2-1' };
         }
     }
