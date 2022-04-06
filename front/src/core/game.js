@@ -5,7 +5,7 @@ import { Game, GlobalTypes } from './global';
 
 const mapDestructLoop = async () => {
     await asyncTimeout(getTimeout());
-    MapGenerationFunctions.deleteFirstLine();
+    //MapGenerationFunctions.deleteFirstLine();
     if (Game.state === GlobalTypes.states.playing) requestAnimationFrame(mapDestructLoop);
 };
 

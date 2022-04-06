@@ -6,10 +6,13 @@ import { GameElements } from './global.3d';
 import VisionBlock from '../assets/models/blocks/visionblock.glb';
 import Meteor from '../assets/models/meteor.glb';
 import { ItemsFunctions } from '../core/functions/items';
+import Block from '../assets/models/blocks/block.glb';
+import { GlobalTypes } from '../core/global';
+
+const loader = new GLTFLoader();
 
 const loadPlayerVision = () => {
     const vision = CharacterFunctions.getVision();
-    const loader = new GLTFLoader();
 
     for (const [dir, value] of Object.entries(vision)) {
         if (value) {
@@ -27,19 +30,55 @@ const loadPlayerVision = () => {
 
                 switch (dir) {
                     case 'left':
-                        cube.position.x = GameStep * (CharacterFunctions.getFrontPosition().x - 1) + GameStep / 2;
+                        switch (CharacterFunctions.getFrontPosition().x - 1) {
+                            case -1:
+                                cube.position.x = GameStep * (CharacterFunctions.getFrontPosition().x - 1) + GameStep / 2;
+                                break;
+                            case 0:
+                                cube.position.x = GameStep * (CharacterFunctions.getFrontPosition().x - 1);
+                                break;
+                            case 1:
+                                cube.position.x = GameStep * (CharacterFunctions.getFrontPosition().x - 1) - GameStep / 2;
+                                break;
+                            default:
+                                break;
+                        }
                         cube.position.z = GameStep * CharacterFunctions.getFrontPosition().y;
                         block.position.x = GameStep * (CharacterFunctions.getFrontPosition().x - 1);
                         block.position.z = GameStep * CharacterFunctions.getFrontPosition().y;
                         break;
                     case 'right':
-                        cube.position.x = GameStep * (CharacterFunctions.getFrontPosition().x + 1) - GameStep / 2;
+                        switch (CharacterFunctions.getFrontPosition().x + 1) {
+                            case -1:
+                                cube.position.x = GameStep * (CharacterFunctions.getFrontPosition().x + 1) + GameStep / 2;
+                                break;
+                            case 0:
+                                cube.position.x = GameStep * (CharacterFunctions.getFrontPosition().x + 1);
+                                break;
+                            case 1:
+                                cube.position.x = GameStep * (CharacterFunctions.getFrontPosition().x + 1) - GameStep / 2;
+                                break;
+                            default:
+                                break;
+                        }
                         cube.position.z = GameStep * CharacterFunctions.getFrontPosition().y;
                         block.position.x = GameStep * (CharacterFunctions.getFrontPosition().x + 1);
                         block.position.z = GameStep * CharacterFunctions.getFrontPosition().y;
                         break;
                     case 'top':
-                        cube.position.x = GameStep * CharacterFunctions.getFrontPosition().x;
+                        switch (CharacterFunctions.getFrontPosition().x) {
+                            case -1:
+                                cube.position.x = GameStep * CharacterFunctions.getFrontPosition().x + GameStep / 2;
+                                break;
+                            case 0:
+                                cube.position.x = GameStep * CharacterFunctions.getFrontPosition().x;
+                                break;
+                            case 1:
+                                cube.position.x = GameStep * CharacterFunctions.getFrontPosition().x - GameStep / 2;
+                                break;
+                            default:
+                                break;
+                        }
                         cube.position.z = GameStep * (CharacterFunctions.getFrontPosition().y - 1);
                         block.position.x = GameStep * CharacterFunctions.getFrontPosition().x;
                         block.position.z = GameStep * (CharacterFunctions.getFrontPosition().y - 1);
@@ -59,21 +98,26 @@ const loadPlayerVision = () => {
 const resetHoverVisionBlocks = (direction = null) => {
     switch (direction) {
         case 'top':
+            GameElements.blocks.vision.top.children[0].material.color = { r: 0.7688565850257874, g: 0.8000000715255737, b: 0 };
             return (GameElements.blocks.vision.top.children[0].material.opacity = VisionBlocksOpacity);
         case 'left':
+            GameElements.blocks.vision.left.children[0].material.color = { r: 0.7688565850257874, g: 0.8000000715255737, b: 0 };
             return (GameElements.blocks.vision.left.children[0].material.opacity = VisionBlocksOpacity);
         case 'right':
+            GameElements.blocks.vision.right.children[0].material.color = { r: 0.7688565850257874, g: 0.8000000715255737, b: 0 };
             return (GameElements.blocks.vision.right.children[0].material.opacity = VisionBlocksOpacity);
         default:
-            if (GameElements.blocks.vision.right) GameElements.blocks.vision.right.children[0].material.opacity = VisionBlocksOpacity;
-            if (GameElements.blocks.vision.top) GameElements.blocks.vision.top.children[0].material.opacity = VisionBlocksOpacity;
-            if (GameElements.blocks.vision.left) GameElements.blocks.vision.left.children[0].material.opacity = VisionBlocksOpacity;
+            for (const dir of ['top', 'left', 'right']) {
+                if (GameElements.blocks.vision[dir]) {
+                    GameElements.blocks.vision[dir].children[0].material.opacity = VisionBlocksOpacity;
+                    GameElements.blocks.vision[dir].children[0].material.color = { r: 0.7688565850257874, g: 0.8000000715255737, b: 0 };
+                }
+            }
             break;
     }
 };
 
 const getObstacle = (x, y) => {
-    const loader = new GLTFLoader();
     return new Promise((resolve) => {
         loader.load(Meteor, (gltf) => {
             const meteor = gltf.scene;
@@ -81,13 +125,52 @@ const getObstacle = (x, y) => {
             meteor.position.z = y * GameStep;
             meteor.scale.set(0.6, 0.6, 0.6);
 
+            meteor.type = GlobalTypes.caseTypes.obstacle;
+            meteor.speedRotation = Math.random() * (0.02 - 0.001) + 0.001;
+            meteor.directionRotation = Math.random() > 0.5 ? 'x' : 'y';
+
             resolve(meteor);
         });
     });
 };
 
-const placeBlock = (block, x, y) => {
-    const blockInfo = ItemsFunctions.getFileNameAndRotation(block);
+const removeBlockVision = () => {
+    for (const blockVision of GameElements.blocks.vision.cubes) {
+        GameElements.scene.remove(blockVision);
+    }
+    if (GameElements.blocks.vision.right) {
+        GameElements.scene.remove(GameElements.blocks.vision.right);
+        GameElements.blocks.vision.right = null;
+    }
+    if (GameElements.blocks.vision.top) {
+        GameElements.scene.remove(GameElements.blocks.vision.top);
+        GameElements.blocks.vision.top = null;
+    }
+    if (GameElements.blocks.vision.left) {
+        GameElements.scene.remove(GameElements.blocks.vision.left);
+        GameElements.blocks.vision.left = null;
+    }
+    GameElements.blocks.vision.cubes = [];
 };
 
-export const GameBlocks = { loadPlayerVision, getObstacle, resetHoverVisionBlocks, placeBlock };
+const placeBlock = (block, x, y) => {
+    const blockInfo = ItemsFunctions.getFileNameAndRotation(block);
+
+    loader.load(Block, (gltf) => {
+        const block = gltf.scene;
+        block.position.x = x * GameStep;
+        block.position.z = y * GameStep;
+        block.scale.set(1.2, 1.2, 1.2);
+
+        block.type = GlobalTypes.caseTypes.block;
+
+        for (const line of GameElements.blocks.map) {
+            if (line.id === -y) {
+                line.cases[x + 1] = block;
+                GameElements.scene.add(block);
+            }
+        }
+    });
+};
+
+export const GameBlocks = { loadPlayerVision, getObstacle, resetHoverVisionBlocks, placeBlock, removeBlockVision };
