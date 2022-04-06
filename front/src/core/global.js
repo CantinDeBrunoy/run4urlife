@@ -41,7 +41,7 @@ export const Game = {
         value: 0,
         startDate: null,
     },
-    difficulty: null,
+    difficulty: cacheSettings && cacheSettings.difficulty ? cacheSettings.difficulty : GlobalTypes.difficulties.average,
     graphism: {
         antialias: cacheSettings && cacheSettings.antialias ? true : false,
         precision: cacheSettings && cacheSettings.precision ? cacheSettings.precision : GlobalTypes.graphismPrecision.low,

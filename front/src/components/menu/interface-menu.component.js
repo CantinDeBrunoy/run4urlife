@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Game, GlobalTypes } from '../../core/global';
-import { GameActions, TabTypes } from '../../common/constant';
-import { useNavigate } from 'react-router-dom';
+import { TabTypes } from '../../common/constant';
 import Toggle from '../animations/interface-animation-toggle.component';
 import InterfaceSettingsComponent from './interface-settings.component';
+import InterfacedifficultyComponent from './interface-difficulty.component';
 import TextRandomEffectComponent from '../animations/text-random-animation.component';
 import { gameReset } from '../../core/game';
 import { GameConsumerHook } from '../../store/game.store';
+import { renderZoomIn, ZoomIn } from '../../3d/background-scene.3d';
 
 const InterfaceMenuComponent = (menu) => {
     const [GameStore, dispatch] = GameConsumerHook();
     const [open, setOpen] = useState(true);
     const [component, setComponent] = useState();
 
-    const navigate = useNavigate();
-
     const toggle = (tab = '') => {
         switch (tab) {
             case TabTypes.Settings:
                 setComponent(<InterfaceSettingsComponent toggle={toggle} />);
+                break;
+            case TabTypes.difficulty:
+                setComponent(<InterfacedifficultyComponent toggle={toggle} />);
                 break;
             default:
                 break;
@@ -30,7 +31,12 @@ const InterfaceMenuComponent = (menu) => {
     useEffect(() => {
         window.localStorage.setItem(
             'settings',
-            JSON.stringify({ antialias: GameStore.antialias, precision: GameStore.precision, volume: GameStore.volume }),
+            JSON.stringify({
+                antialias: GameStore.antialias,
+                precision: GameStore.precision,
+                volume: GameStore.volume,
+                difficulty: GameStore.difficulty,
+            }),
         );
     }, [GameStore]);
 
@@ -44,7 +50,8 @@ const InterfaceMenuComponent = (menu) => {
                     <ul>
                         <div
                             onClick={() => {
-                                if (!Game.state) navigate('/game');
+                                toggle(TabTypes.difficulty);
+                                renderZoomIn();
                             }}
                         >
                             <TextRandomEffectComponent text={`${window.location.pathname === '/' ? 'Démarrer une partie' : 'Reprendre la partie'}`} />

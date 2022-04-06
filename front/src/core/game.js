@@ -34,7 +34,6 @@ export const gameInit = () => {
     MapGenerationFunctions.createGrid();
     InventoryFunctions.init();
     Game.state = GlobalTypes.states.initialized;
-    Game.difficulty = GlobalTypes.difficulties.impossible;
     Game.timer.value = 0;
 };
 
