@@ -27,7 +27,10 @@ export const PrecisionLabels = {
     Low: 'bas',
 };
 
+<<<<<<< HEAD
 export const VisionPlaneName = 'plane-vision';
+=======
+>>>>>>> 246ac01911456131ba5a0651c631cc8beef74bfd
 export const DifficultiesLabels = {
     Easy: 'facile',
     Average: 'moyen',
