@@ -59,18 +59,8 @@ export const renderZoomIn = () => {
     const x = 0.02;
     const y = 0.0033;
     const z = 0.008;
-    let vitesse;
+    let vitesse = 1;
     if (BackgroundElements.camera.position.z > 2) {
-        // if (BackgroundElements.camera.position.z > 4.75) {
-        //     vitesse = 0.1;
-        // } else if (BackgroundElements.camera.position.z > 4.25) {
-        //     vitesse = 0.4;
-        // } else if (BackgroundElements.camera.position.z > 2.25) {
-        //     vitesse = 0.6;
-        // } else {
-        //     vitesse = 0.04;
-        // }
-        vitesse = 1;
         BackgroundElements.camera.position.z -= x * vitesse;
         BackgroundElements.camera.position.y += y * vitesse;
         BackgroundElements.camera.position.x -= z * vitesse;
@@ -83,10 +73,8 @@ export const renderZoomOut = () => {
     const x = 0.02;
     const y = 0.0033;
     const z = 0.008;
-    let vitesse;
+    let vitesse = -1;
     if (BackgroundElements.camera.position.z < 5) {
-        vitesse = -1;
-
         BackgroundElements.camera.position.z -= x * vitesse;
         BackgroundElements.camera.position.y += y * vitesse;
         BackgroundElements.camera.position.x -= z * vitesse;

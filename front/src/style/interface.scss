@@ -57,6 +57,104 @@
     }
 }
 
+.difficulty {
+    position: absolute;
+    margin-top: 200px;
+    width: 20em;
+    z-index: 10;
+
+    text-align: center;
+    font-size: $menuFontSize;
+    font-family: 'Space Grotesk';
+    color: $menuColor;
+
+    & > ul > div > div {
+        padding: 0.5em;
+
+        transition: font-size 0.2s ease-out;
+        cursor: pointer;
+        list-style-type: none;
+
+        span.space {
+            opacity: 0;
+            letter-spacing: -10px;
+        }
+
+        &:hover {
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $menuFontSize;
+
+            animation-name: rotate;
+            animation-duration: 2.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            25% {
+                transform: rotateZ(-1.4deg);
+            }
+            75% {
+                transform: rotateZ(1.4deg);
+            }
+        }
+    }
+}
+.difficulty_rightSide {
+    width: 400px;
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    right: 0px;
+    border: 2px double #06d483;
+    outline: 2px solid #06d483;
+    outline-offset: -7px;
+    //border: thick double #06d483;
+    padding: 30px;
+    border-radius: 5px;
+}
+.difficulty_leftSide {
+    width: 200px;
+    position: absolute;
+    left: 30px;
+}
+.difficulty {
+    height: 400px;
+    width: 800px;
+    margin-left: 10%;
+    & > div > ul > div > div {
+        padding: 0.5em;
+
+        transition: font-size 0.2s ease-out;
+        cursor: pointer;
+        list-style-type: none;
+
+        span.space {
+            opacity: 0;
+            letter-spacing: -10px;
+        }
+
+        &:hover {
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $menuFontSize;
+
+            animation-name: rotate;
+            animation-duration: 2.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            25% {
+                transform: rotateZ(-1.4deg);
+            }
+            75% {
+                transform: rotateZ(1.4deg);
+            }
+        }
+    }
+}
+
 .settings {
     h3 {
         font-size: 25px;
