@@ -5,7 +5,7 @@ import { Game, GlobalTypes } from './global';
 
 const mapDestructLoop = async () => {
     await asyncTimeout(getTimeout());
-    //MapGenerationFunctions.deleteFirstLine();
+    MapGenerationFunctions.deleteFirstLine();
     if (Game.state === GlobalTypes.states.playing) requestAnimationFrame(mapDestructLoop);
 };
 
@@ -41,7 +41,9 @@ export const gameStart = () => {
     if (!Game.timer.startDate) Game.timer.startDate = new Date();
     Game.state = GlobalTypes.states.playing;
     startTimer();
-    mapDestructLoop();
+    setTimeout(() => {
+        mapDestructLoop();
+    }, 10000);
     addInventoryLoop();
 };
 

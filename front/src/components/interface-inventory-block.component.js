@@ -3,7 +3,7 @@ import { Game } from '../core/global';
 //
 import { GameConsumerHook } from '../store/game.store';
 import PropTypes from 'prop-types';
-import { GameActions } from '../common/constant';
+import { BlockNames, GameActions } from '../common/constant';
 import { ItemsFunctions } from '../core/functions/items';
 import blockImg41 from '../assets/models/blocks/svg/Block-4-1.svg';
 import blockImg31 from '../assets/models/blocks/svg/Block-3-1.svg';
@@ -19,13 +19,13 @@ const InterfaceInventoryBlockComponent = ({ block, index }) => {
         if (!ItemsFunctions.isBlock(block)) return;
         const blockTypes = ItemsFunctions.getFileNameAndRotation(block);
         //trouver le bon block
-        if (blockTypes.fileName === 'Block-2-1') {
+        if (blockTypes.fileName === BlockNames.block21) {
             setBlockImg(blockImg21);
-        } else if (blockTypes.fileName === 'Block-2-2') {
+        } else if (blockTypes.fileName === BlockNames.block22) {
             setBlockImg(blockImg22);
-        } else if (blockTypes.fileName === 'Block-3-1') {
+        } else if (blockTypes.fileName === BlockNames.block31) {
             setBlockImg(blockImg31);
-        } else if (blockTypes.fileName === 'Block-4-1') {
+        } else if (blockTypes.fileName === BlockNames.block41) {
             setBlockImg(blockImg41);
         }
         //trouver la bonne rotation
