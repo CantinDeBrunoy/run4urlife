@@ -5,6 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { GameElements } from './global.3d';
 import VisionBlock from '../assets/models/blocks/visionblock.glb';
 import Meteor from '../assets/models/meteor.glb';
+import { ItemsFunctions } from '../core/functions/items';
 
 const loadPlayerVision = () => {
     const vision = CharacterFunctions.getVision();

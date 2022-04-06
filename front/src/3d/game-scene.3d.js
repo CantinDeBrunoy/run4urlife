@@ -37,6 +37,7 @@ const init = (canvas, fov = 35) => {
     GameBlocks.loadPlayerVision();
 
     handleMouseMove();
+    handleMouseClick();
 };
 const addHelpers = () => {
     GameElements.controls = new OrbitControls(GameElements.camera, GameElements.renderer.domElement);
@@ -196,4 +197,46 @@ const handleMouseMove = () => {
     });
 };
 
-export const GameScene = { init, render, addHelpers };
+const handleMouseClick = () => {
+    const raycaster = new THREE.Raycaster();
+    const mouseClick = new THREE.Vector2();
+
+    window.addEventListener('click', (event) => {
+        mouseClick.set((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1);
+
+        raycaster.setFromCamera(mouseClick, GameElements.camera);
+        const intersects = raycaster.intersectObjects(GameElements.scene.children, false);
+
+        for (const item of intersects) {
+            if (item.object && item.object.name.includes(VisionPlaneName)) {
+                switch (item.object.name) {
+                    case VisionPlaneName + 'top':
+                        GameBlocks.placeBlock(
+                            Game.player.inventory.blocks[Game.player.inventory.selected],
+                            CharacterFunctions.getFrontPosition().x,
+                            CharacterFunctions.getFrontPosition().y - 1,
+                        );
+                        break;
+                    case VisionPlaneName + 'right':
+                        GameBlocks.placeBlock(
+                            Game.player.inventory.blocks[Game.player.inventory.selected],
+                            CharacterFunctions.getFrontPosition().x + 1,
+                            CharacterFunctions.getFrontPosition().y,
+                        );
+                        break;
+                    case VisionPlaneName + 'left':
+                        GameBlocks.placeBlock(
+                            Game.player.inventory.blocks[Game.player.inventory.selected],
+                            CharacterFunctions.getFrontPosition().x - 1,
+                            CharacterFunctions.getFrontPosition().y,
+                        );
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    });
+};
+
+export const GameScene = { init, render, addHelpers, handleMouseClick };

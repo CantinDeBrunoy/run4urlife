@@ -35,6 +35,7 @@ export const Game = {
         },
         inventory: {
             blocks: [],
+            selected: null,
         },
     },
     timer: {
