@@ -53,6 +53,7 @@ const reducer = (state, action) => {
                 precision: action.precision,
             };
         case GameActions.selectBlock:
+            Game.player.inventory.selected = action.index;
             return {
                 ...state,
                 selectedBlock: action.index,

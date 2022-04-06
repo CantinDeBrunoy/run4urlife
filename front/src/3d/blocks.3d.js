@@ -5,6 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { GameElements } from './global.3d';
 import VisionBlock from '../assets/models/blocks/visionblock.glb';
 import Meteor from '../assets/models/meteor.glb';
+import { ItemsFunctions } from '../core/functions/items';
 
 const loadPlayerVision = () => {
     const vision = CharacterFunctions.getVision();
@@ -86,4 +87,8 @@ const loadObstacle = (x, y) => {
     });
 };
 
-export const GameBlocks = { loadPlayerVision, loadObstacle, resetHoverVisionBlocks };
+const placeBlock = (block, x, y) => {
+    const blockInfo = ItemsFunctions.getFileNameAndRotation(block);
+};
+
+export const GameBlocks = { loadPlayerVision, loadObstacle, resetHoverVisionBlocks, placeBlock };
