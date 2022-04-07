@@ -9,6 +9,7 @@ import { GameLight } from './light.3d';
 import { CharacterFunctions } from '../core/functions/character';
 import { GameBlocks } from './blocks.3d';
 import { PlayerFunctions } from '../core/functions/player';
+import { gameStart } from '../core/game';
 
 const Map3D = [];
 
@@ -178,6 +179,7 @@ const handleMouseMove = () => {
     const mouseClick = new THREE.Vector2();
 
     window.addEventListener('mousemove', (event) => {
+        if (Game.state === GlobalTypes.states.paused || Game.state === GlobalTypes.states.finished) return;
         mouseClick.set((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1);
 
         raycaster.setFromCamera(mouseClick, GameElements.camera);
@@ -234,6 +236,8 @@ const handleMouseClick = () => {
     const mouseClick = new THREE.Vector2();
 
     window.addEventListener('click', (event) => {
+        if (Game.state === GlobalTypes.states.paused || Game.state === GlobalTypes.states.finished) return;
+
         mouseClick.set((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1);
 
         raycaster.setFromCamera(mouseClick, GameElements.camera);
@@ -256,6 +260,7 @@ const handleMouseClick = () => {
                                 GameBlocks.removeBlockVision();
                                 PlayerFunctions.placeBlock(Game.player.position.x, Game.player.position.y + 1, Game.player.inventory.selected);
                                 GameBlocks.loadPlayerVision();
+                                if (Game.state === GlobalTypes.states.initialized) gameStart();
                             }
                             break;
                         case VisionPlaneName + 'right':
@@ -271,6 +276,7 @@ const handleMouseClick = () => {
                                 GameBlocks.removeBlockVision();
                                 PlayerFunctions.placeBlock(Game.player.position.x + 1, Game.player.position.y, Game.player.inventory.selected);
                                 GameBlocks.loadPlayerVision();
+                                if (Game.state === GlobalTypes.states.initialized) gameStart();
                             }
                             break;
                         case VisionPlaneName + 'left':
@@ -286,6 +292,7 @@ const handleMouseClick = () => {
                                 GameBlocks.removeBlockVision();
                                 PlayerFunctions.placeBlock(Game.player.position.x - 1, Game.player.position.y, Game.player.inventory.selected);
                                 GameBlocks.loadPlayerVision();
+                                if (Game.state === GlobalTypes.states.initialized) gameStart();
                             }
                             break;
                         default:
