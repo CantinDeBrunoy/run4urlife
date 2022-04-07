@@ -236,3 +236,16 @@
         }
     }
 }
+
+//background
+.backgroundScreen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.6;
+    z-index: 9;
+    &::backdrop {
+        filter: blur(4px);
+    }
+}
