@@ -6,6 +6,7 @@ import InterfaceInventoryComponent from '../components/interface-inventory.compo
 import InterfaceTimerComponent from '../components/interface-timer.component';
 import InterfaceBackgroundScreenComponent from '../components/interface-background-screen.component';
 import InterfaceGameOverComponent from '../components/interface-gameover.component';
+import InterfaceSettingsButtonComponent from '../components/interface-settings-button.component';
 
 const GamePage = () => {
     return (
@@ -15,6 +16,7 @@ const GamePage = () => {
             <GameProvider>
                 <GameComponent />
                 <InterfaceInventoryComponent />
+                <InterfaceSettingsButtonComponent />
                 <InterfaceBackgroundScreenComponent />
                 <InterfaceGameOverComponent />
             </GameProvider>

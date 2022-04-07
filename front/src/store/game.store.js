@@ -4,6 +4,7 @@ import { GameActions } from '../common/constant';
 import { PlayerFunctions } from '../core/functions/player';
 import { gameFinish, gameInit, gamePause, gameStart } from '../core/game';
 import { Game, GlobalTypes } from '../core/global';
+import { GameElements } from '../3d/global.3d';
 
 const cacheSettings = JSON.parse(window.localStorage.getItem('settings'));
 
@@ -19,10 +20,14 @@ const initialState = {
 const reducer = (state, action) => {
     switch (action.type) {
         case GameActions.init:
-            gameInit();
-            GameScene.init(action.canvas);
-            GameScene.addHelpers();
-            requestAnimationFrame(GameScene.render);
+            if (!GameElements.scene) {
+                gameInit();
+                GameScene.init(action.canvas);
+                GameScene.addHelpers();
+                requestAnimationFrame(GameScene.render);
+            } else {
+                Game.state = GlobalTypes.states.initialized;
+            }
             return {
                 ...state,
                 precision: Game.graphism.precision,
