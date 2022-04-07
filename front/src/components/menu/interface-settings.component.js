@@ -12,7 +12,7 @@ const InterfaceSettingsComponent = ({ toggle }) => {
     };
 
     return (
-        <div className="settings">
+        <div className={`settings ${window.location.pathname !== '/' ? 'ingame' : ''}`}>
             <h2>Paramètres</h2>
             <div className="volume">
                 <h3>Volume</h3>
