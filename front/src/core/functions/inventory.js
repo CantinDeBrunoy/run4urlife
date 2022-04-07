@@ -64,4 +64,5 @@ export const InventoryFunctions = {
     deleteBlock,
     init,
     clear,
+    getFirstEmptyIndice,
 };
