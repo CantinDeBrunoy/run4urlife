@@ -4,10 +4,13 @@ import { DateTime } from 'luxon';
 
 const InterfaceTimerComponent = () => {
     const [timer, setTimer] = useState('');
+    const [score, setScore] = useState(0);
     useEffect(() => {
         const interval = setInterval(() => {
             const dt = DateTime.fromMillis(Game.timer.value).setLocale('fr').toFormat('mm:ss');
+            const scoreTmp = Game.score;
             setTimer(dt);
+            setScore(Game.score);
         }, 1000);
 
         return () => {
@@ -15,8 +18,9 @@ const InterfaceTimerComponent = () => {
         };
     }, []);
     return (
-        <div className="timer">
-            <span>{timer}</span>
+        <div className="HUD">
+            <span className="timer">{timer}</span>
+            <span className="score">{score}</span>
         </div>
     );
 };
