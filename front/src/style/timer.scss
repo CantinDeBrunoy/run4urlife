@@ -1,0 +1,11 @@
+.timer {
+    z-index: 99;
+    position: absolute;
+    color: #06d483;
+    font-size: xx-large;
+    font-family: 'Space Grotesk';
+    top: 10px;
+    left: 50%;
+    width: 100px;
+    transform: translate(-50%, 0%);
+}
