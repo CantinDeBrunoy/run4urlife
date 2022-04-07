@@ -24,6 +24,10 @@ const startTimer = () => {
     const intervalID = setInterval(() => {
         if (Game.state === GlobalTypes.states.playing) {
             Game.timer.value += 100;
+            if (Game.timer.value % 1000 === 0) {
+                Game.score += Math.pow(Math.floor(Game.timer.value / 1000), 2);
+                console.log(Game.timer.value, Game.score);
+            }
         } else {
             clearInterval(intervalID);
         }
