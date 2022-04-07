@@ -27,8 +27,8 @@ const addRandomBlock = () => {
     if (emptyIndice !== null) {
         const top = getRandomInt(0, 1);
         const right = getRandomInt(0, 1);
-        const bottom = top + right < 1 ? 1 : getRandomInt(0, 1);
-        const left = top + right + bottom <= 1 ? 1 : getRandomInt(0, 1);
+        const left = top + right < 1 ? 1 : getRandomInt(0, 1);
+        const bottom = top + left + right <= 1 ? 1 : getRandomInt(0, 1);
 
         Game.player.inventory.blocks[emptyIndice] = ItemsFunctions.createBlock(top, right, bottom, left);
     }
