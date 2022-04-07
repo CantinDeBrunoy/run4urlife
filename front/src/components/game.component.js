@@ -9,8 +9,33 @@ const GameComponent = () => {
 
     useEffect(() => {
         dispatch({ type: GameActions.init, canvas: GameCanvasRef.current });
-        dispatch({ type: GameActions.play });
         console.log(Game);
+
+        const interval = setInterval(() => {
+            switch (Game.state) {
+                case GlobalTypes.states.playing:
+                    if (gameStore.gameState !== GlobalTypes.states.playing) {
+                        dispatch({ type: GameActions.play });
+                    }
+                    break;
+                case GlobalTypes.states.finished:
+                    if (gameStore.gameState !== GlobalTypes.states.finished) {
+                        dispatch({ type: GameActions.finish });
+                    }
+                    break;
+                case GlobalTypes.states.paused:
+                    if (gameStore.gameState !== GlobalTypes.states.paused) {
+                        dispatch({ type: GameActions.pause });
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }, 100);
+
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
 
     return (

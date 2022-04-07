@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer } from 'react';
 import { GameScene } from '../3d/game-scene.3d';
 import { GameActions } from '../common/constant';
 import { PlayerFunctions } from '../core/functions/player';
-import { gameInit, gamePause, gameStart } from '../core/game';
+import { gameFinish, gameInit, gamePause, gameStart } from '../core/game';
 import { Game, GlobalTypes } from '../core/global';
 
 const cacheSettings = JSON.parse(window.localStorage.getItem('settings'));
@@ -30,16 +30,22 @@ const reducer = (state, action) => {
                 gameState: GlobalTypes.states.initialized,
             };
         case GameActions.pause:
-            gamePause();
+            if (Game.state !== GlobalTypes.states.paused) gamePause();
             return {
                 ...state,
                 gameState: GlobalTypes.states.paused,
             };
         case GameActions.play:
-            gameStart();
+            if (Game.state !== GlobalTypes.states.playing) gameStart();
             return {
                 ...state,
                 gameState: GlobalTypes.states.playing,
+            };
+        case GameActions.finish:
+            if (Game.state !== GlobalTypes.states.finished) gameFinish();
+            return {
+                ...state,
+                gameState: GlobalTypes.states.finished,
             };
         case GameActions.difficulty:
             Game.difficulty = action.difficulty;

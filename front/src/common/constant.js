@@ -14,6 +14,7 @@ export const GameActions = {
     difficulty: 'difficulty',
     play: 'play',
     init: 'init',
+    finish: 'finish',
     antialias: 'antialias',
     precision: 'precision',
     selectBlock: 'selectBlock',

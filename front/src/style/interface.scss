@@ -237,6 +237,51 @@
     }
 }
 
+.gameover {
+    position: absolute;
+    @extend %mid;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    color: $menuColor;
+    font-size: $menuFontSize;
+    font-family: 'Space Grotesk';
+    z-index: 10;
+
+    h2 {
+        margin-block: 20px;
+    }
+
+    .container {
+        margin-block: 10px;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+
+        .info {
+            font-weight: bold;
+            font-size: 20px;
+        }
+    }
+    .restart {
+        margin-block: 20px;
+        border: 2px solid transparent;
+        outline: 2px solid transparent;
+        padding: 10px;
+        outline-offset: -7px;
+        transition: all ease 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            border: 2px solid $menuColor;
+            outline: 2px solid $menuColor;
+        }
+    }
+}
+
 //background
 .backgroundScreen {
     position: absolute;

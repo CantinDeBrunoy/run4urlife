@@ -5,6 +5,7 @@ import { GameProvider } from '../store/game.store';
 import InterfaceInventoryComponent from '../components/interface-inventory.component';
 import InterfaceTimerComponent from '../components/interface-timer.component';
 import InterfaceBackgroundScreenComponent from '../components/interface-background-screen.component';
+import InterfaceGameOverComponent from '../components/interface-gameover.component';
 
 const GamePage = () => {
     return (
@@ -15,6 +16,7 @@ const GamePage = () => {
                 <GameComponent />
                 <InterfaceInventoryComponent />
                 <InterfaceBackgroundScreenComponent />
+                <InterfaceGameOverComponent />
             </GameProvider>
         </div>
     );
