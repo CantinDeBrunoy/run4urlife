@@ -1,11 +1,6 @@
 // modules
 @use 'sass:color';
 
-// animations
-.toggle {
-    transition: transform 0.4s, opacity 1s;
-}
-
 .toggle.out {
     transform: translateX(-100%);
     opacity: 0;
@@ -242,8 +237,7 @@
 
 .settingsButton {
     .settingsButtonImg {
-        width: 52pt;
-        height: 52pt;
+        width: 52px;
         position: absolute;
         z-index: 99;
         top: 10px;

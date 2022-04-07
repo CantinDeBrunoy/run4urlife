@@ -44,6 +44,19 @@ h4 {
     font-size: $regularFontSize;
 }
 
+.game-info {
+    font-size: 18px;
+    transition: opacity ease 0.5s;
+    opacity: 0;
+    font-family: 'Space Grotesk';
+    color: $menuColor;
+    animation: none;
+
+    &.active {
+        animation: blink infinite 2s 2s;
+    }
+}
+
 %mid {
     position: absolute;
     top: 50%;
@@ -57,4 +70,16 @@ h4 {
 %col {
     display: flex;
     flex-direction: column;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

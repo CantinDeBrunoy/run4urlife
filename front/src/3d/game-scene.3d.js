@@ -11,8 +11,6 @@ import { GameBlocks } from './blocks.3d';
 import { PlayerFunctions } from '../core/functions/player';
 import { gameStart } from '../core/game';
 
-const Map3D = [];
-
 const init = (canvas, fov = 35) => {
     GameElements.scene = new THREE.Scene();
 
@@ -94,7 +92,7 @@ let time = null,
 const render = (timestamp) => {
     if (time === null) time = timestamp;
     let seg = Math.floor((timestamp - time) / delay);
-    if (seg > frame) {
+    if ((Game.state === GlobalTypes.states.playing || Game.state === GlobalTypes.states.initialized) && seg > frame) {
         frame = seg;
         let delta;
         if (GameElements.controls) {

@@ -20,6 +20,11 @@ export const GameActions = {
     selectBlock: 'selectBlock',
     placeBlock: 'placeBlock',
     setVolume: 'setVolume',
+    openSettings: 'openSettings',
+    closeSettings: 'closeSettings',
+    refreshInventory: 'refreshInventory',
+    activeRefreshInventory: 'activeRefreshInventory',
+    setInventoryRefreshCooldown: 'setInventoryRefreshCooldown',
 };
 
 export const PrecisionLabels = {

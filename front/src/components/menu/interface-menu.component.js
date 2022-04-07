@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { TabTypes } from '../../common/constant';
 import Toggle from '../animations/interface-animation-toggle.component';
 import InterfaceSettingsComponent from './interface-settings.component';
@@ -7,9 +6,9 @@ import InterfacedifficultyComponent from './interface-difficulty.component';
 import TextRandomEffectComponent from '../animations/text-random-animation.component';
 import { gameReset } from '../../core/game';
 import { GameConsumerHook } from '../../store/game.store';
-import { renderZoomIn, ZoomIn } from '../../3d/background-scene.3d';
+import { renderZoomIn } from '../../3d/background-scene.3d';
 
-const InterfaceMenuComponent = (menu) => {
+const InterfaceMenuComponent = () => {
     const [GameStore, dispatch] = GameConsumerHook();
     const [open, setOpen] = useState(true);
     const [component, setComponent] = useState();
@@ -77,10 +76,6 @@ const InterfaceMenuComponent = (menu) => {
             <Toggle visible={!open}>{component}</Toggle>
         </div>
     );
-};
-
-InterfaceMenuComponent.propTypes = {
-    isMain: PropTypes.bool,
 };
 
 export default InterfaceMenuComponent;

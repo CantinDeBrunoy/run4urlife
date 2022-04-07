@@ -5,14 +5,18 @@ import { Game, GlobalTypes } from './global';
 
 const mapDestructLoop = async () => {
     await asyncTimeout(getTimeout());
-    MapGenerationFunctions.deleteFirstLine();
-    if (Game.state === GlobalTypes.states.playing) requestAnimationFrame(mapDestructLoop);
+    if (Game.state === GlobalTypes.states.playing) {
+        MapGenerationFunctions.deleteFirstLine();
+        requestAnimationFrame(mapDestructLoop);
+    }
 };
 
 const addInventoryLoop = async () => {
     await asyncTimeout(getTimeout());
-    InventoryFunctions.addRandomBlock();
-    if (Game.state === GlobalTypes.states.playing) requestAnimationFrame(addInventoryLoop);
+    if (Game.state === GlobalTypes.states.playing) {
+        InventoryFunctions.addRandomBlock();
+        requestAnimationFrame(addInventoryLoop);
+    }
 };
 
 const getTimeout = () => {
