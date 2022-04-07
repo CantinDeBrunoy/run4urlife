@@ -7,9 +7,13 @@ const InterfaceGameOverComponent = () => {
     const [gameStore, dispatch] = GameConsumerHook();
     const [timer, setTimer] = useState(Game.timer.value);
     const [active, setActive] = useState(false);
+    const [score, setScore] = useState(0);
 
     useEffect(() => {
-        if (active) setTimer(Game.timer.value);
+        if (active) {
+            setTimer(Game.timer.value);
+            setScore(Game.score);
+        }
     }, [active]);
 
     useEffect(() => {
@@ -26,7 +30,7 @@ const InterfaceGameOverComponent = () => {
                 </div>
                 <div className="container">
                     <span>Ton score</span>
-                    <span className="info">1533</span>
+                    <span className="info">{score}</span>
                 </div>
                 <div className="restart">Rejouer</div>
             </div>

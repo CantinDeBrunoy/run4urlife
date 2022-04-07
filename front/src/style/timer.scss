@@ -1,4 +1,4 @@
-.timer {
+.HUD {
     z-index: 99;
     position: absolute;
     color: #06d483;
@@ -8,4 +8,7 @@
     left: 50%;
     width: 100px;
     transform: translate(-50%, 0%);
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
 }
