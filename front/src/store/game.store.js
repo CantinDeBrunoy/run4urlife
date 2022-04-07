@@ -4,7 +4,6 @@ import { GameActions } from '../common/constant';
 import { PlayerFunctions } from '../core/functions/player';
 import { gameFinish, gameInit, gamePause, gameStart } from '../core/game';
 import { Game, GlobalTypes } from '../core/global';
-import { GameElements } from '../3d/global.3d';
 
 const cacheSettings = JSON.parse(window.localStorage.getItem('settings'));
 
@@ -15,19 +14,18 @@ const initialState = {
     precision: cacheSettings && cacheSettings.precision ? cacheSettings.precision : GlobalTypes.graphismPrecision.low,
     difficulty: cacheSettings && cacheSettings.difficulty ? cacheSettings.difficulty : GlobalTypes.difficulties.average,
     volume: cacheSettings && cacheSettings.volume ? cacheSettings.volume : 50,
+    isSettingsActive: false,
+    isInventoryRefresh: true,
+    inventoryRefreshCooldown: 5,
 };
 
 const reducer = (state, action) => {
     switch (action.type) {
         case GameActions.init:
-            if (!GameElements.scene) {
-                gameInit();
-                GameScene.init(action.canvas);
-                GameScene.addHelpers();
-                requestAnimationFrame(GameScene.render);
-            } else {
-                Game.state = GlobalTypes.states.initialized;
-            }
+            gameInit();
+            GameScene.init(action.canvas);
+            if (action.helpers) GameScene.addHelpers();
+            requestAnimationFrame(GameScene.render);
             return {
                 ...state,
                 precision: Game.graphism.precision,
@@ -87,6 +85,37 @@ const reducer = (state, action) => {
                 ...state,
                 volume: action.volume,
             };
+        case GameActions.openSettings:
+            if (Game.state !== GlobalTypes.states.paused) gamePause();
+            return {
+                ...state,
+                isSettingsActive: true,
+                gameState: GlobalTypes.states.paused,
+            };
+        case GameActions.closeSettings:
+            if (Game.timer.value && Game.state !== GlobalTypes.states.playing) gameStart();
+            else if (!Game.timer.value) Game.state = GlobalTypes.states.initialized;
+            return {
+                ...state,
+                isSettingsActive: false,
+                gameState: Game.state,
+            };
+        case GameActions.refreshInventory:
+            return {
+                ...state,
+                isInventoryRefresh: false,
+            };
+        case GameActions.activeRefreshInventory:
+            return {
+                ...state,
+                isInventoryRefresh: true,
+            };
+        case GameActions.setInventoryRefreshCooldown:
+            return {
+                ...state,
+                inventoryRefreshCooldown: action.time,
+            };
+            break;
         default:
             break;
     }

@@ -1,32 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { gameStart } from '../core/game';
-import { Game } from '../core/global';
+import { Game, GlobalTypes } from '../core/global';
 import InterfaceInventoryBlockComponent from './interface-inventory-block.component';
 import refreshImg from '../assets/models/blocks/svg/refresh.svg';
-import { DateTime } from 'luxon';
 import { InventoryFunctions } from '../core/functions/inventory';
+import { GameConsumerHook } from '../store/game.store';
+import { GameActions } from '../common/constant';
 
 const InterfaceInventoryComponent = () => {
+    const [gameStore, dispatch] = GameConsumerHook();
     const [inventory, setInventory] = useState([]);
     const [indexBlockActive, setIndexBlockActive] = useState(0);
-    //const [rotation, setRotation] = useState(false);
-    const [active, setActive] = useState(true);
-    const [time, setTime] = useState(5000);
 
     const handleClickRefresh = () => {
-        setActive(false);
-        InventoryFunctions.init();
-        let tmp = time;
-        const interval = setInterval(() => {
-            if (tmp === 0) {
-                setActive(true);
-                clearInterval(interval);
-                setTime(5000);
-                return;
-            }
-            tmp -= 1000;
-            setTime(tmp);
-        }, 1000);
+        if (Game.state === GlobalTypes.states.playing) {
+            dispatch({ type: GameActions.refreshInventory });
+            InventoryFunctions.init();
+            let tmp = gameStore.inventoryRefreshCooldown;
+            const interval = setInterval(() => {
+                if (tmp === 0) {
+                    dispatch({ type: GameActions.activeRefreshInventory });
+                    clearInterval(interval);
+                    dispatch({ type: GameActions.setInventoryRefreshCooldown, time: 5 });
+                    return;
+                }
+                if (Game.state === GlobalTypes.states.playing) {
+                    tmp -= 1;
+                    dispatch({ type: GameActions.setInventoryRefreshCooldown, time: tmp });
+                }
+            }, 1000);
+        }
     };
 
     useEffect(() => {
@@ -48,9 +50,9 @@ const InterfaceInventoryComponent = () => {
                     />
                 ))}
             </div>
-            <div className="container">
-                <img src={refreshImg} className={` refreshButton ${active ? 'active' : ''}`} onClick={handleClickRefresh} />
-                <span style={{ color: 'white' }}>{DateTime.fromMillis(time).setLocale('fr').toFormat('s')}</span>
+            <div onClick={handleClickRefresh} className={`container ${gameStore.isInventoryRefresh ? 'active' : ''}`}>
+                <img src={refreshImg} className="refreshButton" />
+                <span>{gameStore.inventoryRefreshCooldown}</span>
             </div>
         </div>
     );

@@ -5,18 +5,22 @@ import { Game, GlobalTypes } from './global';
 
 const mapDestructLoop = async () => {
     await asyncTimeout(getTimeout());
-    MapGenerationFunctions.deleteFirstLine();
-    if (Game.state === GlobalTypes.states.playing) requestAnimationFrame(mapDestructLoop);
+    if (Game.state === GlobalTypes.states.playing) {
+        MapGenerationFunctions.deleteFirstLine();
+        requestAnimationFrame(mapDestructLoop);
+    }
 };
 
 const addInventoryLoop = async () => {
-    await asyncTimeout(getTimeout() / 3);
-    InventoryFunctions.addRandomBlock();
-    if (Game.state === GlobalTypes.states.playing) requestAnimationFrame(addInventoryLoop);
+    await asyncTimeout(getTimeout());
+    if (Game.state === GlobalTypes.states.playing) {
+        InventoryFunctions.addRandomBlock();
+        requestAnimationFrame(addInventoryLoop);
+    }
 };
 
 const getTimeout = () => {
-    let timeout = -Game.difficulty * (Game.timer.value / 1000) ** 2 + 5000;
+    let timeout = -Game.difficulty * (Game.timer.value / 1000) ** 2 + 3000;
     return timeout > 100 ? timeout : 100;
 };
 
