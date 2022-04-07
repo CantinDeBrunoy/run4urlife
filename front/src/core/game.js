@@ -12,7 +12,7 @@ const mapDestructLoop = async () => {
 };
 
 const addInventoryLoop = async () => {
-    await asyncTimeout(getTimeout());
+    await asyncTimeout(getTimeout() / 3);
     if (Game.state === GlobalTypes.states.playing) {
         InventoryFunctions.addRandomBlock();
         requestAnimationFrame(addInventoryLoop);
@@ -20,7 +20,7 @@ const addInventoryLoop = async () => {
 };
 
 const getTimeout = () => {
-    let timeout = -Game.difficulty * (Game.timer.value / 1000) ** 2 + 3000;
+    let timeout = -Game.difficulty * (Game.timer.value / 1000) ** 2 + 5000;
     return timeout > 100 ? timeout : 100;
 };
 
