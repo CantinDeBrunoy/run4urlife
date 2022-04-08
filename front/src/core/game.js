@@ -1,3 +1,4 @@
+import { useEffect } from 'react/cjs/react.production.min';
 import { asyncTimeout } from '../common/helpers';
 import { InventoryFunctions } from './functions/inventory';
 import { MapGenerationFunctions } from './functions/map-generation';
@@ -12,7 +13,7 @@ const mapDestructLoop = async () => {
 };
 
 const addInventoryLoop = async () => {
-    await asyncTimeout(getTimeout());
+    await asyncTimeout(getTimeout() / 3);
     if (Game.state === GlobalTypes.states.playing) {
         InventoryFunctions.addRandomBlock();
         requestAnimationFrame(addInventoryLoop);
@@ -20,7 +21,7 @@ const addInventoryLoop = async () => {
 };
 
 const getTimeout = () => {
-    let timeout = -Game.difficulty * (Game.timer.value / 1000) ** 2 + 3000;
+    let timeout = -Game.difficulty * (Game.timer.value / 1000) ** 2 + 5000;
     return timeout > 100 ? timeout : 100;
 };
 
@@ -29,7 +30,7 @@ const startTimer = () => {
         if (Game.state === GlobalTypes.states.playing) {
             Game.timer.value += 100;
             if (Game.timer.value % 1000 === 0) {
-                Game.score += Math.pow(Math.floor(Game.timer.value / 1000), 2);
+                Game.score += Math.floor(Math.pow(Math.floor(Game.timer.value / 1000), 2) * (5 * Game.difficulty));
             }
         } else {
             clearInterval(intervalID);
