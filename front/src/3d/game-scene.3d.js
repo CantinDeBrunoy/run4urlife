@@ -29,10 +29,13 @@ const init = (canvas, fov = 35) => {
 
     document.body.appendChild(GameElements.renderer.domElement);
     GameCharacters.loadCharacter();
+    GameCharacters.loadRoberto();
     GameElements.renderer.shadowMap.enabled = true;
     GameLight.addDirectionalLight();
     GameLight.addHemisphereLight();
     GameElements.camera.position.y = 10;
+
+    GameElements.clock = new THREE.Clock();
 
     GameBlocks.loadPlayerVision();
 
@@ -92,7 +95,10 @@ let time = null,
 const render = (timestamp) => {
     if (time === null) time = timestamp;
     let seg = Math.floor((timestamp - time) / delay);
-    if ((Game.state === GlobalTypes.states.playing || Game.state === GlobalTypes.states.initialized) && seg > frame) {
+    if (
+        (Game.state === GlobalTypes.states.playing || Game.state === GlobalTypes.states.initialized || Game.state === GlobalTypes.states.finished) &&
+        seg > frame
+    ) {
         frame = seg;
         let delta;
         if (GameElements.controls) {
@@ -150,6 +156,19 @@ const render = (timestamp) => {
             GameElements.characters.alien.getWorldPosition(objectPosition);
             GameElements.camera.position.copy(objectPosition).add(cameraOffset);
             GameElements.camera.lookAt(new THREE.Vector3(0, GameElements.characters.alien.position.y, GameElements.characters.alien.position.z - 10));
+        }
+        if (GameElements.characters.animations.mixer) {
+            GameElements.characters.animations.mixer.update(delta);
+        }
+        if (GameElements.characters.roberto) {
+            let inMove = false;
+            const roberto = GameElements.characters.roberto;
+
+            if (roberto.position.z > -Game.grid[0].id * GameStep + GameStep + 0.5) inMove = true;
+
+            if (inMove) {
+                roberto.position.z -= GameCharacterSpeed;
+            }
         }
         for (const line of GameElements.blocks.map) {
             for (const block of line.cases) {
