@@ -8,6 +8,7 @@ import { gameReset } from '../../core/game';
 import { GameConsumerHook } from '../../store/game.store';
 import { renderZoomIn } from '../../3d/background-scene.3d';
 import InterfaceHelpComponent from './interface-help.component';
+import InterfaceCreditComponent from './interface-credits.component';
 
 const InterfaceMenuComponent = () => {
     const [GameStore, dispatch] = GameConsumerHook();
@@ -24,6 +25,9 @@ const InterfaceMenuComponent = () => {
                 break;
             case TabTypes.help:
                 setComponent(<InterfaceHelpComponent toggle={toggle} />);
+                break;
+            case TabTypes.credits:
+                setComponent(<InterfaceCreditComponent toggle={toggle} />);
                 break;
             default:
                 break;
@@ -73,7 +77,13 @@ const InterfaceMenuComponent = () => {
                         >
                             <TextRandomEffectComponent text="Aides" />
                         </div>
-                        <div>
+                        <div
+                            text="Crédits"
+                            onClick={() => {
+                                toggle(TabTypes.credits);
+                                renderZoomIn();
+                            }}
+                        >
                             <TextRandomEffectComponent text="Crédits" />
                         </div>
                         <div>

@@ -1,6 +1,7 @@
 export const TabTypes = {
     Settings: 'settings',
     difficulty: 'difficulty',
+    credits: 'credits',
     help: 'help',
 };
 
