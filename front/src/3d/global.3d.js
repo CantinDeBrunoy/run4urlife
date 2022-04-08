@@ -8,6 +8,9 @@ export const GameElements = {
     clock: null,
     characters: {
         alien: null,
+        animations: {
+            mixer: null,
+        },
     },
     blocks: {
         map: [],

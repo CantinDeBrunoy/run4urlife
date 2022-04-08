@@ -38,6 +38,7 @@ const createLine = () => {
 
 const deleteFirstLine = () => {
     if (Game.player.position.y === Game.grid[0].id) {
+        Game.grid.shift();
         Game.state = GlobalTypes.states.finished;
         console.log('finish');
         return;
