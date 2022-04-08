@@ -1,6 +1,7 @@
 export const TabTypes = {
     Settings: 'settings',
     difficulty: 'difficulty',
+    help: 'help',
 };
 
 export const Direction = {
@@ -12,6 +13,7 @@ export const Direction = {
 export const GameActions = {
     pause: 'pause',
     difficulty: 'difficulty',
+    help: 'help',
     play: 'play',
     init: 'init',
     finish: 'finish',
@@ -41,11 +43,23 @@ export const DifficultiesLabels = {
     Impossible: 'impossible',
 };
 
+export const HelpLabels = {
+    Lore: 'Lore',
+    Keys: 'Touches',
+    Goal: 'Objectif',
+};
+
 export const DifficultiesDescription = {
     Easy: 'Recommandé pour débutant. Idéal pour se familiariser avec le jeu sans se prendre la tête.',
     Average: 'Difficulté adaptée pour les joueurs occasionnels.  ',
     Hard: 'Envie de vous dépasser ? Prouvez votre connaissances du jeu sur un niveau digne de vos capacités',
     Impossible: 'Ici on ne rigole plus, ici on fait du gaming, 谁播下风，谁收获旋风',
+};
+
+export const infosDescritpion = {
+    Lore: `Michel, petit alien venant de la Samplanète fuyant son quotidien et surtout Roberto, un agent du fisc. Ce dernier le poursuivra dans toute la galaxie jusqu'à récupérer  son dû`,
+    Keys: `Utilisez les flèches directionnelles pour vous déplacer dans l'inventaire puis cliquer sur l'endroit ou vous voulez poser la plateforme sélectionnée `,
+    Goal: `Le but du jeu est d'aller le plus loin possible dans le niveau en posant des plateformes. Chaque plateforme a une entrée et une/ou plusieurs sorties`,
 };
 
 export const BlockNames = {

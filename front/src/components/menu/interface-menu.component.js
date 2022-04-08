@@ -7,6 +7,7 @@ import TextRandomEffectComponent from '../animations/text-random-animation.compo
 import { gameReset } from '../../core/game';
 import { GameConsumerHook } from '../../store/game.store';
 import { renderZoomIn } from '../../3d/background-scene.3d';
+import InterfaceHelpComponent from './interface-help.component';
 
 const InterfaceMenuComponent = () => {
     const [GameStore, dispatch] = GameConsumerHook();
@@ -20,6 +21,9 @@ const InterfaceMenuComponent = () => {
                 break;
             case TabTypes.difficulty:
                 setComponent(<InterfacedifficultyComponent toggle={toggle} />);
+                break;
+            case TabTypes.help:
+                setComponent(<InterfaceHelpComponent toggle={toggle} />);
                 break;
             default:
                 break;
@@ -61,7 +65,12 @@ const InterfaceMenuComponent = () => {
                         <div onClick={() => toggle(TabTypes.Settings)}>
                             <TextRandomEffectComponent text="Paramètres" />
                         </div>
-                        <div>
+                        <div
+                            onClick={() => {
+                                toggle(TabTypes.help);
+                                renderZoomIn();
+                            }}
+                        >
                             <TextRandomEffectComponent text="Aides" />
                         </div>
                         <div>

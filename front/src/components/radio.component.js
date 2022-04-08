@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { GameConsumerHook } from '../store/game.store';
-import { AntialiasLabel, GameActions, PrecisionLabels, DifficultiesLabels } from '../common/constant';
+import { AntialiasLabel, GameActions, PrecisionLabels, DifficultiesLabels, HelpLabels } from '../common/constant';
 import { GlobalTypes } from '../core/global';
 
 const RadioComponent = ({ label }) => {
@@ -18,6 +18,14 @@ const RadioComponent = ({ label }) => {
                 return dispatch({ type: GameActions.difficulty, difficulty: GlobalTypes.difficulties.hard });
             case DifficultiesLabels.Impossible:
                 return dispatch({ type: GameActions.difficulty, difficulty: GlobalTypes.difficulties.impossible });
+
+            case HelpLabels.Lore:
+                return dispatch({ type: GameActions.help, help: GlobalTypes.infos.Lore });
+            case HelpLabels.Keys:
+                return dispatch({ type: GameActions.help, help: GlobalTypes.infos.Keys });
+            case HelpLabels.Goal:
+                return dispatch({ type: GameActions.help, help: GlobalTypes.infos.Goal });
+
             case PrecisionLabels.High:
                 return dispatch({ type: GameActions.precision, precision: GlobalTypes.graphismPrecision.high });
             case PrecisionLabels.Medium:
@@ -44,6 +52,16 @@ const RadioComponent = ({ label }) => {
                 return setActive(false);
             case DifficultiesLabels.Impossible:
                 if (GameStore.difficulty === GlobalTypes.difficulties.impossible) return setActive(true);
+                return setActive(false);
+
+            case HelpLabels.Lore:
+                if (GameStore.help === GlobalTypes.infos.Lore) return setActive(true);
+                return setActive(false);
+            case HelpLabels.Keys:
+                if (GameStore.help === GlobalTypes.infos.Keys) return setActive(true);
+                return setActive(false);
+            case HelpLabels.Goal:
+                if (GameStore.help === GlobalTypes.infos.Goal) return setActive(true);
                 return setActive(false);
 
             case PrecisionLabels.High:

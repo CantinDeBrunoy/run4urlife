@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RadioComponent from '../radio.component';
 import { useNavigate } from 'react-router-dom';
-import { DifficultiesLabels, DifficultiesDescription } from '../../common/constant';
+import { DifficultiesLabels, DifficultiesDescription, infosDescritpion } from '../../common/constant';
 import { Game } from '../../core/global';
 import { renderZoomOut } from '../../3d/background-scene.3d';
 
