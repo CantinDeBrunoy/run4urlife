@@ -32,7 +32,9 @@ const InterfaceGameOverComponent = () => {
                     <span>Ton score</span>
                     <span className="info">{score}</span>
                 </div>
-                <div className="restart">Rejouer</div>
+                <div onClick={() => window.location.reload()} className="restart">
+                    Rejouer
+                </div>
             </div>
         );
     }

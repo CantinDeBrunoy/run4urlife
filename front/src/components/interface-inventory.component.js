@@ -34,7 +34,7 @@ const InterfaceInventoryComponent = () => {
     useEffect(() => {
         setInterval(() => {
             setInventory([...Game.player.inventory.blocks]);
-        }, 1000);
+        }, 200);
     }, []);
 
     return (
