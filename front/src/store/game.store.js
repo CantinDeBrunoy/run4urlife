@@ -56,12 +56,21 @@ const reducer = (state, action) => {
                 ...state,
                 difficulty: action.difficulty,
             };
+
         case GameActions.antialias:
             Game.graphism.antialias = !state.antialias;
             return {
                 ...state,
                 antialias: !state.antialias,
             };
+
+        case GameActions.help:
+            Game.help = action.help;
+            return {
+                ...state,
+                help: action.help,
+            };
+
         case GameActions.precision:
             Game.graphism.precision = action.precision;
             return {

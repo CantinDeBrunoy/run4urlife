@@ -12,6 +12,11 @@ export const GlobalTypes = {
         hard: 0.8,
         impossible: 1.5,
     },
+    infos: {
+        Lore: 'Lore',
+        Keys: 'Keys',
+        Goal: 'Goal',
+    },
     states: {
         finished: 'finished',
         playing: 'playing',

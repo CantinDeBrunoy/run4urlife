@@ -95,6 +95,7 @@
         }
     }
 }
+
 .difficulty_rightSide {
     width: 400px;
     position: absolute;
@@ -106,6 +107,10 @@
     outline-offset: -7px;
     padding: 30px;
     border-radius: 5px;
+}
+.difficulty_rightSide > * {
+    display: flex;
+    flex-direction: column;
 }
 .difficulty_leftSide {
     width: 200px;
