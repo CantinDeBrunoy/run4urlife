@@ -8,11 +8,13 @@ const InterfaceGameOverComponent = () => {
     const [timer, setTimer] = useState(Game.timer.value);
     const [active, setActive] = useState(false);
     const [score, setScore] = useState(0);
+    const [highScore, setHighScore] = useState(0);
 
     useEffect(() => {
         if (active) {
             setTimer(Game.timer.value);
             setScore(Game.score);
+            setHighScore(window.localStorage.getItem('highScore'));
         }
     }, [active]);
 
@@ -31,6 +33,8 @@ const InterfaceGameOverComponent = () => {
                 <div className="container">
                     <span>Ton score</span>
                     <span className="info">{score}</span>
+                    <span>Meilleur score</span>
+                    <span className="info">{highScore}</span>
                 </div>
                 <div className="restart">Rejouer</div>
             </div>

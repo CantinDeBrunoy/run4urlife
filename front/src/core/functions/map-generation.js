@@ -39,6 +39,10 @@ const createLine = () => {
 const deleteFirstLine = () => {
     if (Game.player.position.y === Game.grid[0].id) {
         Game.state = GlobalTypes.states.finished;
+        const highScore = window.localStorage.getItem('highScore');
+        if (highScore == null || Game.score > highScore) {
+            window.localStorage.setItem('highScore', Game.score);
+        }
         console.log('finish');
         return;
     }
