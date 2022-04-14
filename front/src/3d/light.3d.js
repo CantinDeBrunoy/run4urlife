@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GameElements } from './global.3d';
 
 const addDirectionalLight = () => {
-    const dirLight = new THREE.DirectionalLight(0xffffff, 3);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 4);
     dirLight.position.set(2000, 2000, -3000);
     dirLight.castShadow = true;
     dirLight.shadow.camera.top = 2;
@@ -15,7 +15,7 @@ const addDirectionalLight = () => {
 };
 
 const addHemisphereLight = () => {
-    const hemiLight = new THREE.HemisphereLight(0xffff00, 0xffffff, 0.25);
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.8);
     hemiLight.position.set(20, 20, 10);
     GameElements.scene.add(hemiLight);
 };
