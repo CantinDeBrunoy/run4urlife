@@ -249,6 +249,85 @@
     }
 }
 
+.scoreboard {
+    width: 100%;
+    height: 100%;
+
+    @extend %mid;
+    z-index: 5;
+
+    @extend %row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+
+    & > span {
+        position: absolute;
+        padding: 0.5em;
+
+        top: 10px;
+        left: 10px;
+        font-family: 'Space Grotesk';
+        text-transform: capitalize;
+        color: $menuColor;
+        font-size: 20px;
+        margin-block: 3px;
+
+        transition: font-size 0.2s ease-out;
+        cursor: pointer;
+        list-style-type: none;
+
+        span {
+            opacity: 1;
+        }
+
+        &:hover {
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $menuFontSize;
+
+            animation-name: rotate;
+            animation-duration: 2.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            25% {
+                transform: rotateZ(-1.4deg);
+            }
+            75% {
+                transform: rotateZ(1.4deg);
+            }
+        }
+    }
+
+    & > div {
+        position: relative;
+        width: 50%;
+
+        .highscore {
+            @extend %col;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid $menuColor;
+            border-radius: 10px;
+            outline-offset: 2px;
+            outline: 2px solid #06d483;
+            width: 200px;
+            height: 200px;
+            @extend %mid;
+
+            h3,
+            p {
+                font-family: 'Space Grotesk';
+                text-transform: capitalize;
+                color: $menuColor;
+                margin-block: 3px;
+            }
+        }
+    }
+}
+
 .settings {
     &.ingame {
         left: 50%;
@@ -404,14 +483,13 @@
             transition: all ease 0.3s;
             text-align: center;
             cursor: pointer;
-    
+
             &:hover {
                 border: 2px solid $menuColor;
                 outline: 2px solid $menuColor;
             }
         }
     }
-    
 }
 
 //background

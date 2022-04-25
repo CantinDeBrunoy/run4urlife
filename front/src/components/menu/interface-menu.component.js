@@ -9,6 +9,7 @@ import { GameConsumerHook } from '../../store/game.store';
 import { renderZoomIn } from '../../3d/background-scene.3d';
 import InterfaceHelpComponent from './interface-help.component';
 import InterfaceCreditComponent from './interface-credits.component';
+import ScoreboardComponent from '../scoreboard.component';
 
 const InterfaceMenuComponent = () => {
     const [GameStore, dispatch] = GameConsumerHook();
@@ -28,6 +29,9 @@ const InterfaceMenuComponent = () => {
                 break;
             case TabTypes.credits:
                 setComponent(<InterfaceCreditComponent toggle={toggle} />);
+                break;
+            case TabTypes.scoreboard:
+                setComponent(<ScoreboardComponent toggle={toggle} />);
                 break;
             default:
                 break;
@@ -63,7 +67,11 @@ const InterfaceMenuComponent = () => {
                         >
                             <TextRandomEffectComponent text={`${window.location.pathname === '/' ? 'Démarrer une partie' : 'Reprendre la partie'}`} />
                         </div>
-                        <div>
+                        <div
+                            onClick={() => {
+                                toggle(TabTypes.scoreboard);
+                            }}
+                        >
                             <TextRandomEffectComponent text="Tableau des scores" />
                         </div>
                         <div onClick={() => toggle(TabTypes.Settings)}>
