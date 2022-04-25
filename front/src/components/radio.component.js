@@ -81,8 +81,8 @@ const RadioComponent = ({ label }) => {
     }, [GameStore]);
 
     return (
-        <div className={`radio ${active ? 'active' : ''}`}>
-            <div onClick={toggle} className="case"></div>
+        <div onClick={toggle} className={`radio ${active ? 'active' : ''}`}>
+            <div className="case"></div>
             <span>{label}</span>
         </div>
     );
