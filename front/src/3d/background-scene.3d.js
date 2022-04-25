@@ -83,4 +83,13 @@ export const renderZoomOut = () => {
     }
 };
 
+function onWindowResize() {
+    GameElements.camera.aspect = window.innerWidth / window.innerHeight;
+    GameElements.camera.updateProjectionMatrix();
+
+    GameElements.renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+window.addEventListener('resize', onWindowResize, false);
+
 export const BackgroundScene = { init, render };

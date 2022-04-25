@@ -24,6 +24,8 @@ const init = (canvas, fov = 35) => {
         alpha: true,
     });
 
+    GameElements.camera.updateProjectionMatrix();
+
     GameElements.renderer.setSize(GameWidth, window.innerHeight);
     GameElements.renderer.setPixelRatio(window.devicePixelRatio, 2);
 
