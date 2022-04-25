@@ -3,6 +3,7 @@ export const TabTypes = {
     difficulty: 'difficulty',
     credits: 'credits',
     help: 'help',
+    scoreboard: 'scoreboard',
 };
 
 export const Direction = {
