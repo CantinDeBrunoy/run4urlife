@@ -7,6 +7,7 @@ import InterfaceTimerComponent from '../components/interface-timer.component.js'
 import InterfaceBackgroundScreenComponent from '../components/interface-background-screen.component';
 import InterfaceGameOverComponent from '../components/interface-gameover.component';
 import InterfaceSettingsButtonComponent from '../components/interface-settings-button.component';
+import LoaderComponent from '../components/loader.component';
 
 const GamePage = () => {
     return (
@@ -20,6 +21,7 @@ const GamePage = () => {
                 <InterfaceBackgroundScreenComponent />
                 <InterfaceGameOverComponent />
             </GameProvider>
+            <LoaderComponent />
         </div>
     );
 };
