@@ -7,6 +7,8 @@ import clement from '../../assets/models/blocks/svg/clement.jpg';
 import cantin from '../../assets/models/blocks/svg/cantin.png';
 import PierreC from '../../assets/models/blocks/svg/PierreC.jpg';
 import PierreH from '../../assets/models/blocks/svg/PierreH.jpg';
+import tom from '../../assets/models/blocks/svg/tom.jpg';
+
 import github from '../../assets/models/blocks/svg/git.svg';
 
 import { renderZoomOut } from '../../3d/background-scene.3d';
@@ -29,7 +31,7 @@ const InterfaceCreditComponent = ({ toggle }) => {
                 <InterfaceDevComponent name="Clement" img={clement} link="https://github.com/goodfoodtruck" />
                 <InterfaceDevComponent name="Pierre C" img={PierreC} link="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
                 <InterfaceDevComponent name="Pierre H" img={PierreH} link="https://github.com/PierreHervelin" />
-                <InterfaceDevComponent name="Tom" img={clement} link="https://github.com/TomBagiau" />
+                <InterfaceDevComponent name="Tom" img={tom} link="https://github.com/TomBagiau" />
             </div>
             <ul>
                 <div

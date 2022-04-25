@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import MainCharacter from '../assets/models/mainCharacter.glb';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { GameElements } from './global.3d';
 import Roberto from '../assets/models/MonsterRun4UrLife.glb';
 import { GameStep } from '../common/constant';
@@ -11,6 +12,7 @@ const loadCharacter = () => {
     loader.load(
         MainCharacter,
         (gltf) => {
+            window.addEventListener('keyup', startAnim);
             GameElements.scene.add(gltf.scene);
             GameElements.characters.alien = gltf.scene;
             gltf.scene.castShadow = true;
@@ -26,6 +28,13 @@ const loadCharacter = () => {
             console.error(error);
         },
     );
+};
+
+const startAnim = (e) => {
+    switch (e.keyCode) {
+        case 32:
+            console.log('space pressed');
+    }
 };
 
 const loadRoberto = () => {
