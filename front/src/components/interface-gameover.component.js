@@ -16,7 +16,25 @@ const InterfaceGameOverComponent = () => {
         if (active) {
             setTimer(Game.timer.value);
             setScore(Game.score);
-            setHighScore(window.localStorage.getItem('highScore'));
+            let highScore = null;
+            let localScore = JSON.parse(window.localStorage.getItem('highScore'));
+            switch (Game.difficulty) {
+                case GlobalTypes.difficulties.easy:
+                    highScore = localScore.easy;
+                    break;
+                case GlobalTypes.difficulties.average:
+                    highScore = localScore.average;
+                    break;
+                case GlobalTypes.difficulties.hard:
+                    highScore = localScore.hard;
+                    break;
+                case GlobalTypes.difficulties.impossible:
+                    highScore = localScore.impossible;
+                    break;
+                default:
+                    break;
+            }
+            setHighScore(highScore);
         }
     }, [active]);
 
