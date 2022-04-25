@@ -20,7 +20,7 @@ const InterfaceTimerComponent = () => {
     return (
         <div className="HUD">
             <span className="timer">{timer}</span>
-            <span className="score">{score}</span>
+            <span className="score">{Math.round(score)}</span>
         </div>
     );
 };

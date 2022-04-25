@@ -34,9 +34,9 @@ const InterfaceGameOverComponent = () => {
                 </div>
                 <div className="container">
                     <span>Ton score</span>
-                    <span className="info">{score}</span>
+                    <span className="info">{Math.round(score)}</span>
                     <span>Meilleur score</span>
-                    <span className="info">{highScore}</span>
+                    <span className="info">{Math.round(highScore)}</span>
                 </div>
                 <div className="restart">
                     <div onClick={() => navigate('/')} className="button">

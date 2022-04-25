@@ -74,7 +74,7 @@ const placeBlock = (x, y, indice) => {
         if (gridCase.id === y) {
             gridCase.cases[x] = { block: Game.player.inventory.blocks[indice], type: GlobalTypes.caseTypes.block };
             InventoryFunctions.deleteBlock(indice);
-            Game.score += Math.floor(Math.pow(Math.floor(Game.timer.value / 1000), 2) * (5 * Game.difficulty));
+            Game.score += Math.exp(((0.1 * Game.timer.value) / 1000) ** 0.7) * Game.difficulty;
         }
     }
 };

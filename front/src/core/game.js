@@ -30,7 +30,7 @@ const startTimer = () => {
         if (Game.state === GlobalTypes.states.playing) {
             Game.timer.value += 100;
             if (Game.timer.value % 1000 === 0) {
-                Game.score += Math.floor(Math.pow(Math.floor(Game.timer.value / 1000), 2) * (5 * Game.difficulty));
+                Game.score += Math.exp(((0.1 * Game.timer.value) / 1000) ** 0.7) * Game.difficulty;
             }
         } else {
             clearInterval(intervalID);
