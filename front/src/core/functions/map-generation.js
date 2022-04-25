@@ -40,11 +40,22 @@ const deleteFirstLine = () => {
     if (Game.player.position.y === Game.grid[0].id) {
         Game.grid.shift();
         Game.state = GlobalTypes.states.finished;
-        const highScore = window.localStorage.getItem('highScore');
-        if (highScore == null || Game.score > highScore) {
-            window.localStorage.setItem('highScore', Game.score);
-        }
-        console.log('finish');
+        const highScore = JSON.parse(window.localStorage.getItem('highScore')) ?? {};
+
+        const localScore = {
+            ...highScore,
+            ...(Game.difficulty == GlobalTypes.difficulties.easy && (!highScore.easy || Game.score > highScore.easy) && { easy: Game.score }),
+            ...(Game.difficulty == GlobalTypes.difficulties.average &&
+                (!highScore.average || Game.score > highScore.average) && { average: Game.score }),
+            ...(Game.difficulty == GlobalTypes.difficulties.hard && (!highScore.hard || Game.score > highScore.hard) && { hard: Game.score }),
+            ...(Game.difficulty == GlobalTypes.difficulties.impossible &&
+                (!highScore.impossible || Game.score > highScore.impossible) && { impossible: Game.score }),
+        };
+
+        console.log(localScore);
+
+        window.localStorage.setItem('highScore', JSON.stringify(localScore));
+
         return;
     }
     if (Game.grid.length > 0) {
