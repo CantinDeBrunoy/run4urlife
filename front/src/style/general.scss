@@ -57,6 +57,34 @@ h4 {
     }
 }
 
+#loader {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: black;
+    z-index: 99;
+
+    pointer-events: auto;
+    transition: opacity ease 0.3s;
+
+    &.loaded {
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    div {
+        @extend %mid;
+        span {
+            font-family: 'Space Grotesk';
+            color: $menuColor;
+            font-size: 18px;
+        }
+    }
+}
+
 %mid {
     position: absolute;
     top: 50%;

@@ -1,8 +1,7 @@
 import * as THREE from 'three';
 import { BlockNames, GameStep, VisionBlocksOpacity, VisionPlaneName } from '../common/constant';
 import { CharacterFunctions } from '../core/functions/character';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { GameElements } from './global.3d';
+import { GameElements, Loader } from './global.3d';
 import VisionBlock from '../assets/models/blocks/visionblock.glb';
 import Meteor from '../assets/models/meteor.glb';
 import { ItemsFunctions } from '../core/functions/items';
@@ -12,14 +11,12 @@ import Block31 from '../assets/models/blocks/block-3-1.glb';
 import Block41 from '../assets/models/blocks/block-4-1.glb';
 import { GlobalTypes } from '../core/global';
 
-const loader = new GLTFLoader();
-
 const loadPlayerVision = () => {
     const vision = CharacterFunctions.getVision();
 
     for (const [dir, value] of Object.entries(vision)) {
         if (value) {
-            loader.load(VisionBlock, (gltf) => {
+            Loader.load(VisionBlock, (gltf) => {
                 const block = gltf.scene;
                 block.scale.x = 1.7;
                 block.scale.z = 1.7;
@@ -122,7 +119,7 @@ const resetHoverVisionBlocks = (direction = null) => {
 
 const getObstacle = (x, y) => {
     return new Promise((resolve) => {
-        loader.load(Meteor, (gltf) => {
+        Loader.load(Meteor, (gltf) => {
             const meteor = gltf.scene;
             meteor.position.x = x * GameStep;
             meteor.position.z = y * GameStep;
@@ -177,7 +174,7 @@ const placeBlock = (block, x, y) => {
             break;
     }
 
-    loader.load(fileBlock, (gltf) => {
+    Loader.load(fileBlock, (gltf) => {
         const block = gltf.scene;
         block.position.x = x * GameStep;
         block.position.z = y * GameStep;
