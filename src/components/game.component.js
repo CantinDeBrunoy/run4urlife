@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { BackgroundElements } from '../3d/global.3d';
 import { GameActions } from '../common/constant';
 import { InventoryFunctions } from '../core/functions/inventory';
 import { Game, GlobalTypes } from '../core/global';
@@ -75,6 +76,7 @@ const GameComponent = () => {
 
     useEffect(() => {
         dispatch({ type: GameActions.init, canvas: GameCanvasRef.current });
+        BackgroundElements.remove();
         console.log(Game);
 
         window.addEventListener('keydown', handleKeyDown);
