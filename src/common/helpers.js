@@ -20,6 +20,7 @@ export const weightFadeIn = (action, max, step) => {
         }
         action.weight += step;
     }, 10);
+    return interval;
 };
 
 export const weightFadeOut = (action, min, step) => {
@@ -30,4 +31,5 @@ export const weightFadeOut = (action, min, step) => {
         }
         action.weight -= step;
     }, 10);
+    return interval;
 };
