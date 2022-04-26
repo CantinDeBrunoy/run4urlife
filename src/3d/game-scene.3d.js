@@ -127,26 +127,36 @@ const render = (timestamp) => {
                 inMove = Direction.right;
             }
 
+            if (inMove && !GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).isRunning()) {
+                GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).play();
+            }
+
             switch (inMove) {
                 case Direction.up:
                     if (character.rotation.y !== 0) character.rotation.y = 0;
+
                     character.position.z -= GameCharacterSpeed;
                     if (character.position.z < y * GameStep) {
                         character.position.z = y * GameStep;
+                        GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).stop();
                     }
                     break;
                 case Direction.left:
                     if (character.rotation.y !== Math.PI / 2) character.rotation.y = Math.PI / 2;
+
                     character.position.x -= GameCharacterSpeed;
                     if (character.position.x < x * GameStep) {
                         character.position.x = x * GameStep;
+                        GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).stop();
                     }
                     break;
                 case Direction.right:
                     if (character.rotation.y !== -(Math.PI / 2)) character.rotation.y = -(Math.PI / 2);
+
                     character.position.x += GameCharacterSpeed;
                     if (character.position.x > x * GameStep) {
                         character.position.x = x * GameStep;
+                        GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).stop();
                     }
                     break;
                 default:
@@ -161,6 +171,9 @@ const render = (timestamp) => {
         }
         if (GameElements.characters.animations.mixer) {
             GameElements.characters.animations.mixer.update(delta);
+        }
+        if (GameElements.characters.animations.mixerPlayer) {
+            GameElements.characters.animations.mixerPlayer.update(delta * 2);
         }
         if (GameElements.characters.roberto) {
             let inMove = false;

@@ -180,6 +180,8 @@ const placeBlock = (block, x, y) => {
         block.position.z = y * GameStep;
         block.scale.set(1.2, 1.2, 1.2);
 
+        block.position.y -= 5;
+
         block.rotateY(-blockInfo.rotation * (Math.PI / 180));
 
         block.type = GlobalTypes.caseTypes.block;

@@ -13,7 +13,9 @@ export const GameElements = {
     characters: {
         alien: null,
         animations: {
+            player: [],
             mixer: null,
+            mixerPlayer: null,
         },
     },
     blocks: {
