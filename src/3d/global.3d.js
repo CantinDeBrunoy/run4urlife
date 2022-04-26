@@ -24,7 +24,7 @@ export const GameElements = {
             cubes: [],
         },
     },
-    lastMove: new Date(),
+    lastMove: new Date().getTime(),
     reset: function () {
         if (this.scene) {
             while (this.scene.children.length > 0) {

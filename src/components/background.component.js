@@ -6,10 +6,19 @@ const BackgroundComponent = () => {
     const BackgroundCanvasRef = useRef();
 
     useEffect(() => {
-        BackgroundScene.init(BackgroundCanvasRef.current);
-        BackgroundScene.render();
-        GameElements.reset();
+        const element = BackgroundCanvasRef.current;
+        if (!BackgroundElements.scene) {
+            BackgroundScene.init(BackgroundCanvasRef.current);
+            BackgroundScene.render();
+        } else {
+            BackgroundScene.init(BackgroundCanvasRef.current);
+        }
+        if (window.location.pathname === '/') GameElements.reset();
         renderZoomOut();
+
+        return () => {
+            element.remove();
+        };
     }, []);
     return (
         <div className="BackGround">

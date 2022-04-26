@@ -10,8 +10,6 @@ import InterfaceSettingsButtonComponent from '../components/interface-settings-b
 import LoaderComponent from '../components/loader.component';
 
 const GamePage = () => {
-    const element = document.getElementById('background');
-    element.remove();
     return (
         <div>
             <BackgroundComponent />

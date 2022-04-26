@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { BackgroundElements } from '../3d/global.3d';
 import { GameActions } from '../common/constant';
 import { InventoryFunctions } from '../core/functions/inventory';
 import { Game, GlobalTypes } from '../core/global';
@@ -76,8 +75,8 @@ const GameComponent = () => {
 
     useEffect(() => {
         dispatch({ type: GameActions.init, canvas: GameCanvasRef.current });
-        BackgroundElements.remove();
         console.log(Game);
+        const element = GameCanvasRef.current;
 
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
@@ -108,6 +107,7 @@ const GameComponent = () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
             clearInterval(interval);
+            element.remove();
         };
     }, []);
 
