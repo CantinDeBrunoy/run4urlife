@@ -24,7 +24,15 @@ export const GameElements = {
             cubes: [],
         },
     },
-    lastMove: new Date(),
+    lastMove: new Date().getTime(),
+    reset: function () {
+        if (this.scene) {
+            while (this.scene.children.length > 0) {
+                this.scene.remove(this.scene.children[0]);
+            }
+            this.renderer.render(this.scene, this.camera);
+        }
+    },
 };
 
 export const BackgroundElements = {
@@ -32,6 +40,13 @@ export const BackgroundElements = {
     camera: null,
     renderer: null,
     items: {},
+    reset: function () {
+        this.scene.add(this.items.earthMesh);
+        this.scene.add(this.items.cloudMesh);
+    },
+    remove: function () {
+        this.scene.remove(this.items.earthMesh, this.items.cloudMesh);
+    },
 };
 
 export const LoadManager = new THREE.LoadingManager(

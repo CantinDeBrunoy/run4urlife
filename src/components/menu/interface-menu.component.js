@@ -10,11 +10,14 @@ import { renderZoomIn } from '../../3d/background-scene.3d';
 import InterfaceHelpComponent from './interface-help.component';
 import InterfaceCreditComponent from './interface-credits.component';
 import ScoreboardComponent from '../scoreboard.component';
+import { useNavigate } from 'react-router';
 
 const InterfaceMenuComponent = () => {
     const [GameStore, dispatch] = GameConsumerHook();
     const [open, setOpen] = useState(true);
     const [component, setComponent] = useState();
+
+    const navigate = useNavigate();
 
     const toggle = (tab = '') => {
         switch (tab) {
@@ -94,7 +97,11 @@ const InterfaceMenuComponent = () => {
                         >
                             <TextRandomEffectComponent text="Crédits" />
                         </div>
-                        <div>
+                        <div
+                            onClick={() => {
+                                navigate('/bonus');
+                            }}
+                        >
                             <TextRandomEffectComponent text="Quitter" />
                         </div>
                     </ul>

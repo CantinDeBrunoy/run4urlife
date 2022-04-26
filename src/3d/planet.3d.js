@@ -50,9 +50,9 @@ const loadStars = () => {
 };
 
 const animate = () => {
-    BackgroundElements.items.starMesh.rotation.y -= 0.0005;
-    BackgroundElements.items.earthMesh.rotation.y -= 0.00035;
-    BackgroundElements.items.cloudMesh.rotation.y -= 0.0005;
+    if (BackgroundElements.items.starMesh) BackgroundElements.items.starMesh.rotation.y -= 0.0005;
+    if (BackgroundElements.items.earthMesh) BackgroundElements.items.earthMesh.rotation.y -= 0.00035;
+    if (BackgroundElements.items.cloudMesh) BackgroundElements.items.cloudMesh.rotation.y -= 0.0005;
 };
 
 const loadLights = () => {

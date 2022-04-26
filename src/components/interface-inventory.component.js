@@ -32,9 +32,13 @@ const InterfaceInventoryComponent = () => {
     };
 
     useEffect(() => {
-        setInterval(() => {
+        const interval = setInterval(() => {
             setInventory([...Game.player.inventory.blocks]);
         }, 200);
+
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
 
     return (

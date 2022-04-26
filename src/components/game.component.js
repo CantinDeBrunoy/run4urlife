@@ -76,6 +76,7 @@ const GameComponent = () => {
     useEffect(() => {
         dispatch({ type: GameActions.init, canvas: GameCanvasRef.current });
         console.log(Game);
+        const element = GameCanvasRef.current;
 
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
@@ -106,6 +107,7 @@ const GameComponent = () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
             clearInterval(interval);
+            element.remove();
         };
     }, []);
 
