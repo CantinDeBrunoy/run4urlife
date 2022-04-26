@@ -116,6 +116,10 @@ const render = (timestamp) => {
             let character = GameElements.characters.alien;
             let inMove = false;
 
+            if (GameElements.characters.animations.mixerPlayer) {
+                GameElements.characters.animations.mixerPlayer.update(delta);
+            }
+
             const { x, y } = CharacterFunctions.getFrontPosition();
 
             if (character.position.z > y * GameStep) {
@@ -130,23 +134,29 @@ const render = (timestamp) => {
             switch (inMove) {
                 case Direction.up:
                     if (character.rotation.y !== 0) character.rotation.y = 0;
+
                     character.position.z -= GameCharacterSpeed;
                     if (character.position.z < y * GameStep) {
                         character.position.z = y * GameStep;
+                        GameCharacters.animateStandBy();
                     }
                     break;
                 case Direction.left:
                     if (character.rotation.y !== Math.PI / 2) character.rotation.y = Math.PI / 2;
+
                     character.position.x -= GameCharacterSpeed;
                     if (character.position.x < x * GameStep) {
                         character.position.x = x * GameStep;
+                        GameCharacters.animateStandBy();
                     }
                     break;
                 case Direction.right:
                     if (character.rotation.y !== -(Math.PI / 2)) character.rotation.y = -(Math.PI / 2);
+
                     character.position.x += GameCharacterSpeed;
                     if (character.position.x > x * GameStep) {
                         character.position.x = x * GameStep;
+                        GameCharacters.animateStandBy();
                     }
                     break;
                 default:
@@ -170,6 +180,9 @@ const render = (timestamp) => {
 
             if (inMove) {
                 roberto.position.z -= GameCharacterSpeed;
+            }
+            if (roberto.position.z < -Game.grid[0].id * GameStep + GameStep + 0.5) {
+                roberto.position.z = -Game.grid[0].id * GameStep + GameStep + 0.5;
             }
         }
         for (const line of GameElements.blocks.map) {
@@ -276,6 +289,7 @@ const handleMouseClick = () => {
                                     CharacterFunctions.getFrontPosition().x,
                                     CharacterFunctions.getFrontPosition().y - 1,
                                 );
+                                GameCharacters.animateRun();
                                 GameBlocks.removeBlockVision();
                                 PlayerFunctions.placeBlock(Game.player.position.x, Game.player.position.y + 1, Game.player.inventory.selected);
                                 GameBlocks.loadPlayerVision();
@@ -292,6 +306,7 @@ const handleMouseClick = () => {
                                     CharacterFunctions.getFrontPosition().x + 1,
                                     CharacterFunctions.getFrontPosition().y,
                                 );
+                                GameCharacters.animateRun();
                                 GameBlocks.removeBlockVision();
                                 PlayerFunctions.placeBlock(Game.player.position.x + 1, Game.player.position.y, Game.player.inventory.selected);
                                 GameBlocks.loadPlayerVision();
@@ -308,6 +323,7 @@ const handleMouseClick = () => {
                                     CharacterFunctions.getFrontPosition().x - 1,
                                     CharacterFunctions.getFrontPosition().y,
                                 );
+                                GameCharacters.animateRun();
                                 GameBlocks.removeBlockVision();
                                 PlayerFunctions.placeBlock(Game.player.position.x - 1, Game.player.position.y, Game.player.inventory.selected);
                                 GameBlocks.loadPlayerVision();
