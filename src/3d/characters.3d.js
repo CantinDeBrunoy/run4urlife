@@ -10,10 +10,8 @@ const loadCharacter = () => {
         (gltf) => {
             GameElements.scene.add(gltf.scene);
             GameElements.characters.alien = gltf.scene;
-            gltf.scene.castShadow = true;
             gltf.scene.traverse((node) => {
                 if (node.isMesh) {
-                    node.castShadow = true;
                     node.receiveShadow = true;
                 }
             });
