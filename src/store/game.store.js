@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import { GameScene } from '../3d/game-scene.3d';
+import { GameElements } from '../3d/global.3d';
 import { GameActions } from '../common/constant';
 import { PlayerFunctions } from '../core/functions/player';
 import { gameFinish, gameInit, gamePause, gameStart } from '../core/game';
@@ -23,9 +24,13 @@ const reducer = (state, action) => {
     switch (action.type) {
         case GameActions.init:
             gameInit();
-            GameScene.init(action.canvas);
-            if (action.helpers) GameScene.addHelpers();
-            requestAnimationFrame(GameScene.render);
+            if (!GameElements.scene) {
+                GameScene.init(action.canvas);
+                if (action.helpers) GameScene.addHelpers();
+                requestAnimationFrame(GameScene.render);
+            } else {
+                GameScene.init(action.canvas);
+            }
             return {
                 ...state,
                 precision: Game.graphism.precision,

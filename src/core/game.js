@@ -43,6 +43,8 @@ export const gameInit = () => {
     InventoryFunctions.init();
     Game.state = GlobalTypes.states.initialized;
     Game.timer.value = 0;
+    Game.player.position = { x: 1, y: 1 };
+    Game.score = 0;
 };
 
 export const gameStart = () => {
