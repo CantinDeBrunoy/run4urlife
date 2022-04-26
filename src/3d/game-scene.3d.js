@@ -116,6 +116,10 @@ const render = (timestamp) => {
             let character = GameElements.characters.alien;
             let inMove = false;
 
+            if (GameElements.characters.animations.mixerPlayer) {
+                GameElements.characters.animations.mixerPlayer.update(delta);
+            }
+
             const { x, y } = CharacterFunctions.getFrontPosition();
 
             if (character.position.z > y * GameStep) {
@@ -127,10 +131,6 @@ const render = (timestamp) => {
                 inMove = Direction.right;
             }
 
-            if (inMove && !GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).isRunning()) {
-                GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).play();
-            }
-
             switch (inMove) {
                 case Direction.up:
                     if (character.rotation.y !== 0) character.rotation.y = 0;
@@ -138,7 +138,7 @@ const render = (timestamp) => {
                     character.position.z -= GameCharacterSpeed;
                     if (character.position.z < y * GameStep) {
                         character.position.z = y * GameStep;
-                        GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).stop();
+                        GameCharacters.animateStandBy();
                     }
                     break;
                 case Direction.left:
@@ -147,7 +147,7 @@ const render = (timestamp) => {
                     character.position.x -= GameCharacterSpeed;
                     if (character.position.x < x * GameStep) {
                         character.position.x = x * GameStep;
-                        GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).stop();
+                        GameCharacters.animateStandBy();
                     }
                     break;
                 case Direction.right:
@@ -156,7 +156,7 @@ const render = (timestamp) => {
                     character.position.x += GameCharacterSpeed;
                     if (character.position.x > x * GameStep) {
                         character.position.x = x * GameStep;
-                        GameElements.characters.animations.mixerPlayer.clipAction(GameElements.characters.animations.player[0]).stop();
+                        GameCharacters.animateStandBy();
                     }
                     break;
                 default:
@@ -172,9 +172,6 @@ const render = (timestamp) => {
         if (GameElements.characters.animations.mixer) {
             GameElements.characters.animations.mixer.update(delta);
         }
-        if (GameElements.characters.animations.mixerPlayer) {
-            GameElements.characters.animations.mixerPlayer.update(delta * 2);
-        }
         if (GameElements.characters.roberto) {
             let inMove = false;
             const roberto = GameElements.characters.roberto;
@@ -183,6 +180,9 @@ const render = (timestamp) => {
 
             if (inMove) {
                 roberto.position.z -= GameCharacterSpeed;
+            }
+            if (roberto.position.z < -Game.grid[0].id * GameStep + GameStep + 0.5) {
+                roberto.position.z = -Game.grid[0].id * GameStep + GameStep + 0.5;
             }
         }
         for (const line of GameElements.blocks.map) {
@@ -289,6 +289,7 @@ const handleMouseClick = () => {
                                     CharacterFunctions.getFrontPosition().x,
                                     CharacterFunctions.getFrontPosition().y - 1,
                                 );
+                                GameCharacters.animateRun();
                                 GameBlocks.removeBlockVision();
                                 PlayerFunctions.placeBlock(Game.player.position.x, Game.player.position.y + 1, Game.player.inventory.selected);
                                 GameBlocks.loadPlayerVision();
@@ -305,6 +306,7 @@ const handleMouseClick = () => {
                                     CharacterFunctions.getFrontPosition().x + 1,
                                     CharacterFunctions.getFrontPosition().y,
                                 );
+                                GameCharacters.animateRun();
                                 GameBlocks.removeBlockVision();
                                 PlayerFunctions.placeBlock(Game.player.position.x + 1, Game.player.position.y, Game.player.inventory.selected);
                                 GameBlocks.loadPlayerVision();
@@ -321,6 +323,7 @@ const handleMouseClick = () => {
                                     CharacterFunctions.getFrontPosition().x - 1,
                                     CharacterFunctions.getFrontPosition().y,
                                 );
+                                GameCharacters.animateRun();
                                 GameBlocks.removeBlockVision();
                                 PlayerFunctions.placeBlock(Game.player.position.x - 1, Game.player.position.y, Game.player.inventory.selected);
                                 GameBlocks.loadPlayerVision();

@@ -16,14 +16,53 @@ const loadCharacter = () => {
                     node.receiveShadow = true;
                 }
             });
+            console.log(gltf.animations);
             GameElements.characters.animations.mixerPlayer = new THREE.AnimationMixer(gltf.scene);
-            GameElements.characters.animations.player.push(gltf.animations[1]);
+            gltf.animations.forEach((clip) => {
+                GameElements.characters.animations.player[clip.name] = GameElements.characters.animations.mixerPlayer.clipAction(clip);
+
+                switch (clip.name) {
+                    case 'run':
+                        GameElements.characters.animations.player[clip.name].weight = 0;
+                        break;
+                    case 'standBy':
+                        GameElements.characters.animations.player[clip.name].weight = 0;
+                        break;
+                    case 'standBy2':
+                        GameElements.characters.animations.player[clip.name].weight = 1;
+                        break;
+                    default:
+                        break;
+                }
+
+                GameElements.characters.animations.player[clip.name].play();
+            });
+            console.log(GameElements.characters.animations.player);
         },
         undefined,
         (error) => {
             console.error(error);
         },
     );
+};
+
+const animateRun = () => {
+    for (const animation of Object.values(GameElements.characters.animations.player)) {
+        animation.paused = false;
+    }
+
+    GameElements.characters.animations.player.run.time = 0;
+    GameElements.characters.animations.player.run.weight = 1;
+    GameElements.characters.animations.player.standBy2.weight = 1;
+};
+
+const animateStandBy = () => {
+    for (const animation of Object.values(GameElements.characters.animations.player)) {
+        animation.paused = false;
+    }
+    GameElements.characters.animations.player.standBy2.time = 0;
+    GameElements.characters.animations.player.run.weight = 0;
+    GameElements.characters.animations.player.standBy2.weight = 1;
 };
 
 const loadRoberto = () => {
@@ -48,4 +87,4 @@ const loadRoberto = () => {
     });
 };
 
-export const GameCharacters = { loadCharacter, loadRoberto };
+export const GameCharacters = { loadCharacter, loadRoberto, animateRun, animateStandBy };
