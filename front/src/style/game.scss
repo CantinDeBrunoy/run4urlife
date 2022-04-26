@@ -1,0 +1,13 @@
+// canvas
+#game {
+    @extend %mid;
+}
+#background {
+    @extend %mid;
+}
+.game-page {
+    .game-info {
+        @extend %mid;
+        z-index: 8;
+    }
+}

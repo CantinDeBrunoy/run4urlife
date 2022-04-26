@@ -1,10 +1,15 @@
 import React from 'react';
-import InterfaceMenuComponent from '../components/interface-menu.component';
+import BackgroundComponent from '../components/background.component';
+import InterfaceMenuComponent from '../components/menu/interface-menu.component';
+import { GameProvider } from '../store/game.store';
 
 const MenuPage = () => {
     return (
-        <div className="menu">
-            <InterfaceMenuComponent />
+        <div>
+            <BackgroundComponent />
+            <GameProvider>
+                <InterfaceMenuComponent />
+            </GameProvider>
         </div>
     );
 };

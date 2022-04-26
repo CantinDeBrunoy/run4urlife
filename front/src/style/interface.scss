@@ -1,0 +1,506 @@
+// modules
+@use 'sass:color';
+
+.toggle.out {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+// menu
+.menu,
+.settings {
+    position: absolute;
+    margin-top: 200px;
+    width: 20em;
+    z-index: 10;
+
+    text-align: center;
+    font-size: $menuFontSize;
+    font-family: 'Space Grotesk';
+    color: $menuColor;
+
+    & > ul > div > div {
+        padding: 0.5em;
+
+        transition: font-size 0.2s ease-out;
+        cursor: pointer;
+        list-style-type: none;
+
+        span.space {
+            opacity: 0;
+            letter-spacing: -10px;
+        }
+
+        &:hover {
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $menuFontSize;
+
+            animation-name: rotate;
+            animation-duration: 2.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            25% {
+                transform: rotateZ(-1.4deg);
+            }
+            75% {
+                transform: rotateZ(1.4deg);
+            }
+        }
+    }
+}
+
+.difficulty {
+    position: absolute;
+    margin-top: 200px;
+    width: 20em;
+    z-index: 10;
+
+    text-align: center;
+    font-size: $menuFontSize;
+    font-family: 'Space Grotesk';
+    color: $menuColor;
+
+    & > ul > div > div {
+        padding: 0.5em;
+
+        transition: font-size 0.2s ease-out;
+        cursor: pointer;
+        list-style-type: none;
+
+        span.space {
+            opacity: 0;
+            letter-spacing: -10px;
+        }
+
+        &:hover {
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $menuFontSize;
+
+            animation-name: rotate;
+            animation-duration: 2.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            25% {
+                transform: rotateZ(-1.4deg);
+            }
+            75% {
+                transform: rotateZ(1.4deg);
+            }
+        }
+    }
+}
+
+.difficulty_rightSide {
+    width: 400px;
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    right: 0px;
+    border: 2px double #06d483;
+    outline: 2px solid #06d483;
+    outline-offset: -7px;
+    padding: 30px;
+    border-radius: 5px;
+}
+.difficulty_rightSide > * {
+    display: flex;
+    flex-direction: column;
+}
+
+.credits {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 100px;
+    width: 35em;
+    z-index: 10;
+
+    text-align: center;
+    font-size: $menuFontSize;
+    font-family: 'Space Grotesk';
+    color: $menuColor;
+    .github {
+        display: flex;
+        flex-direction: column;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+
+        .githubImg {
+            width: 65px;
+            height: 65px;
+            &:hover {
+                opacity: 0.85;
+                cursor: pointer;
+            }
+        }
+    }
+    & > ul > div > div {
+        padding: 0.5em;
+
+        transition: font-size 0.2s ease-out;
+        cursor: pointer;
+        list-style-type: none;
+
+        span.space {
+            opacity: 0;
+            letter-spacing: -10px;
+        }
+
+        &:hover {
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $menuFontSize;
+
+            animation-name: rotate;
+            animation-duration: 2.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            25% {
+                transform: rotateZ(-1.4deg);
+            }
+            75% {
+                transform: rotateZ(1.4deg);
+            }
+        }
+    }
+}
+
+.credits > * {
+    margin: 10px;
+}
+
+.devTeam {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.dev {
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+
+    .devImg {
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+        outline-offset: 1px;
+        outline: 2px solid #06d483;
+        object-fit: cover;
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.4);
+        }
+    }
+    .devName {
+        margin-top: 5px;
+    }
+}
+.difficulty_leftSide {
+    width: 200px;
+    position: absolute;
+    left: 30px;
+}
+.difficulty {
+    height: 400px;
+    width: 800px;
+    margin-left: 10%;
+    & > div > ul > div > div {
+        padding: 0.5em;
+
+        transition: font-size 0.2s ease-out;
+        cursor: pointer;
+        list-style-type: none;
+
+        span.space {
+            opacity: 0;
+            letter-spacing: -10px;
+        }
+
+        &:hover {
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $menuFontSize;
+
+            animation-name: rotate;
+            animation-duration: 2.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            25% {
+                transform: rotateZ(-1.4deg);
+            }
+            75% {
+                transform: rotateZ(1.4deg);
+            }
+        }
+    }
+}
+
+.scoreboard {
+    width: 100%;
+    height: 100%;
+
+    @extend %mid;
+    z-index: 5;
+
+    @extend %row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+
+    & > span {
+        position: absolute;
+        padding: 0.5em;
+
+        top: 10px;
+        left: 10px;
+        font-family: 'Space Grotesk';
+        text-transform: capitalize;
+        color: $menuColor;
+        font-size: 20px;
+        margin-block: 3px;
+
+        transition: font-size 0.2s ease-out;
+        cursor: pointer;
+        list-style-type: none;
+
+        span {
+            opacity: 1;
+        }
+
+        &:hover {
+            color: color.scale($menuColor, $lightness: 85%);
+            font-size: $menuFontSize;
+
+            animation-name: rotate;
+            animation-duration: 2.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            25% {
+                transform: rotateZ(-1.4deg);
+            }
+            75% {
+                transform: rotateZ(1.4deg);
+            }
+        }
+    }
+
+    & > div {
+        position: relative;
+        width: 50%;
+
+        .highscore {
+            @extend %col;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid $menuColor;
+            border-radius: 10px;
+            outline-offset: 2px;
+            outline: 2px solid #06d483;
+            width: 200px;
+            height: 200px;
+            @extend %mid;
+
+            h3,
+            p {
+                font-family: 'Space Grotesk';
+                text-transform: capitalize;
+                color: $menuColor;
+                margin-block: 3px;
+            }
+        }
+    }
+}
+
+.settings {
+    &.ingame {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    h3 {
+        font-size: 25px;
+        margin-block: 10px;
+    }
+    .volume {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        margin-block: 20px;
+
+        & > .container {
+            width: 150px;
+            height: 16px;
+            border: 2px solid $menuColor;
+            position: relative;
+            cursor: pointer;
+
+            .juice {
+                position: absolute;
+                left: 2px;
+                top: 2px;
+                width: 20%;
+                height: 8px;
+                background-color: $menuColor;
+                pointer-events: none;
+            }
+        }
+    }
+    .graphism {
+        margin-block: 10px;
+
+        & > .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .radio {
+                margin-inline: 10px;
+            }
+        }
+    }
+    .radio {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-block: 5px;
+        cursor: pointer;
+
+        &.active {
+            .case::after {
+                background-color: $menuColor;
+            }
+        }
+
+        span {
+            font-size: 22px;
+            text-transform: capitalize;
+        }
+
+        .case {
+            width: 16px;
+            height: 16px;
+            border: 2px solid $menuColor;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 8px;
+                height: 8px;
+                background-color: transparent;
+                transition: background-color ease 0.2s;
+            }
+        }
+    }
+}
+
+.settingsButton {
+    .settingsButtonImg {
+        width: 52px;
+        position: absolute;
+        z-index: 99;
+        top: 10px;
+        right: 10px;
+
+        &:hover {
+            cursor: pointer;
+            animation-name: settingsButton;
+            animation-duration: 15s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        @keyframes settingsButton {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    }
+}
+
+.gameover {
+    position: absolute;
+    @extend %mid;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    color: $menuColor;
+    font-size: $menuFontSize;
+    font-family: 'Space Grotesk';
+    z-index: 10;
+
+    h2 {
+        margin-block: 20px;
+    }
+
+    .container {
+        margin-block: 10px;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+
+        .info {
+            font-weight: bold;
+            font-size: 20px;
+        }
+    }
+    .restart {
+        display: flex;
+
+        .button {
+            margin-block: 20px;
+            border: 2px solid transparent;
+            outline: 2px solid transparent;
+            margin: 10px;
+            padding: 10px;
+            outline-offset: -7px;
+            transition: all ease 0.3s;
+            text-align: center;
+            cursor: pointer;
+
+            &:hover {
+                border: 2px solid $menuColor;
+                outline: 2px solid $menuColor;
+            }
+        }
+    }
+}
+
+//background
+.backgroundScreen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.6;
+    z-index: 9;
+    &::backdrop {
+        filter: blur(4px);
+    }
+}
