@@ -24,6 +24,7 @@ export const GameElements = {
             cubes: [],
         },
     },
+    lastMove: new Date(),
 };
 
 export const BackgroundElements = {

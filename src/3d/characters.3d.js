@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import MainCharacter from '../assets/models/mainCharacter.glb';
-import { GameElements, Loader, LoadManager } from './global.3d';
+import { GameElements, Loader } from './global.3d';
 import Roberto from '../assets/models/MonsterRun4UrLife.glb';
+import { weightFadeIn, weightFadeOut } from '../common/helpers';
 
 const loadCharacter = () => {
     Loader.load(
@@ -25,7 +26,7 @@ const loadCharacter = () => {
                     case 'run':
                         GameElements.characters.animations.player[clip.name].weight = 0;
                         break;
-                    case 'standBy':
+                    case 'standByLate':
                         GameElements.characters.animations.player[clip.name].weight = 0;
                         break;
                     case 'standBy2':
@@ -52,8 +53,25 @@ const animateRun = () => {
     }
 
     GameElements.characters.animations.player.run.time = 0;
-    GameElements.characters.animations.player.run.weight = 1;
-    GameElements.characters.animations.player.standBy2.weight = 1;
+    weightFadeIn(GameElements.characters.animations.player.run, 1, 0.05);
+
+    if (GameElements.characters.animations.player.standByLate.weight > 0) {
+        weightFadeOut(GameElements.characters.animations.player.standByLate, 0, 0.05);
+    } else {
+        weightFadeOut(GameElements.characters.animations.player.standBy2, 0, 0.05);
+    }
+
+    GameElements.lastMove = new Date().getTime();
+};
+
+const animateStandByLate = () => {
+    for (const animation of Object.values(GameElements.characters.animations.player)) {
+        animation.paused = false;
+    }
+
+    GameElements.characters.animations.player.standByLate.time = 0;
+    weightFadeIn(GameElements.characters.animations.player.standByLate, 1, 0.05);
+    weightFadeOut(GameElements.characters.animations.player.standBy2, 0, 0.05);
 };
 
 const animateStandBy = () => {
@@ -61,8 +79,8 @@ const animateStandBy = () => {
         animation.paused = false;
     }
     GameElements.characters.animations.player.standBy2.time = 0;
-    GameElements.characters.animations.player.run.weight = 0;
-    GameElements.characters.animations.player.standBy2.weight = 1;
+    weightFadeOut(GameElements.characters.animations.player.run, 0, 0.05);
+    weightFadeIn(GameElements.characters.animations.player.standBy2, 1, 0.05);
 };
 
 const loadRoberto = () => {
@@ -87,4 +105,4 @@ const loadRoberto = () => {
     });
 };
 
-export const GameCharacters = { loadCharacter, loadRoberto, animateRun, animateStandBy };
+export const GameCharacters = { loadCharacter, loadRoberto, animateRun, animateStandBy, animateStandByLate };

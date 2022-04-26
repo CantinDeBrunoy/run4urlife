@@ -122,6 +122,10 @@ const render = (timestamp) => {
 
             const { x, y } = CharacterFunctions.getFrontPosition();
 
+            if ((new Date().getTime() - GameElements.lastMove) % 6000 <= 100 && GameElements.characters.animations.player.standByLate.weight === 0) {
+                GameCharacters.animateStandByLate();
+            }
+
             if (character.position.z > y * GameStep) {
                 inMove = Direction.up;
             }
