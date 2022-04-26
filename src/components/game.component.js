@@ -10,7 +10,6 @@ const GameComponent = () => {
     let isInventoryRefresh = true;
 
     const handleKeyDown = (e) => {
-        console.log(e.key);
         let index;
         switch (e.key) {
             case 's':

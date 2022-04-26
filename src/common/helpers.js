@@ -11,3 +11,23 @@ export const asyncTimeout = (timeout) => {
         }, timeout);
     });
 };
+
+export const weightFadeIn = (action, max, step) => {
+    const interval = setInterval(() => {
+        if (action.weight >= max) {
+            action.weight = max;
+            return clearInterval(interval);
+        }
+        action.weight += step;
+    }, 10);
+};
+
+export const weightFadeOut = (action, min, step) => {
+    const interval = setInterval(() => {
+        if (action.weight <= min) {
+            action.weight = min;
+            return clearInterval(interval);
+        }
+        action.weight -= step;
+    }, 10);
+};

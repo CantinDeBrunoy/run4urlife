@@ -6,14 +6,30 @@ const ScoreboardComponent = ({ toggle }) => {
 
     return (
         <div className="scoreboard">
-            {Object.entries(highscores).map((score, i) => (
-                <div key={i}>
-                    <div className="highscore">
-                        <h3>{score[0]}</h3>
-                        <p>{Math.round(score[1])}</p>
-                    </div>
+            <div>
+                <div className="highscore">
+                    <h3>Facile</h3>
+                    <p>{highscores.easy ? Math.round(highscores.easy) : 0}</p>
                 </div>
-            ))}
+            </div>
+            <div>
+                <div className="highscore">
+                    <h3>Moyen</h3>
+                    <p>{highscores.average ? Math.round(highscores.average) : 0}</p>
+                </div>
+            </div>
+            <div>
+                <div className="highscore">
+                    <h3>Difficile</h3>
+                    <p>{highscores.hard ? Math.round(highscores.hard) : 0}</p>
+                </div>
+            </div>
+            <div>
+                <div className="highscore">
+                    <h3>Impossible</h3>
+                    <p>{highscores.impossible ? Math.round(highscores.impossible) : 0}</p>
+                </div>
+            </div>
             <span
                 onClick={() => {
                     toggle();
