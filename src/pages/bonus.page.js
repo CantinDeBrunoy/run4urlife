@@ -4,6 +4,7 @@ import { Game, GlobalTypes } from '../core/global';
 import Roberto from '../assets/models/MonsterRun4UrLife.glb';
 import { Loader } from '../3d/global.3d';
 import LoaderComponent from '../components/loader.component';
+import TextAppearComponent from '../components/animations/text-appear-animation.component';
 
 const BonusPage = () => {
     const canvasRef = useRef();
@@ -67,6 +68,7 @@ const BonusPage = () => {
         <div>
             <canvas ref={canvasRef} id="bonus" />
             <LoaderComponent />
+            <TextAppearComponent text="Tu croyais pouvoir quitter le jeu si facilement ?" duration={10} nameClass="text-bonus" delay={2000} />
         </div>
     );
 };

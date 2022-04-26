@@ -50,14 +50,20 @@ const animateRun = () => {
         animation.paused = false;
     }
 
-    GameElements.characters.animations.player.run.time = 0;
-    weightFadeIn(GameElements.characters.animations.player.run, 1, 0.05);
+    const runInterval = GameElements.characters.animations.player.run.interval;
+    const standByLateInterval = GameElements.characters.animations.player.standByLate.interval;
+    const standBy2Interval = GameElements.characters.animations.player.standBy2.interval;
 
-    if (GameElements.characters.animations.player.standByLate.weight > 0) {
-        weightFadeOut(GameElements.characters.animations.player.standByLate, 0, 0.05);
-    } else {
-        weightFadeOut(GameElements.characters.animations.player.standBy2, 0, 0.05);
-    }
+    GameElements.characters.animations.player.run.time = 0;
+
+    if (runInterval) clearInterval(runInterval);
+    GameElements.characters.animations.player.run.interval = weightFadeIn(GameElements.characters.animations.player.run, 1, 0.05);
+
+    if (standByLateInterval) clearInterval(standByLateInterval);
+    GameElements.characters.animations.player.standByLate.interval = weightFadeOut(GameElements.characters.animations.player.standByLate, 0, 0.05);
+
+    if (standBy2Interval) clearInterval(standBy2Interval);
+    GameElements.characters.animations.player.standBy2.interval = weightFadeOut(GameElements.characters.animations.player.standBy2, 0, 0.05);
 
     GameElements.lastMove = new Date().getTime();
 };
@@ -67,18 +73,31 @@ const animateStandByLate = () => {
         animation.paused = false;
     }
 
+    const standByLateInterval = GameElements.characters.animations.player.standByLate.interval;
+    const standBy2Interval = GameElements.characters.animations.player.standBy2.interval;
+
     GameElements.characters.animations.player.standByLate.time = 0;
-    weightFadeIn(GameElements.characters.animations.player.standByLate, 1, 0.05);
-    weightFadeOut(GameElements.characters.animations.player.standBy2, 0, 0.05);
+    if (standByLateInterval) clearInterval(standByLateInterval);
+    GameElements.characters.animations.player.standByLate.interval = weightFadeIn(GameElements.characters.animations.player.standByLate, 1, 0.05);
+
+    if (standBy2Interval) clearInterval(standBy2Interval);
+    GameElements.characters.animations.player.standBy2.interval = weightFadeOut(GameElements.characters.animations.player.standBy2, 0, 0.05);
 };
 
 const animateStandBy = () => {
     for (const animation of Object.values(GameElements.characters.animations.player)) {
         animation.paused = false;
     }
+    const runInterval = GameElements.characters.animations.player.run.interval;
+    const standBy2Interval = GameElements.characters.animations.player.standBy2.interval;
+
     GameElements.characters.animations.player.standBy2.time = 0;
-    weightFadeOut(GameElements.characters.animations.player.run, 0, 0.05);
-    weightFadeIn(GameElements.characters.animations.player.standBy2, 1, 0.05);
+
+    if (runInterval) clearInterval(runInterval);
+    GameElements.characters.animations.player.run.interval = weightFadeOut(GameElements.characters.animations.player.run, 0, 0.05);
+
+    if (standBy2Interval) clearInterval(standBy2Interval);
+    GameElements.characters.animations.player.standBy2.interval = weightFadeIn(GameElements.characters.animations.player.standBy2, 1, 0.05);
 };
 
 const loadRoberto = () => {

@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
-const TextAppearComponent = ({ text, nameClass, duration, index }) => {
+const TextAppearComponent = ({ text, nameClass, duration, index, delay }) => {
     const [stringArray, setStringArray] = useState([]);
 
     useEffect(() => {
         console.log(text);
-        setStringArray(text.split(''));
+        if (delay) {
+            setTimeout(() => {
+                setStringArray(text.split(''));
+            }, delay);
+        } else {
+            setStringArray(text.split(''));
+        }
     }, [text]);
 
     return (
@@ -20,7 +26,7 @@ const TextAppearComponent = ({ text, nameClass, duration, index }) => {
                     transition={{
                         duration: duration ? duration : 5,
                         times: [0, 0.05, 0.95, 1],
-                        delay: i * 0.1,
+                        delay: i * 0.03,
                     }}
                 >
                     {letter}
@@ -35,6 +41,7 @@ TextAppearComponent.propTypes = {
     nameClass: PropTypes.string,
     duration: PropTypes.number,
     index: PropTypes.number,
+    delay: PropTypes.number,
 };
 
 export default TextAppearComponent;
