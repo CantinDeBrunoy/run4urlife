@@ -6,6 +6,16 @@
     opacity: 0;
 }
 
+.text-bonus {
+    position: absolute;
+    bottom: 15%;
+    left: 10%;
+    font-size: 18px;
+    color: $menuColor;
+    font-family: 'Space Grotesk';
+    z-index: 20;
+}
+
 // menu
 .menu,
 .settings {
