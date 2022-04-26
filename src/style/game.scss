@@ -5,6 +5,9 @@
 #background {
     @extend %mid;
 }
+#bonus {
+    @extend %mid;
+}
 .game-page {
     .game-info {
         @extend %mid;
