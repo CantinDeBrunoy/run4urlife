@@ -25,8 +25,8 @@ npm install
 npm start
 ```
 
-Le projet devrait être lancé sur l'adresse `http://localhost:3000/`.
+Le projet devrait être lancé sur l'adresse http://localhost:3000/.
 
 ### En ligne
 
-`https://galactic-escape.herokuapp.com/`
+https://galactic-escape.herokuapp.com/
