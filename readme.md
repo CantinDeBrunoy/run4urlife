@@ -12,7 +12,7 @@
 
 Cloner le dépot git
 
-https: `https://github.com/CantinDeBrunoy/run4urlife.git`
+https: `https://github.com/CantinDeBrunoy/run4urlife.git` </br>
 ssh: `git@github.com:CantinDeBrunoy/run4urlife.git`
 
 A la racine du projet lancer dans l'ordre les commandes suivantes:
